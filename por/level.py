@@ -93,7 +93,6 @@ def main():
         except KeyError:
             return
 
-        print impulse
         hero.body.apply_impulse(impulse)
 
     director.window.push_handlers(on_key_press)
