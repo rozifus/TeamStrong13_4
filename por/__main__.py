@@ -5,6 +5,10 @@ import random
 import settings
 import pymunk
 
+import entity
+import cart
+import ruby
+
 def main():
     """ your app starts here
     """
@@ -12,8 +16,8 @@ def main():
     pyglet.resource.reindex()
     game = Game()
     pyglet.clock.schedule(game.update) # main loop
-    pyglet.clock.schedule_once(game.spawn_logo, .1)
-    pyglet.clock.schedule_interval(game.spawn_logo, 10/6.)
+    pyglet.clock.schedule_once(game.create_cart, .2)
+    pyglet.clock.schedule_interval(game.spawn_ruby, .2)
 
     pyglet.app.run()
 
@@ -48,10 +52,10 @@ class Game(pyglet.window.Window):
                              pymunk.Segment(static_body, (600.0, 150.0), (750.0, 300.0), 0.0)]
         
         for l in self.track:
-            l.friction = 0.1
+            l.friction = settings.TRACK_FRICTION 
         
         self.space.add(self.track)
-        self.logos = []
+        self.entities = []
 
     def on_draw(self): #runs every frame
         self.clear()
@@ -67,8 +71,8 @@ class Game(pyglet.window.Window):
 
         
         #debug draw
-        for logo_sprite in self.logos:
-            ps = logo_sprite.shape.get_points()
+        for entity in self.entities:
+            ps = entity.shape.get_points()
             n = len(ps)
             ps = [c for p in ps for c in p]
             pyglet.graphics.draw(n, pyglet.gl.GL_LINE_LOOP,
@@ -86,6 +90,11 @@ class Game(pyglet.window.Window):
         if symbol == pyglet.window.key.Q:
             sys.exit(0)
 
+        elif symbol == pyglet.window.key.SPACE:
+            print "Bouncing carts"
+            for entity in self.entities:
+                entity.bounce()
+
     def on_key_release(self, symbol, modifiers):
         # called every time a key is released
         pass
@@ -97,39 +106,19 @@ class Game(pyglet.window.Window):
         # pymunk update
         self.space.step(dt)
 
-        for sprite in self.logos:
-            # We need to rotate the image 180 degrees because we have y pointing 
-            # up in pymunk coords.
-            sprite.rotation = math.degrees(-sprite.body.angle) + 180
-            sprite.set_position(sprite.body.position.x, sprite.body.position.y)
+        # entity update
+        for entity in self.entities:
+            entity.update(dt)
 
-    def center_image(self, image):
-        """Sets an image's anchor point to its center"""
-        image.anchor_x = image.width/2
-        image.anchor_y = image.height/2
+    def create_cart(self, dt):
+        new_cart = cart.Cart()
+        new_cart.sprite.batch = self.main_batch
+        self.space.add(new_cart.body, new_cart.shape)
+        self.entities.append(new_cart)
 
-    def spawn_logo(self, dt):
-        x = random.randint(20,400)
-        y = 500
-        angle = random.random() * math.pi
-        vs = [(-75,-39), (-75,39), (75,39), (75, -39)]
-        mass = 20
-        moment = pymunk.moment_for_poly(mass, vs)
-        body = pymunk.Body(mass, moment)
-        shape = pymunk.Poly(body, vs)
-        shape.friction = 0.5
-        body.position = x, y
-        body.angle = angle
-        
-        self.space.add(body, shape)
-        
-        cart_image = pyglet.resource.image("cart.png")
-        self.center_image(cart_image)
-        sprite = pyglet.sprite.Sprite(img = cart_image,
-                                                x = settings.CART_X,
-                                                y = settings.CART_Y,
-                                                batch = self.main_batch)
-        sprite.shape = shape
-        sprite.body = body
-        self.logos.append(sprite) 
-        
+    def spawn_ruby(self, dt):
+        new_ruby = ruby.Ruby()
+        new_ruby.update_position(random.random() * 1024.0, 700)
+        new_ruby.sprite.batch = self.main_batch
+        self.space.add(new_ruby.body, new_ruby.shape)
+        self.entities.append(new_ruby)
