@@ -9,27 +9,41 @@ import os
 import pyglet
 from pyglet.window import key
 
-pyglet.resource.path.append(pyglet.resource.get_script_home())
-pyglet.resource.path.append('data')
-pyglet.resource.path.append('../data')
-pyglet.resource.reindex()
+from pytmx import tmxloader
 
 import cocos
-from cocos import tiles, actions, layer
+from cocos import tiles, actions, layer, sprite
+from cocos.director import director
+
+import settings
+
+from collections import namedtuple
+
+Vector = namedtuple('Vector', 'x y')
 
 def main():
-    from cocos.director import director
+
+    pyglet.resource.path = settings.RESOURCE_PATH
+    pyglet.resource.reindex()
+
     director.init(width=640, height=320, do_not_scale=True, resizable=True)
 
     scroller = layer.ScrollingManager()
-    tmx = tiles.load('data/underground-level1.tmx')
-    import pdb;pdb.set_trace()
-    bg = tmx['map']
-    playa = tmx['player']
-    scroller.add(bg)
-    scroller.add(playa)
+    tmx = tiles.load('underground-level1.tmx')
+    tilemap = tmx['map']
+
+    tmx = tmxloader.load_tmx(pyglet.resource.file('underground-level1.tmx'))
+    triggers = tmx['triggers']
+
+    startcell, = triggers.find('player')
+    pos = Vector(startcell.x + startcell.width // 2, startcell.y + startcell.height // 2)
+    cart_image = pyglet.resource.image("cart.png")
+    hero = sprite.Sprite(image=cart_image, position=(pos.x, 320 - pos.y), scale=0.09697)
+
+    scroller.add(tilemap)
 
     main_scene = cocos.scene.Scene(scroller)
+    main_scene.add(hero)
 
     keyboard = key.KeyStateHandler()
     director.window.push_handlers(keyboard)
