@@ -39,19 +39,23 @@ class Game(pyglet.window.Window):
         self.space = pymunk.Space()
         self.space.gravity = pymunk.Vec2d(0.0, settings.GRAVITY)
         
+        # dish shaped ramp
         static_body = pymunk.Body()
-        self.static_lines = [pymunk.Segment(static_body, (11.0, 280.0), (407.0, 246.0), 0.0)
-                            ,pymunk.Segment(static_body, (407.0, 246.0), (407.0, 343.0), 0.0)
-                            ]
-        for l in self.static_lines:
-            l.friction = 0.5
+        self.track = [pymunk.Segment(static_body, (0.0, 300.0), (150.0, 150.0), 0.0),
+                             pymunk.Segment(static_body, (150.0, 150.0), (300.0, 75.0), 0.0),
+                             pymunk.Segment(static_body, (300.0, 75.0), (450.0, 75.0), 0.0),
+                             pymunk.Segment(static_body, (450.0, 75.0), (600.0, 150.0), 0.0),
+                             pymunk.Segment(static_body, (600.0, 150.0), (750.0, 300.0), 0.0)]
         
-        self.space.add(self.static_lines)
+        for l in self.track:
+            l.friction = 0.1
+        
+        self.space.add(self.track)
         self.logos = []
 
     def on_draw(self): #runs every frame
         self.clear()
-        for line in self.static_lines:
+        for line in self.track:
             body = line.body
              
             pv1 = body.position + line.a.rotated(body.angle)
@@ -108,8 +112,8 @@ class Game(pyglet.window.Window):
         x = random.randint(20,400)
         y = 500
         angle = random.random() * math.pi
-        vs = [(-23,26), (23,26), (0,-26)]
-        mass = 10
+        vs = [(-75,-39), (-75,39), (75,39), (75, -39)]
+        mass = 20
         moment = pymunk.moment_for_poly(mass, vs)
         body = pymunk.Body(mass, moment)
         shape = pymunk.Poly(body, vs)
