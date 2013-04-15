@@ -3,13 +3,16 @@ Stuff related to loading and rendering a level.
 """
 
 # This code is so you can run the samples without installing the package
-import sys
+import math
 import os
+import random
+import sys
 
 import pyglet
 from pyglet.window import key
 
 from pytmx import tmxloader
+import pymunk
 
 import cocos
 from cocos import tiles, actions, layer, sprite
@@ -20,6 +23,7 @@ import settings
 from collections import namedtuple
 
 Vector = namedtuple('Vector', 'x y')
+
 
 def main():
 
@@ -32,33 +36,93 @@ def main():
     tmx = tiles.load('underground-level1.tmx')
     tilemap = tmx['map']
 
+
     tmx = tmxloader.load_tmx(pyglet.resource.file('underground-level1.tmx'))
     triggers = tmx['triggers']
 
+    # physics,yo
+    space = pymunk.Space()
+    space.gravity = pymunk.Vec2d(0.0, settings.GRAVITY)
+
+    # set up our hero cart.
     startcell, = triggers.find('player')
-    pos = Vector(startcell.x + startcell.width // 2, startcell.y + startcell.height // 2)
     cart_image = pyglet.resource.image("cart.png")
-    hero = sprite.Sprite(image=cart_image, position=(pos.x, 320 - pos.y), scale=0.09697)
+    pos = Vector(startcell.x + cart_image.width // 2, startcell.y + cart_image.height // 2)
+    hero = make_sprite(image=cart_image, position=(pos.x, tilemap.px_height - pos.y))
+    space.add(hero.body, hero.shape)
+        
+
+    # set up our blockers.
+    blockers = triggers.find('blocker')
+    walls = []
+    static_body = pymunk.Body()
+    for blocker in blockers:
+        # turn the four corners of the 'blocker objects' defined in tilemap into rigid walls.
+        c1 = Vector(blocker.x, tilemap.px_height - blocker.y)
+        c2 = Vector(blocker.x + blocker.width, tilemap.px_height - blocker.y)
+        c3 = Vector(blocker.x + blocker.width, (tilemap.px_height - blocker.y - blocker.height))
+        c4 = Vector(blocker.x, (tilemap.px_height - blocker.y - blocker.height))
+
+        # a wall is a block made from four lines joining the four corners.
+        walls.extend([pymunk.Segment(static_body, c1, c2, 0),
+                      pymunk.Segment(static_body, c2, c3, 0),
+                      pymunk.Segment(static_body, c3, c4, 0),
+                      pymunk.Segment(static_body, c4, c1, 0)])
+
+    [setattr(wall, 'friction', 0.1) for wall in walls]
+    space.add(walls)
 
     scroller.add(tilemap)
 
     main_scene = cocos.scene.Scene(scroller)
     main_scene.add(hero)
 
+    def update(dt):
+        space.step(dt)
+        hero.set_position(*hero.body.position)
+
+    pyglet.clock.schedule(update)
+
     keyboard = key.KeyStateHandler()
     director.window.push_handlers(keyboard)
 
     def on_key_press(key, modifier):
-        if key == pyglet.window.key.Z:
-            if scroller.scale == .75:
-                scroller.do(actions.ScaleTo(1, 2))
-            else:
-                scroller.do(actions.ScaleTo(.75, 2))
-        elif key == pyglet.window.key.D:
-            bg.set_debug(True)
+        """K left J right"""
+        try:
+            impulse = impulses[key]
+        except KeyError:
+            return
+
+        print impulse
+        hero.body.apply_impulse(impulse)
+
     director.window.push_handlers(on_key_press)
 
     director.run(main_scene)
+
+
+impulses = {
+    pyglet.window.key.W: Vector(0, 3000),
+    pyglet.window.key.S: Vector(0, -1000),
+    pyglet.window.key.D: Vector(4000, 0),
+    pyglet.window.key.A: Vector(-4000, 0),
+}
+def make_sprite(**kwargs):
+    # taken from Karl's __main__ code.
+    _sprite = sprite.Sprite(**kwargs)
+    angle = random.random() * math.pi
+    vs = [(-75,-39), (-75,39), (75,39), (75, -39)]
+    mass = 20
+    moment = pymunk.moment_for_poly(mass, vs)
+    body = pymunk.Body(mass, moment)
+    shape = pymunk.Poly(body, vs)
+    shape.friction = 0.5
+    body.position = _sprite.position
+    body.angle = angle
+        
+    _sprite.shape = shape
+    _sprite.body = body 
+    return _sprite
 
 if __name__ == '__main__':
     main()
