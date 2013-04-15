@@ -11,4 +11,5 @@ class Ruby(entity.Entity):
                                    settings.RUBY_MASS,
                                    settings.RUBY_FRICTION,
                                    settings.RUBY_STARTING_ANGLE)
+        self.shape.collision_type = settings.COLLISION_RUBY
 

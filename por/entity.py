@@ -8,6 +8,7 @@ import settings
 class Entity(object):
     def __init__(self, image_name, mass, friction, angle):
         super(Entity, self).__init__()
+        self.deletion_flag = False
 
         # create the image 
         self.image = pyglet.resource.image(image_name, rotate = 180.0)

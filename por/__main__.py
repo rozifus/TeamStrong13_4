@@ -29,9 +29,10 @@ class Game(pyglet.window.Window):
                                              x = settings.SCORE_LABEL_X, 
                                              y = settings.SCORE_LABEL_Y, 
                                              batch = self.main_batch)
+        self.score = 0
         
 
-        self.quit_label = pyglet.text.Label(text = "By NSTeamStrong: Press q to quit", 
+        self.quit_label = pyglet.text.Label(text = "By NSTeamStrong: Press q to quit, space to jump cart", 
                                              x = settings.QUIT_LABEL_X, 
                                              y = settings.QUIT_LABEL_Y, 
                                              batch = self.main_batch)
@@ -41,6 +42,9 @@ class Game(pyglet.window.Window):
         # set up pymunk
         self.space = pymunk.Space()
         self.space.gravity = pymunk.Vec2d(0.0, settings.GRAVITY)
+        self.space.add_collision_handler(settings.COLLISION_CART, 
+                                         settings.COLLISION_RUBY, 
+                                         begin=self.collision_cart_ruby_begin)
         
         # dish shaped ramp
         static_body = pymunk.Body()
@@ -55,6 +59,7 @@ class Game(pyglet.window.Window):
         
         self.space.add(self.track)
         self.entities = []
+        self.rubies = []
 
     def on_draw(self): #runs every frame
         self.clear()
@@ -101,7 +106,8 @@ class Game(pyglet.window.Window):
     def update(self, dt):
         # main game loop
         # dt is time in seconds in between calls
-
+        
+        self.score_label.text = "Score: " + str(self.score)
         # pymunk update
         self.space.step(dt)
 
@@ -110,12 +116,30 @@ class Game(pyglet.window.Window):
         for entity in self.entities:
             entity.update(dt)
             x, y = entity.body.position
-            if y < 0:
+            if y < 0 or entity.deletion_flag:
                 entities_to_remove.append(entity)
 
         for entity in entities_to_remove:
-            self.space.remove(entity.shape, entity.body)
-            self.entities.remove(entity)
+            self.delete_entity(entity)
+
+    def collision_cart_ruby_begin(self, space, arbiter, *args, **kwargs):
+        print "Detected collision between cart and ruby"
+        print "shapes are " + str(arbiter.shapes)
+        
+        ruby_to_delete = None
+        for ruby in self.rubies:
+            if ruby.shape == arbiter.shapes[1]:
+                ruby.deletion_flag = True
+                ruby_to_delete = ruby
+                self.score = self.score + 1
+                break
+        self.rubies.remove(ruby_to_delete)
+        return False
+
+    def delete_entity(self, entity):
+        self.space.remove(entity.shape, entity.body)
+        self.entities.remove(entity)
+        
 
     def create_cart(self, dt):
         new_cart = cart.Cart()
@@ -129,4 +153,5 @@ class Game(pyglet.window.Window):
             new_ruby.update_position(random.random() * 1024.0, 700)
             new_ruby.sprite.batch = self.main_batch
             self.space.add(new_ruby.body, new_ruby.shape)
+            self.rubies.append(new_ruby)
             self.entities.append(new_ruby)
