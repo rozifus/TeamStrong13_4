@@ -18,7 +18,6 @@ def main():
     pyglet.clock.schedule(game.update) # main loop
     pyglet.clock.schedule_once(game.create_cart, .2)
     pyglet.clock.schedule_interval(game.spawn_ruby, .2)
-
     pyglet.app.run()
 
 class Game(pyglet.window.Window):
@@ -107,8 +106,16 @@ class Game(pyglet.window.Window):
         self.space.step(dt)
 
         # entity update
+        entities_to_remove = []
         for entity in self.entities:
             entity.update(dt)
+            x, y = entity.body.position
+            if y < 0:
+                entities_to_remove.append(entity)
+
+        for entity in entities_to_remove:
+            self.space.remove(entity.shape, entity.body)
+            self.entities.remove(entity)
 
     def create_cart(self, dt):
         new_cart = cart.Cart()
@@ -117,8 +124,9 @@ class Game(pyglet.window.Window):
         self.entities.append(new_cart)
 
     def spawn_ruby(self, dt):
-        new_ruby = ruby.Ruby()
-        new_ruby.update_position(random.random() * 1024.0, 700)
-        new_ruby.sprite.batch = self.main_batch
-        self.space.add(new_ruby.body, new_ruby.shape)
-        self.entities.append(new_ruby)
+        if len(self.entities) < 50:
+            new_ruby = ruby.Ruby()
+            new_ruby.update_position(random.random() * 1024.0, 700)
+            new_ruby.sprite.batch = self.main_batch
+            self.space.add(new_ruby.body, new_ruby.shape)
+            self.entities.append(new_ruby)
