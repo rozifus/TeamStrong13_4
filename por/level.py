@@ -23,6 +23,7 @@ def main():
 
     scroller = layer.ScrollingManager()
     tmx = tiles.load('data/underground-level1.tmx')
+    import pdb;pdb.set_trace()
     bg = tmx['map']
     playa = tmx['player']
     scroller.add(bg)
