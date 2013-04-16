@@ -4,7 +4,6 @@ import math
 import pyglet
 import settings
 
-
 class Entity(pyglet.sprite.Sprite):
     def __init__(self, *args, **kwargs):
         super(Entity, self).__init__(*args, **kwargs)
@@ -35,4 +34,3 @@ class Entity(pyglet.sprite.Sprite):
         # We need to rotate the image 180 degrees because we have y pointing 
         self.x += dt * self.velocity_x
         self.y += dt * self.velocity_y
-

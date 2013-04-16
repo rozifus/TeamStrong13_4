@@ -1,5 +1,5 @@
 # settings for POR
-import pymunk
+import utils as pymunk
 
 MAIN_WINDOW_WIDTH = 1024
 MAIN_WINDOW_HEIGHT = 768
