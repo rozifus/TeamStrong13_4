@@ -1,9 +1,12 @@
 # abstract class for physical objects in POR
 
 import math
+import cocos
 import pyglet
 import pymunk
+
 import settings
+
 
 class Entity(object):
     def __init__(self, image_name, mass, friction, angle):
@@ -18,7 +21,7 @@ class Entity(object):
         self.image.anchor_y = self.image.height / 2.0
         
         # create the sprite
-        self.sprite = pyglet.sprite.Sprite(img = self.image)
+        self.sprite = cocos.sprite.Sprite(image = self.image)
 
         # physics setup - mass, vertices, friction, position, angle
         self.mass = mass

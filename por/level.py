@@ -19,11 +19,11 @@ import cocos
 from cocos import tiles, actions, layer, sprite
 from cocos.director import director
 
+import ruby
 import settings
 from utils import pairwise
 
 Vector = namedtuple('Vector', 'x y')
-
 
 def main():
 
@@ -66,10 +66,21 @@ def main():
     [setattr(wall, 'friction', 0.1) for wall in walls]
     space.add(walls)
 
+
+    # set up our in-game collectables.
+    rubies = triggers.find('Ruby')
+    rubis = []
+    for _ruby in rubies:
+        new_ruby = ruby.Ruby()
+        new_ruby.update_position(_ruby.x, tilemap.px_height - _ruby.y)
+        space.add(new_ruby.body, new_ruby.shape)
+        rubis.append(new_ruby.sprite)
+
     scroller.add(tilemap)
 
     main_scene = cocos.scene.Scene(scroller)
     main_scene.add(hero)
+    map(main_scene.add, rubis)
 
     def update(dt):
         space.step(dt)
