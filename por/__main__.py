@@ -121,6 +121,8 @@ class Game(pyglet.window.Window):
 
         for entity in entities_to_remove:
             self.delete_entity(entity)
+            if entity in self.rubies:
+                self.rubies.remove(entity)
 
     def collision_cart_ruby_begin(self, space, arbiter, *args, **kwargs):
         print "Detected collision between cart and ruby"
