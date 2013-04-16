@@ -84,6 +84,14 @@ class TiledMap(TiledElement):
         return "<{0}: \"{1}\">".format(self.__class__.__name__, self.filename)
 
 
+    @property
+    def px_height(self):
+        return self.height * self.tileheight
+
+    @property
+    def px_width(self):
+        return self.width * self.tilewidth
+
     def getTileImage(self, x, y, layer):
         """
         return the tile image for this location
@@ -570,6 +578,7 @@ class TiledObjectGroup(TiledElement, list):
 
         for child in node.findall('object'):
             o = TiledObject(self.parent, child)
+            o.y = self.parent.px_height - o.y
             self.append(o)
 
 

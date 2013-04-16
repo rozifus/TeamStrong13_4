@@ -1,7 +1,6 @@
 # everything to do with the cart
 
 import pyglet
-import pymunk
 import settings
 import entity
 

@@ -3,12 +3,12 @@ import sys
 import math
 import random
 import settings
-import pymunk
 
 import entity
 import cart
 import ruby
 import track
+import level
 
 def main():
     """ your app starts here
@@ -27,6 +27,7 @@ class Game(pyglet.window.Window):
                                              y = settings.SCORE_LABEL_Y, 
                                              batch = self.main_batch)
         self.score = 0
+        self.level = level.load(1)
         
 
         self.quit_label = pyglet.text.Label(text = "By NSTeamStrong: q [quit] space [jump] r [reset]", 
@@ -36,6 +37,10 @@ class Game(pyglet.window.Window):
         self.fps_display = pyglet.clock.ClockDisplay()
         
         self.cart = None
+
+        self.jtrack = track.Track()
+        self.jtrack.add_tracks(self.level.tracks)
+        
         self.rubies = []
         self.powerups = []
         self.obstacles = []
@@ -73,7 +78,14 @@ class Game(pyglet.window.Window):
             pyglet.graphics.draw(2, pyglet.gl.GL_LINES,
                     ('v2f', (x1, y1, x2, y2)),
                     ('c3f', (0.8, 0.8, 0.8) * 2))
+        
+        # uncomment this to show the jtrack
+        #for line in self.jtrack.track_segments:
+        #    pyglet.graphics.draw(2, pyglet.gl.GL_LINES,
+        #            ('v2f', (line.x1,line.y1,line.x2,line.y2)),
+        #            ('c3f', (.8,.8,.8)*2))
 
+        
         self.fps_display.draw()
         self.main_batch.draw()
 
@@ -101,8 +113,6 @@ class Game(pyglet.window.Window):
         # dt is time in seconds in between calls
         
         self.score_label.text = "Score: " + str(self.score)
-
-        # update all our entities
         
         # TODO: this should query the track module for the
         # track_height and track_angle for the cart's x coord
@@ -114,4 +124,3 @@ class Game(pyglet.window.Window):
         self.cart = cart.Cart()
         self.cart.position = (100, 650)
         self.cart.batch = self.main_batch
-
