@@ -8,6 +8,7 @@ import pymunk
 import entity
 import cart
 import ruby
+import track
 
 def main():
     """ your app starts here
@@ -47,31 +48,24 @@ class Game(pyglet.window.Window):
                                          begin=self.collision_cart_ruby_begin)
         
         # dish shaped ramp
-        static_body = pymunk.Body()
-        self.track = [pymunk.Segment(static_body, (0.0, 300.0), (150.0, 150.0), 0.0),
-                             pymunk.Segment(static_body, (150.0, 150.0), (300.0, 75.0), 0.0),
-                             pymunk.Segment(static_body, (300.0, 75.0), (450.0, 75.0), 0.0),
-                             pymunk.Segment(static_body, (450.0, 75.0), (600.0, 150.0), 0.0),
-                             pymunk.Segment(static_body, (600.0, 150.0), (750.0, 300.0), 0.0)]
+        self.track = track.Track(self.space, (0, 200))
+        self.track.add_track_string("ddffffffufufufddddffuu")
+
         
-        for l in self.track:
-            l.friction = settings.TRACK_FRICTION 
-        
-        self.space.add(self.track)
         self.entities = []
         self.rubies = []
 
     def on_draw(self): #runs every frame
         self.clear()
-        for line in self.track:
-            body = line.body
-             
-            pv1 = body.position + line.a.rotated(body.angle)
-            pv2 = body.position + line.b.rotated(body.angle)
-            pyglet.graphics.draw(2, pyglet.gl.GL_LINES,
-                ('v2f', (pv1.x,pv1.y,pv2.x,pv2.y)),
-                ('c3f', (.8,.8,.8)*2)
-                )
+        for track_segment in self.track.track_segments:
+            for line in track_segment.track:
+                body = line.body
+                pv1 = body.position + line.a.rotated(body.angle)
+                pv2 = body.position + line.b.rotated(body.angle)
+                pyglet.graphics.draw(2, pyglet.gl.GL_LINES,
+                    ('v2f', (pv1.x,pv1.y,pv2.x,pv2.y)),
+                    ('c3f', (.8,.8,.8)*2)
+                    )
 
         
         #debug draw
