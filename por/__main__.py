@@ -49,15 +49,10 @@ class Game(pyglet.window.Window):
 
     def on_draw(self): #runs every frame
         self.clear()
-        for track_segment in self.track.track_segments:
-            for line in track_segment.track:
-                body = line.body
-                pv1 = body.position + line.a.rotated(body.angle)
-                pv2 = body.position + line.b.rotated(body.angle)
-                pyglet.graphics.draw(2, pyglet.gl.GL_LINES,
-                    ('v2f', (pv1.x,pv1.y,pv2.x,pv2.y)),
-                    ('c3f', (.8,.8,.8)*2)
-                    )
+        for line in self.track.track_segments:
+            pyglet.graphics.draw(2, pyglet.gl.GL_LINES,
+                    ('v2f', (line.x1,line.y1,line.x2,line.y2)),
+                    ('c3f', (.8,.8,.8)*2))
 
         
         self.fps_display.draw()
