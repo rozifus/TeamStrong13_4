@@ -16,7 +16,7 @@ from pytmx import tmxloader
 import pymunk
 
 import cocos
-from cocos import tiles, actions, layer, sprite
+from cocos import tiles, actions, layer, sprite, draw
 from cocos.director import director
 
 import ruby
@@ -30,9 +30,10 @@ def main():
     pyglet.resource.path = settings.RESOURCE_PATH
     pyglet.resource.reindex()
 
-    director.init(width=640, height=320, do_not_scale=True, resizable=True)
+    director.init(width=1024, height=768, do_not_scale=True, resizable=True)
 
     scroller = layer.ScrollingManager()
+
     tmx = tiles.load('underground-level1.tmx')
     tilemap = tmx['map']
 
@@ -73,13 +74,22 @@ def main():
     for _ruby in rubies:
         new_ruby = ruby.Ruby()
         new_ruby.update_position(_ruby.x, tilemap.px_height - _ruby.y)
-        space.add(new_ruby.body, new_ruby.shape)
         rubis.append(new_ruby.sprite)
 
     scroller.add(tilemap)
+    scroller.add(CollisionLayer(walls))
+
+    class FocusOnHero(actions.Action):
+        def done(self): return False
+        def step(self, dt):
+            x, y = self.target.hero.position
+            self.target.manager.set_focus(x, y)
 
     main_scene = cocos.scene.Scene(scroller)
+    main_scene.manager = scroller
     main_scene.add(hero)
+    main_scene.hero = hero
+    main_scene.do(FocusOnHero())
     map(main_scene.add, rubis)
 
     def update(dt):
@@ -152,6 +162,18 @@ def make_sprite(**kwargs):
     _sprite.shape = shape
     _sprite.body = body 
     return _sprite
+
+class CollisionLayer(layer.scrolling.ScrollableLayer):
+
+    def __init__(self, segments):
+        super(CollisionLayer, self).__init__()
+        self.segments = segments    
+        self.lines = [draw.Line(s.a, s.b, (255, 255, 255, 255))
+                        for s in segments]
+
+    def draw(self):
+        [l.draw() for l in self.lines]
+
 
 if __name__ == '__main__':
     main()
