@@ -3,6 +3,7 @@ Stuff related to loading and rendering a level.
 """
 
 # This code is so you can run the samples without installing the package
+from collections import namedtuple
 import math
 import os
 import random
@@ -19,8 +20,7 @@ from cocos import tiles, actions, layer, sprite
 from cocos.director import director
 
 import settings
-
-from collections import namedtuple
+from utils import pairwise
 
 Vector = namedtuple('Vector', 'x y')
 
@@ -57,17 +57,11 @@ def main():
     walls = []
     static_body = pymunk.Body()
     for blocker in blockers:
-        # turn the four corners of the 'blocker objects' defined in tilemap into rigid walls.
-        c1 = Vector(blocker.x, tilemap.px_height - blocker.y)
-        c2 = Vector(blocker.x + blocker.width, tilemap.px_height - blocker.y)
-        c3 = Vector(blocker.x + blocker.width, (tilemap.px_height - blocker.y - blocker.height))
-        c4 = Vector(blocker.x, (tilemap.px_height - blocker.y - blocker.height))
-
-        # a wall is a block made from four lines joining the four corners.
-        walls.extend([pymunk.Segment(static_body, c1, c2, 0),
-                      pymunk.Segment(static_body, c2, c3, 0),
-                      pymunk.Segment(static_body, c3, c4, 0),
-                      pymunk.Segment(static_body, c4, c1, 0)])
+        try:
+            line_blocker(blocker, walls, tilemap.px_height, static_body)
+        except AttributeError:
+            # ok then treat as a rect blocker.
+            rect_blocker(blocker, walls, tilemap.px_height, static_body)
 
     [setattr(wall, 'friction', 0.1) for wall in walls]
     space.add(walls)
@@ -106,6 +100,31 @@ impulses = {
     pyglet.window.key.D: Vector(4000, 0),
     pyglet.window.key.A: Vector(-4000, 0),
 }
+
+def line_blocker(blocker, walls, map_height, static_body):
+    """
+    Turn a series of "points" on a poly-line into a rigid wall.
+    """
+    for (c1x, c1y), (c2x, c2y) in pairwise(blocker.points):
+        c1 = Vector(c1x + blocker.x, map_height-(c1y + blocker.y))
+        c2 = Vector(c2x + blocker.x, map_height-(c2y + blocker.y))
+        walls.append(pymunk.Segment(static_body, c1, c2, 0))
+
+def rect_blocker(blocker, walls, map_height, static_body):
+    """turn the four corners of the 'blocker objects'
+       defined in tilemap into rigid walls."""
+    c1 = Vector(blocker.x, map_height - blocker.y)
+    c2 = Vector(blocker.x + blocker.width, map_height - blocker.y)
+    c3 = Vector(blocker.x + blocker.width, (map_height - blocker.y - blocker.height))
+    c4 = Vector(blocker.x, (map_height - blocker.y - blocker.height))
+
+    # a wall is a block made from four lines joining the four corners.
+    walls.extend([pymunk.Segment(static_body, c1, c2, 0),
+                  pymunk.Segment(static_body, c2, c3, 0),
+                  pymunk.Segment(static_body, c3, c4, 0),
+                  pymunk.Segment(static_body, c4, c1, 0)])
+
+
 def make_sprite(**kwargs):
     # taken from Karl's __main__ code.
     _sprite = sprite.Sprite(**kwargs)
