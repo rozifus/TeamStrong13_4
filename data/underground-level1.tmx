@@ -5,7 +5,7 @@
  </tileset>
  <layer name="map" width="200" height="24">
   <data encoding="base64" compression="zlib">
-   eJzt1j0OwyAMBtAMyQ269/637FZVVUN+AJukb3gSSwT2h0WWaZqewNv8sV4GOA+UzCvriP3+ZT7mDdm531Wp11uZ1HzTKpdHRc3ZvT+bS6kf0ecbqQ8RNUa8BbV1fr8fy0ofW4rO5MieI9ybO+1dyiDqX+lsnRnZ9J6TFrMY2Zfstzcii55Znb0Xe/bLzKZFX3q+TT1zy3pPo2odqbYjdyfzX6f2nFnn73V3svveq9aR66OfPTM6yky3rvXod9nnhyi/7vyVZx8AAAAAAAAAAAAAuIYXOc0t7w==
+   eJztw8EJAAAMA6GD7L9zt+hLwVVTVVVVVVVVVVVVVVVVVVVVVVXVpweXIjhB
   </data>
  </layer>
  <objectgroup name="triggers" width="200" height="24">

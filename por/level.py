@@ -76,7 +76,7 @@ def main():
         new_ruby.update_position(_ruby.x, tilemap.px_height - _ruby.y)
         rubis.append(new_ruby.sprite)
 
-    scroller.add(tilemap)
+    scroller.add(tilemap, z=-1)
     scroller.add(CollisionLayer(walls))
 
     class FocusOnHero(actions.Action):

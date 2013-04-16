@@ -21,7 +21,7 @@ class Entity(object):
         self.image.anchor_y = self.image.height / 2.0
         
         # create the sprite
-        self.sprite = pyglet.sprite.Sprite(img = self.image)
+        self.sprite = cocos.sprite.Sprite(image = self.image)
 
         # physics setup - mass, vertices, friction, position, angle
         self.mass = mass
