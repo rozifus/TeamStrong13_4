@@ -9,6 +9,9 @@ RESOURCE_PATH = ['data', 'data/images', 'data/sounds', 'data/other']
 # master game FPS
 MAIN_UPDATE_INTERVAL = 1.0/120.0
 
+ENTITY_DEFAULT_GAME_POSITION_X = 500.0
+ENTITY_DEFAULT_GAME_POSITION_Y = 500.0
+
 SCORE_LABEL_X = 5
 SCORE_LABEL_Y = 80
 QUIT_LABEL_X = 5

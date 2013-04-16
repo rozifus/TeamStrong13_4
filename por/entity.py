@@ -3,6 +3,8 @@
 import math
 import pyglet
 import settings
+from collections import namedtuple
+
 
 class Entity(pyglet.sprite.Sprite):
     def __init__(self, *args, **kwargs):
@@ -17,6 +19,9 @@ class Entity(pyglet.sprite.Sprite):
 
         self.velocity_x = 0.0
         self.velocity_y = 0.0
+        
+        self.gp = (settings.ENTITY_DEFAULT_GAME_POSITION_X,
+                   settings.ENTITY_DEFAULT_GAME_POSITION_Y)
 
     def collides_with(self, other_entity):
         # circular collision detection
@@ -32,5 +37,5 @@ class Entity(pyglet.sprite.Sprite):
 
     def update(self, dt):
         # We need to rotate the image 180 degrees because we have y pointing 
-        self.x += dt * self.velocity_x
-        self.y += dt * self.velocity_y
+        (x, y) = self.gp
+        self.gp = (x + dt * self.velocity_x, y + dt * self.velocity_y)

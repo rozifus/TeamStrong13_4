@@ -25,9 +25,9 @@ class Cart(entity.Entity):
         self.track_angle = track_angle
         
         #print "on track: " + str(self.on_track)
-
-        if self.y - self.image.height / 2.0 <= self.track_height + settings.TRACK_FUZZ:
-            self.y = self.track_height + self.image.height / 2.0
+        (gpx, gpy) = self.gp
+        if gpy - self.image.height / 2.0 <= self.track_height + settings.TRACK_FUZZ:
+            self.gp = (gpx, self.track_height + self.image.height / 2.0)
             self.velocity_y = 0.0
             self.rotation = -self.track_angle
             self.on_track = True 
