@@ -26,3 +26,6 @@ RUBY_IMAGE = "ruby.png"
 
 GRAVITY = -3000.0 # pixels/s**2
 TRACK_FUZZ = 10.0 # fuzziness of track detection algorithm
+
+VIEWPORT_OFFSET_X = 200.0
+VIEWPORT_OFFSET_Y = 384.0

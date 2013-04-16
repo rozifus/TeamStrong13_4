@@ -10,13 +10,13 @@ import ruby
 import track
 import level
 
-def main():
+def main(levelname):
     """ your app starts here
     """
     pyglet.resource.path = settings.RESOURCE_PATH
     pyglet.resource.reindex()
     game = Game()
-    game.start()
+    game.start(levelname)
 
 class Game(pyglet.window.Window):
     def __init__(self):
@@ -32,7 +32,6 @@ class Game(pyglet.window.Window):
                                              y = settings.SCORE_LABEL_Y, 
                                              batch = self.main_batch)
         self.score = 0
-        self.level = level.load(1)
         
 
         self.quit_label = pyglet.text.Label(text = "By NSTeamStrong: q [quit] space [jump] r [reset]", 
@@ -43,33 +42,19 @@ class Game(pyglet.window.Window):
         
         self.cart = None
 
-        self.jtrack = track.Track()
-        self.jtrack.add_tracks(self.level.tracks)
-        
         self.entities = []
         self.rubies = []
         self.powerups = []
         self.obstacles = []
-        self.track = [((0.0, 300.0), (300.0, 100.0)),
-                      ((300.0, 100.0), (700.0, 100.0)),
-                      ((700.0, 100.0), (900.0, 500.0))]
+        #self.track = [((0.0, 300.0), (300.0, 100.0)),
+        #              ((300.0, 100.0), (700.0, 100.0)),
+        #              ((700.0, 100.0), (900.0, 500.0))]
 
-    def track_info_at_x(self, gpx):
-        #TODO: this should be in the track module
-        height = -1000.0 # default off the screen
-        angle = 0.0
-        for segment in self.track:
-            #y = mx + c, tnx eng degree
-            (x1, y1), (x2, y2) = segment
-            m = (y2 - y1) / (x2 - x1)
-            c = y1 - m * x1
-            if gpx > x1 and gpx <= x2:
-                height = m * gpx + c
-                angle = math.degrees(math.atan2(m, 1.0))
-    
-        return (height, angle)
+    def start(self, levelname):
+        self.level = level.load(levelname)
+        self.track = track.Track()
+        self.track.add_tracks(self.level.tracks)
 
-    def start(self):
         self.create_cart()
         pyglet.clock.schedule(self.update) # main loop
         pyglet.app.run()
@@ -94,17 +79,17 @@ class Game(pyglet.window.Window):
 
         (vpx, vpy) = self.viewport_origin
         
-        for line in self.track:
-            (x1, y1), (x2, y2) = line
-            pyglet.graphics.draw(2, pyglet.gl.GL_LINES,
-                    ('v2f', (x1 - vpx, y1 - vpy, x2 - vpx, y2 - vpy)),
-                    ('c3f', (0.8, 0.8, 0.8) * 2))
+        #for line in self.track:
+        #    (x1, y1), (x2, y2) = line
+        #    pyglet.graphics.draw(2, pyglet.gl.GL_LINES,
+        #            ('v2f', (x1 - vpx, y1 - vpy, x2 - vpx, y2 - vpy)),
+        #            ('c3f', (0.8, 0.8, 0.8) * 2))
 
          #for now, just assume everything needs to be rendered
-        #for line in self.jtrack.track_segments:
-        #    pyglet.graphics.draw(2, pyglet.gl.GL_LINES,
-        #            ('v2f', (line.x1 - vpx, line.y1 - vpy, line.x2 - vpx,line.y2 - vpy)),
-        #            ('c3f', (.8,.8,.8)*2))
+        for line in self.track.track_segments:
+            pyglet.graphics.draw(2, pyglet.gl.GL_LINES,
+                    ('v2f', (line.x1 - vpx, line.y1 - vpy, line.x2 - vpx,line.y2 - vpy)),
+                    ('c3f', (.8,.8,.8)*2))
 
         for entity in self.entities:
            (vpx, vpy) = self.viewport_origin
@@ -160,8 +145,10 @@ class Game(pyglet.window.Window):
         # track_height and track_angle for the cart's x coord
         # here i have jsut written a method to do it
         (gpx, gpy) = self.cart.gp
-        (track_height, track_angle) = self.track_info_at_x(gpx)
+        (track_height, track_angle) = self.track.track_info_at_x(gpx)
+        print "track height: " + str(track_height) + " angle " + str(track_angle)
         self.cart.update(dt, track_height, track_angle)
+        self.viewport_origin = (gpx - settings.VIEWPORT_OFFSET_X, track_height - settings.VIEWPORT_OFFSET_Y)
 
     def scroll(self, dt):
         pass

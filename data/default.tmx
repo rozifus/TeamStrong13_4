@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="30" tilewidth="32" tileheight="32">
+ <layer name="map" width="100" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20MH6AAAAAAAAAAAAAAAOBvLuAAAQ==
+  </data>
+ </layer>
+ <objectgroup name="triggers" width="100" height="30">
+  <object name="track" x="15" y="899">
+   <polyline points="0,0 56,-3 94,-15 142,-46 193,-74 267,-111 318,-94 368,-76 467,-43 529,-78 572,-115 625,-198 700,-295 773,-333 865,-344 983,-322 1021,-281 1086,-209 1136,-182 1180,-197 1257,-267 1302,-338 1347,-414 1433,-534 1542,-678 1667,-746 1854,-802 2012,-767 2144,-632 2182,-496 2218,-436 2252,-419 2423,-276 2481,-214 2555,-128 2649,-53 2735,-25 2849,-12 2917,-11 3084,-7 3124,-8 3169,-7"/>
+  </object>
+ </objectgroup>
+</map>

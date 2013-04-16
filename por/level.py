@@ -40,14 +40,15 @@ class LevelLoader(object):
                     LineSegment(
                         x1 + track.x, -y1 + track.y,
                         x2 + track.x, -y2 + track.y))
+        print "number of segments in level is " + str(len(segments))
         return segments
 
-def load(number):
+def load(level):
     """
     Load level number from tmx file.
     """
-    levelfname = "underground-level%d.tmx" % number
-
+    levelfname = level + ".tmx"
+    print "Loading level " + levelfname
     tmx = tmxloader.load_tmx(pyglet.resource.file(levelfname))
 
     return LevelLoader(tmx)
