@@ -3,12 +3,12 @@ import sys
 import math
 import random
 import settings
-import pymunk
 
 import entity
 import cart
 import ruby
 import track
+import level
 
 def main():
     """ your app starts here
@@ -31,6 +31,7 @@ class Game(pyglet.window.Window):
                                              y = settings.SCORE_LABEL_Y, 
                                              batch = self.main_batch)
         self.score = 0
+        self.level = level.load(1)
         
 
         self.quit_label = pyglet.text.Label(text = "By NSTeamStrong: Press q to quit, space to jump cart", 
@@ -39,18 +40,9 @@ class Game(pyglet.window.Window):
                                              batch = self.main_batch)
 
         self.fps_display = pyglet.clock.ClockDisplay()
-        
-        # set up pymunk
-        self.space = pymunk.Space()
-        self.space.gravity = pymunk.Vec2d(0.0, settings.GRAVITY)
-        self.space.add_collision_handler(settings.COLLISION_CART, 
-                                         settings.COLLISION_RUBY, 
-                                         begin=self.collision_cart_ruby_begin)
-        
-        # dish shaped ramp
-        self.track = track.Track(self.space, (0, 200))
-        self.track.add_track_string("ddffffffufufufddddffuu")
 
+        self.track = track.Track()
+        self.track.add_tracks(self.level.tracks)
         
         self.entities = []
         self.rubies = []
@@ -68,16 +60,6 @@ class Game(pyglet.window.Window):
                     )
 
         
-        #debug draw
-        for entity in self.entities:
-            ps = entity.shape.get_points()
-            n = len(ps)
-            ps = [c for p in ps for c in p]
-            pyglet.graphics.draw(n, pyglet.gl.GL_LINE_LOOP,
-                ('v2f', ps),
-                ('c3f', (1,0,0)*n)
-                )
-
         self.fps_display.draw()
         self.main_batch.draw()
 
@@ -102,45 +84,24 @@ class Game(pyglet.window.Window):
         # dt is time in seconds in between calls
         
         self.score_label.text = "Score: " + str(self.score)
-        # pymunk update
-        self.space.step(dt)
 
         # entity update
         entities_to_remove = []
         for entity in self.entities:
             entity.update(dt)
-            x, y = entity.body.position
-            if y < 0 or entity.deletion_flag:
-                entities_to_remove.append(entity)
 
         for entity in entities_to_remove:
             self.delete_entity(entity)
             if entity in self.rubies:
                 self.rubies.remove(entity)
 
-    def collision_cart_ruby_begin(self, space, arbiter, *args, **kwargs):
-        print "Detected collision between cart and ruby"
-        print "shapes are " + str(arbiter.shapes)
-        
-        ruby_to_delete = None
-        for ruby in self.rubies:
-            if ruby.shape == arbiter.shapes[1]:
-                ruby.deletion_flag = True
-                ruby_to_delete = ruby
-                self.score = self.score + 1
-                break
-        self.rubies.remove(ruby_to_delete)
-        return False
-
     def delete_entity(self, entity):
-        self.space.remove(entity.shape, entity.body)
         self.entities.remove(entity)
         
 
     def create_cart(self, dt):
         new_cart = cart.Cart()
         new_cart.sprite.batch = self.main_batch
-        self.space.add(new_cart.body, new_cart.shape)
         self.entities.append(new_cart)
 
     def spawn_ruby(self, dt):
@@ -148,6 +109,5 @@ class Game(pyglet.window.Window):
             new_ruby = ruby.Ruby()
             new_ruby.update_position(random.random() * 1024.0, 700)
             new_ruby.sprite.batch = self.main_batch
-            self.space.add(new_ruby.body, new_ruby.shape)
             self.rubies.append(new_ruby)
             self.entities.append(new_ruby)

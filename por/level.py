@@ -10,20 +10,47 @@ import random
 import sys
 
 import pyglet
-from pyglet.window import key
 
 from pytmx import tmxloader
-import pymunk
-
-import cocos
-from cocos import tiles, actions, layer, sprite, draw
-from cocos.director import director
 
 import ruby
 import settings
 from utils import pairwise
 
-Vector = namedtuple('Vector', 'x y')
+LineSegment = namedtuple('Vector', 'x1 y1 x2 y2')
+
+class LevelLoader(object):
+    """
+    The tmx object should have these layers:
+
+    1. 'map' for the background
+    2. 'triggers' for the object world.
+    """
+
+    def __init__(self, tmx):
+        self.tmx = tmx
+
+    @property
+    def tracks(self):
+        _tracks = self.tmx['triggers'].find('tracks')
+        segments = []
+        for track in _tracks:
+            for (x1, y1), (x2, y2) in pairwise(track.points):
+                coordinates.append(
+                    LineSegment(
+                        x1 + track.x, y1 + track.y,
+                        x2 + track.x, y2 + track.y))
+        return segments
+
+def load(number):
+    """
+    Load level number from tmx file.
+    """
+    levelfname = "underground-level%d.tmx" % number
+
+    tmx = tmxloader.load_tmx(pyglet.resource.file(levelfname))
+
+    return LevelLoader(tmx)
 
 def main():
 
@@ -38,8 +65,6 @@ def main():
     tilemap = tmx['map']
 
 
-    tmx = tmxloader.load_tmx(pyglet.resource.file('underground-level1.tmx'))
-    triggers = tmx['triggers']
 
     # physics,yo
     space = pymunk.Space()
@@ -115,13 +140,6 @@ def main():
     director.run(main_scene)
 
 
-impulses = {
-    pyglet.window.key.W: Vector(0, 3000),
-    pyglet.window.key.S: Vector(0, -1000),
-    pyglet.window.key.D: Vector(4000, 0),
-    pyglet.window.key.A: Vector(-4000, 0),
-}
-
 def line_blocker(blocker, walls, map_height, static_body):
     """
     Turn a series of "points" on a poly-line into a rigid wall.
@@ -162,18 +180,3 @@ def make_sprite(**kwargs):
     _sprite.shape = shape
     _sprite.body = body 
     return _sprite
-
-class CollisionLayer(layer.scrolling.ScrollableLayer):
-
-    def __init__(self, segments):
-        super(CollisionLayer, self).__init__()
-        self.segments = segments    
-        self.lines = [draw.Line(s.a, s.b, (255, 255, 255, 255))
-                        for s in segments]
-
-    def draw(self):
-        [l.draw() for l in self.lines]
-
-
-if __name__ == '__main__':
-    main()

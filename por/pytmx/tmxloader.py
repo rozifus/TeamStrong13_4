@@ -172,10 +172,7 @@ object:     name, type, x, y, width, height, gid, properties, polygon,
 
 Please see the TiledMap class for more api information.
 """
-try:
-    from pygame import Surface, mask, RLEACCEL
-except ImportError:
-    pass
+from pytmx import TiledMap
 from utils import types
 from constants import *
 
@@ -183,10 +180,7 @@ from constants import *
 
 def load_tmx(filename, *args, **kwargs):
     # for .14 compatibility
-    from pytmx import TiledMap
-
-    tiledmap = TiledMap(filename)
-    return tiledmap
+    return TiledMap(filename)
 
 
 

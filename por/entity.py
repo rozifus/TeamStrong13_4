@@ -1,9 +1,7 @@
 # abstract class for physical objects in POR
 
 import math
-import cocos
 import pyglet
-import pymunk
 
 import settings
 
@@ -21,18 +19,13 @@ class Entity(object):
         self.image.anchor_y = self.image.height / 2.0
         
         # create the sprite
-        self.sprite = cocos.sprite.Sprite(image = self.image)
+        self.sprite = pyglet.sprite.Sprite(img=self.image)
 
         # physics setup - mass, vertices, friction, position, angle
         self.mass = mass
         self.friction = friction
         self.angle = angle
         self.vertices = self.rectangular_vertices()
-        self.moment = pymunk.moment_for_poly(self.mass, self.vertices)
-        self.body = pymunk.Body(self.mass, self.moment)
-        self.shape = pymunk.Poly(self.body, self.vertices)
-        self.body.friction = self.friction
-        self.body.angle = self.angle
         
         # update position
         self.update_position(settings.ENTITY_DEFAULT_X, settings.ENTITY_DEFAULT_Y)
@@ -41,7 +34,6 @@ class Entity(object):
         self._position = x, y
         self.sprite.x = x
         self.sprite.y = y
-        self.body.position = x, y
         
     def rectangular_vertices(self):
         """Sets the vertices for the entity to the size of its image"""
@@ -52,8 +44,7 @@ class Entity(object):
     def update(self, dt):
         # We need to rotate the image 180 degrees because we have y pointing 
         # up in pymunk coords.
-        self.sprite.rotation = math.degrees(-self.body.angle) + 180.0
-        self.update_position(self.body.position.x, self.body.position.y)
+        pass
 
     def bounce(self):
         pass
