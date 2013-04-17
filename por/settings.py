@@ -44,6 +44,6 @@ VIEWPORT_OFFSET_X = 200.0
 VIEWPORT_OFFSET_Y = 384.0
 VIEWPORT_LOOKAHEAD = 100.0
 VIEWPORT_MAX_RATE = 8 # px/frame change.
-VIEWPORT_DEADBAND = 2 # px wait this many pixels before moving.
+VIEWPORT_DEADBAND = 20 # px wait this many pixels before moving.
 
 DEAD_OFFSET_Y = 300.0
