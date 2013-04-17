@@ -31,6 +31,7 @@ CART_SPEED_UP = 150.0
 CART_SLOW_DOWN = -150.0
 CART_MAX_VELOCITY = CART_NORMAL_VELOCITY + 300.0
 CART_MIN_VELOCITY = CART_NORMAL_VELOCITY - 300.0
+CART_EARLY_JUMP_TIME = 0.3 # can press jump up to 0.3s before landing and will jump when landed
 
 
 RUBY_IMAGE = "ruby.png"

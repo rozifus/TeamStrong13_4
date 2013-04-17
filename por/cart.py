@@ -18,6 +18,10 @@ class Cart(entity.Entity):
             sounds.cart_jump.play()
             self.velocity_y = settings.CART_JUMP_VELOCITY
             self.rotation = settings.CART_JUMP_ROTATION
+        else:
+            if (self.gp.x - self.track_height) / self.velocity_x < settings.CART_EARLY_JUMP_TIME:
+                self.should_jump_on_landing = True
+            
 
     def reset(self):
         self.velocity_x = settings.CART_NORMAL_VELOCITY
@@ -25,6 +29,7 @@ class Cart(entity.Entity):
         self.above_track = True
         self.track_height = 0.0
         self.track_angle = 0.0
+        self.should_jump_on_landing = False
 
     def update(self, dt, track_height, track_angle):
         super(Cart, self).update(dt)
@@ -44,7 +49,13 @@ class Cart(entity.Entity):
             self.rotation = -self.track_angle
             
             if self.on_track == False:
+                # just landed
                 sounds.cart_land.play()
+                if self.should_jump_on_landing:
+                    self.on_track = True
+                    self.jump()
+
+            self.should_jump_on_landing = False
             self.on_track = True
         
         else:
