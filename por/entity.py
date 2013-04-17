@@ -36,5 +36,4 @@ class Entity(pyglet.sprite.Sprite):
         return math.sqrt((x1 - x2)**2 + (y1 - y2)**2)
 
     def update(self, dt):
-        # We need to rotate the image 180 degrees because we have y pointing 
         self.gp = Point(self.gp.x + dt * self.velocity_x, self.gp.y + dt * self.velocity_y)

@@ -55,4 +55,16 @@
    <polyline points="0,0 130,-6 239,-3 397,3 497,3 585,-6 624,-30 688,-61 752,-109 800,-161 864,-236 915,-285 982,-321 1064,-342 1182,-348 1258,-345 1352,-306 1409,-276 1506,-176 1576,-115 1615,-64 1694,-9 1918,36 2070,39 2185,30 2258,24 2364,-15 2448,-64 2524,-79 2606,-79"/>
   </object>
  </objectgroup>
+ <objectgroup name="rubies" width="400" height="30">
+  <object name="ruby" x="597" y="713"/>
+  <object name="ruby" x="682" y="759"/>
+  <object name="ruby" x="892" y="796"/>
+  <object name="ruby" x="1008" y="786"/>
+  <object name="ruby" x="1152" y="733"/>
+  <object name="ruby" x="1302" y="753"/>
+  <object name="ruby" x="1479" y="760"/>
+  <object name="ruby" x="1716" y="726"/>
+  <object name="ruby" x="1847" y="642"/>
+  <object name="ruby" x="1951" y="526"/>
+ </objectgroup>
 </map>

@@ -43,6 +43,14 @@ class LevelLoader(object):
         print "number of segments in level is " + str(len(segments))
         return segments
 
+    @property
+    def rubies(self):
+        _rubies = []
+        for tiled_object in self.tmx['rubies']:
+            _rubies.append((tiled_object.x, tiled_object.y))
+        print "number of rubies in level is " + str(len(_rubies))
+        return _rubies;
+
 def load(level):
     """
     Load level number from tmx file.

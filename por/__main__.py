@@ -62,6 +62,8 @@ class Game(pyglet.window.Window):
         self.level = level.load(levelname)
         self.track = track.Track()
         self.track.add_tracks(self.level.tracks)
+        self.ruby_list = ruby.RubyList()
+        self.ruby_list.add_rubies(self.level.rubies)
 
         self.create_cart()
         pyglet.clock.schedule(self.update) # main loop
@@ -95,6 +97,7 @@ class Game(pyglet.window.Window):
         self.update_labels()
         self.draw_entities()
         self.draw_track()
+        self.draw_rubies()
         self.fps_display.draw()
         self.main_batch.draw()
 
@@ -110,6 +113,12 @@ class Game(pyglet.window.Window):
             pyglet.graphics.draw(2, pyglet.gl.GL_LINES,
                     ('v2f', (line.x1 - vpx, line.y1 - vpy, line.x2 - vpx,line.y2 - vpy)),
                     ('c3f', (.8,.8,.8)*2))
+    
+    def draw_rubies(self):
+        (vpx, vpy, vpwidth, vpheight) = self.viewport
+        for ruby in self.ruby_list.visible_rubies:
+            ruby.position = (ruby.gp.x - vpx, ruby.gp.y - vpy)
+            ruby.draw()
 
 
     def on_key_press(self, symbol, modifiers):
@@ -136,8 +145,6 @@ class Game(pyglet.window.Window):
             sounds.cart_ruby.play()
 
 
-
-
     def on_key_release(self, symbol, modifiers):
         # called every time a key is released
         pass
@@ -159,6 +166,7 @@ class Game(pyglet.window.Window):
             self.viewport = Rect(self.cart.gp.x - settings.VIEWPORT_OFFSET_X, self.viewport.y, self.width, self.height)
         
         self.track.update_visible(self.viewport)
+        self.ruby_list.update_visible(self.viewport)
 
         if self.cart.gp.y < self.viewport.y - settings.DEAD_OFFSET_Y:
             self.die()
