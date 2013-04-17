@@ -102,10 +102,10 @@ class Game(pyglet.window.Window):
 
 
          #for now, just assume everything needs to be rendered
+        self.draw_track()
         self.bg.draw()
         self.update_labels()
         self.draw_entities()
-        self.draw_track()
         self.draw_objects()
         self.fps_display.draw()
         self.main_batch.draw()
