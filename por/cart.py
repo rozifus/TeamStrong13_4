@@ -32,6 +32,8 @@ class Cart(entity.Entity):
             self.gp = (gpx, self.track_height + self.image.height / 2.0)
             self.velocity_y = 0.0
             self.rotation = -self.track_angle
+            if self.on_track == False:
+                sounds.cart_land.play()
             self.on_track = True
 
         else:
