@@ -4,7 +4,8 @@ import utils as pymunk
 MAIN_WINDOW_WIDTH = 1024
 MAIN_WINDOW_HEIGHT = 768
 
-RESOURCE_PATH = ['data', 'data/images', 'data/sounds', 'data/other']
+RESOURCE_PATH = ['data', 'data/images', 'data/sounds',
+                 'data/music', 'data/other']
 
 # master game FPS
 MAIN_UPDATE_INTERVAL = 1.0/120.0
