@@ -165,11 +165,25 @@ class Game(pyglet.window.Window):
         # update viewport and visible track/entities
         (track_height, track_angle) = self.track.track_info_at_x(self.cart.gp.x + settings.VIEWPORT_LOOKAHEAD)
         #TODO: ugly hack, keep viewport level for breaks in track (for breaks in track track_level < 0)
+
+        # rate limit movements by settings.VIEWPORT_MAX_RATE px per frame.
+        x, y = self.viewport.x, self.viewport.y
+
+        xnew = self.cart.gp.x - settings.VIEWPORT_OFFSET_X
         if track_height > 0:
-            self.viewport = Rect(self.cart.gp.x - settings.VIEWPORT_OFFSET_X, track_height - settings.VIEWPORT_OFFSET_Y, self.width, self.height)
+            ynew = track_height - settings.VIEWPORT_OFFSET_Y
         else:
-            self.viewport = Rect(self.cart.gp.x - settings.VIEWPORT_OFFSET_X, self.viewport.y, self.width, self.height)
+            ynew = self.viewport.y
         
+        xchange = xnew - x
+        ychange = ynew - y
+
+        xactual = math.copysign(min(abs(xchange), settings.VIEWPORT_MAX_RATE), xchange) + x
+        yactual = math.copysign(min(abs(ychange), settings.VIEWPORT_MAX_RATE), ychange) + y
+
+        actual = Rect(xactual, yactual, self.width, self.height)
+        self.viewport = actual
+
         self.track.update_visible(self.viewport)
         self.ruby_list.update_visible(self.viewport)
         self.obstacle_list.update_visible(self.viewport)
@@ -207,10 +221,10 @@ class Game(pyglet.window.Window):
     def reset_level(self):
         self.cart.gp = Point(100.0, 650.0)
         self.cart.reset()
-        pass
+        self.viewport = Rect(100, self.viewport.y, self.width, self.height)
 
     def game_over(self):
-        if lives <= 0:
+        if self.lives <= 0:
             print "ALL YOUR LIFE ARE BELONG TO US"
         sys.exit(0)
 

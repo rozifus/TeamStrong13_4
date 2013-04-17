@@ -43,5 +43,6 @@ TRACK_FUZZ = 10.0 # fuzziness of track detection algorithm
 VIEWPORT_OFFSET_X = 200.0
 VIEWPORT_OFFSET_Y = 384.0
 VIEWPORT_LOOKAHEAD = 100.0
+VIEWPORT_MAX_RATE = 12 # px/frame change.
 
 DEAD_OFFSET_Y = 300.0
