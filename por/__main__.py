@@ -10,6 +10,9 @@ import ruby
 import track
 import level
 
+from collections import namedtuple
+from utils import Point, Vec2d, Rect
+
 def main(levelname):
     """ your app starts here
     """
@@ -22,35 +25,32 @@ class Game(pyglet.window.Window):
     def __init__(self):
         super(Game, self).__init__(1024, 768)
         
-        self.viewport_origin = (0.0, 0.0)
-        self.viewport_size = (self.width, self.height)
-        self.renderzone_buffer_size = (500.0, 500.0)
+        # in game coords. viewport is your window into game world
+        self.viewport = Rect(0.0, 0.0, self.width, self.height)
 
         self.main_batch = pyglet.graphics.Batch()
         self.score_label = pyglet.text.Label(text = "", 
                                              x = settings.SCORE_LABEL_X, 
                                              y = settings.SCORE_LABEL_Y, 
                                              batch = self.main_batch)
-        self.score = 0
         
-
-        self.quit_label = pyglet.text.Label(text = "By NSTeamStrong: q [quit] space [jump] r [reset]", 
+        self.lives_label = pyglet.text.Label(text = "", 
+                                             x = settings.LIVES_LABEL_X, 
+                                             y = settings.LIVES_LABEL_Y, 
+                                             batch = self.main_batch)
+        
+        self.quit_label = pyglet.text.Label(text = "By NSTeamStrong: q [quit] space [jump]", 
                                              x = settings.QUIT_LABEL_X, 
                                              y = settings.QUIT_LABEL_Y, 
                                              batch = self.main_batch)
         self.fps_display = pyglet.clock.ClockDisplay()
-        
         self.cart = None
-
         self.entities = []
-        self.rubies = []
-        self.powerups = []
-        self.obstacles = []
-        #self.track = [((0.0, 300.0), (300.0, 100.0)),
-        #              ((300.0, 100.0), (700.0, 100.0)),
-        #              ((700.0, 100.0), (900.0, 500.0))]
 
     def start(self, levelname):
+        self.score = 0
+        self.lives = settings.STARTING_LIVES
+        self.update_labels()
         self.level = level.load(levelname)
         self.track = track.Track()
         self.track.add_tracks(self.level.tracks)
@@ -77,7 +77,6 @@ class Game(pyglet.window.Window):
         # - update the relative positions of objects on screen
         #
 
-        (vpx, vpy) = self.viewport_origin
         
         #for line in self.track:
         #    (x1, y1), (x2, y2) = line
@@ -86,19 +85,25 @@ class Game(pyglet.window.Window):
         #            ('c3f', (0.8, 0.8, 0.8) * 2))
 
          #for now, just assume everything needs to be rendered
-        for line in self.track.track_segments:
+
+        self.draw_entities()
+        self.draw_track()
+        self.fps_display.draw()
+        self.main_batch.draw()
+
+    def draw_entities(self):
+        # TODO: check if entities are visible before drawing
+        (vpx, vpy, vpwidth, vpheight) = self.viewport
+        for entity in self.entities:
+            entity.position = (entity.gp.x - vpx, entity.gp.y - vpy)
+
+    def draw_track(self):
+        (vpx, vpy, vpwidth, vpheight) = self.viewport
+        for line in self.track.visible_track_segments:
             pyglet.graphics.draw(2, pyglet.gl.GL_LINES,
                     ('v2f', (line.x1 - vpx, line.y1 - vpy, line.x2 - vpx,line.y2 - vpy)),
                     ('c3f', (.8,.8,.8)*2))
 
-        for entity in self.entities:
-           (vpx, vpy) = self.viewport_origin
-           (gpx, gpy) = entity.gp
-           entity.position = (gpx - vpx, gpy - vpy)
-
-        
-        self.fps_display.draw()
-        self.main_batch.draw()
 
     def on_key_press(self, symbol, modifiers):
         # called every time a key is pressed
@@ -115,22 +120,6 @@ class Game(pyglet.window.Window):
             print "Resetting cart position"
             self.cart.gp = (100, 650)
 
-        elif symbol == pyglet.window.key.RIGHT:
-            (x, y) = self.viewport_origin
-            self.viewport_origin = (x + 100.0, y)
-
-        elif symbol == pyglet.window.key.LEFT:
-            (x, y) = self.viewport_origin
-            self.viewport_origin = (x - 100.0, y)
-
-        elif symbol == pyglet.window.key.DOWN:
-            (x, y) = self.viewport_origin
-            self.viewport_origin = (x, y - 100.0)
-
-        elif symbol == pyglet.window.key.UP:
-            (x, y) = self.viewport_origin
-            self.viewport_origin = (x, y + 100.0)
-
     def on_key_release(self, symbol, modifiers):
         # called every time a key is released
         pass
@@ -139,22 +128,45 @@ class Game(pyglet.window.Window):
         # main game loop
         # dt is time in seconds in between calls
         
-        self.score_label.text = "Score: " + str(self.score)
-        
-        # TODO: this should query the track module for the
-        # track_height and track_angle for the cart's x coord
-        # here i have jsut written a method to do it
-        (gpx, gpy) = self.cart.gp
-        (track_height, track_angle) = self.track.track_info_at_x(gpx)
-        print "track height: " + str(track_height) + " angle " + str(track_angle)
+        # update cart with track info for current x coord
+        (track_height, track_angle) = self.track.track_info_at_x(self.cart.gp.x)
         self.cart.update(dt, track_height, track_angle)
-        self.viewport_origin = (gpx - settings.VIEWPORT_OFFSET_X, track_height - settings.VIEWPORT_OFFSET_Y)
 
-    def scroll(self, dt):
+        # update viewport and visible track/entities
+        (track_height, track_angle) = self.track.track_info_at_x(self.cart.gp.x + settings.VIEWPORT_LOOKAHEAD)
+        #TODO: ugly hack, keep viewport level for breaks in track (for breaks in track track_level < 0)
+        if track_height > 0:
+            self.viewport = Rect(self.cart.gp.x - settings.VIEWPORT_OFFSET_X, track_height - settings.VIEWPORT_OFFSET_Y, self.width, self.height)
+        else:
+            self.viewport = Rect(self.cart.gp.x - settings.VIEWPORT_OFFSET_X, self.viewport.y, self.width, self.height)
+        
+        self.track.update_visible(self.viewport)
+
+        if self.cart.gp.y < self.viewport.y - settings.DEAD_OFFSET_Y:
+            self.die()
+
+    def die(self):
+        if self.lives > 1:
+            self.lives -= 1
+            self.update_labels()
+            self.reset_level()
+        else:
+            self.game_over()
+
+    def reset_level(self):
+        self.cart.gp = Point(100.0, 650.0)
         pass
+
+    def game_over(self):
+        print "ALL YOUR LIFE ARE BELONG TO US"
+        sys.exit(0)
+
+    def update_labels(self):
+        self.score_label.text = "Score: " + str(self.score)
+        self.lives_label.text = "Lives: " + str(self.lives)
 
     def create_cart(self):
         self.cart = cart.Cart()
-        self.cart.gp = (100, 650)
+        self.cart.gp = Point(100.0, 650.0)
         self.cart.batch = self.main_batch
         self.entities.append(self.cart)

@@ -32,7 +32,7 @@ class LevelLoader(object):
 
     @property
     def tracks(self):
-        _tracks = self.tmx['triggers'].find('track')
+        _tracks = self.tmx['track']
         segments = []
         for track in _tracks:
             for (x1, y1), (x2, y2) in pairwise(track.points):
