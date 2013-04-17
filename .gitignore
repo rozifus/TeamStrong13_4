@@ -38,3 +38,6 @@ nosetests.xml
 .pydevproject
 .DS_Store
 *.sublime*
+
+# junky files.
+Gerald*.svg
