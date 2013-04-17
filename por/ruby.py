@@ -11,7 +11,6 @@ class Ruby(entity.Entity):
     def __init__(self, *args, **kwargs):
         super(Ruby, self).__init__(img = pyglet.resource.image(settings.RUBY_IMAGE), *args, **kwargs)
 
-
 class RubyList(object):
     def __init__(self):
         super(RubyList, self).__init__()

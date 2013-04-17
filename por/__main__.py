@@ -168,8 +168,22 @@ class Game(pyglet.window.Window):
         self.track.update_visible(self.viewport)
         self.ruby_list.update_visible(self.viewport)
 
+        self.check_collisions()
+
         if self.cart.gp.y < self.viewport.y - settings.DEAD_OFFSET_Y:
             self.die()
+
+    def check_collisions(self):
+        rubies_to_delete = []
+        for ruby in self.ruby_list.visible_rubies:
+            if self.cart.collides_with(ruby):
+                print "collected ruby " + str(ruby)
+                sounds.cart_ruby.play()
+                self.score += 1
+                rubies_to_delete.append(ruby)
+        
+        for ruby in rubies_to_delete:
+            self.ruby_list.rubies.remove(ruby)
 
     def die(self):
         if self.lives > 1:

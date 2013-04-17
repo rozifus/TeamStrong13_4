@@ -26,13 +26,13 @@ class Entity(pyglet.sprite.Sprite):
     def collides_with(self, other_entity):
         # circular collision detection
         collision_threshold = self.image.width / 2.0 + other_entity.image.width / 2.0
-        distance = self.distance(self, other_entity)
+        distance = self.distance(other_entity)
         return distance < collision_threshold
 
     def distance(self, other_entity):
         #tnx pythagoras
-        x1, y1 = self.position
-        x2, y2 = other_entity.position
+        x1, y1 = self.gp
+        x2, y2 = other_entity.gp
         return math.sqrt((x1 - x2)**2 + (y1 - y2)**2)
 
     def update(self, dt):
