@@ -43,13 +43,21 @@ class LevelLoader(object):
         print "number of segments in level is " + str(len(segments))
         return segments
 
-    @property
-    def rubies(self):
-        _rubies = []
-        for tiled_object in self.tmx['rubies']:
-            _rubies.append((tiled_object.x, tiled_object.y))
-        print "number of rubies in level is " + str(len(_rubies))
-        return _rubies;
+    def __getattr__(self, attr):
+        """
+        Turns a call for level._name_ into 
+        level.point_objects(name)
+        """
+        return self.point_objects(attr)
+
+    def point_objects(self, name):
+        objects = []
+        for tile in self.tmx[name]:
+            objects.append((tile.x, tile.y))
+        number = len(objects)
+        print "number of {name} in level is {number}".format(**locals())
+        return objects
+
 
 def load(level):
     """

@@ -179,4 +179,7 @@
   <object name="ruby" x="12035" y="544"/>
   <object name="ruby" x="12018" y="539"/>
  </objectgroup>
+ <objectgroup name="obstacles" width="400" height="30">
+  <object x="1562" y="788"/>
+ </objectgroup>
 </map>

@@ -8,8 +8,7 @@ import utils
 from utils import Vec2d, Point, Rect
 
 class Ruby(entity.Entity):
-    def __init__(self, *args, **kwargs):
-        super(Ruby, self).__init__(img = pyglet.resource.image(settings.RUBY_IMAGE), *args, **kwargs)
+    IMAGE = settings.RUBY_IMAGE
 
 class RubyList(object):
     def __init__(self):

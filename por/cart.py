@@ -8,8 +8,9 @@ import sounds
 from utils import Point, Vec2d
 
 class Cart(entity.Entity):
-    def __init__(self, *args, **kwargs):
-        super(Cart, self).__init__(img = pyglet.resource.image(settings.CART_IMAGE), *args, **kwargs)
+    IMAGE = settings.CART_IMAGE
+
+    def init(self):
         self.reset()
 
     def jump(self):
