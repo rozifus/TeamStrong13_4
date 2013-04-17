@@ -166,6 +166,7 @@ class Game(pyglet.window.Window):
     def die(self):
         if self.lives > 1:
             self.lives -= 1
+            sounds.cart_die.play()
             self.update_labels()
             self.reset_level()
         else:
