@@ -1,7 +1,8 @@
 import math
 
 import pyglet
-from pyglet.gl import glPushMatrix, glPopMatrix
+from pyglet.gl import glPushMatrix, glPopMatrix, glLoadIdentity \
+                     , glTranslatef
 
 from utils import Rect
 import settings
@@ -54,7 +55,6 @@ class ViewportManager(object):
             boost = 0
 
         yactual = y + (ychange + boost) 
-        print "{y} + {ychange:.2f} = {yactual:.2f} ({ychange_o:.2f}: {boost:.2f})".format(**locals())
 
         self.rect = Rect(xnew, yactual, self.rect.width, self.rect.height)
 
@@ -63,10 +63,35 @@ class ViewportManager(object):
 
 class Background(object):
 
-    def __init__(self, image):
-        tiles = image.parent.getTileImages((0, 0, 1023, 767), 'map')
-        #import pdb;pdb.set_trace()
-        self.batch = pyglet.graphics.Batch()
+    def __init__(self, tmxmap, viewport):
+        resources, layers, worldmap = tmxmap
+        self.batch = batch = pyglet.graphics.Batch()
+        self.sprites = []
+        self.viewport = viewport
+
+        for num, layer in enumerate(layers):
+            group = pyglet.graphics.OrderedGroup(num)
+
+            for ytile in range(layer.height):
+                for xtile in range(layer.width):
+                    image_id = layer.content2D[xtile][ytile]
+                    if not image_id: continue
+
+                    image_file = resources.indexed_tiles[image_id][2]
+                    x, y = (worldmap.tilewidth * xtile,
+                            worldmap.tileheight * (layer.height - ytile))
+                    print "making sprite! {x}, {y} -> {image_file}".format(
+                        **locals())
+
+
+                    sprite = pyglet.sprite.Sprite(
+                        image_file, x, y, batch=batch, group=group)
+
+                    self.sprites.append(sprite)
+
+    @property
+    def coords(self):
+        return self.viewport.rect[:2]
 
     def draw(self):
         glPushMatrix()
@@ -75,5 +100,7 @@ class Background(object):
         glPopMatrix()
 
     def transform(self):
-        pass
+        glLoadIdentity()
+        x, y = self.coords
+        glTranslatef(-x, -y, 0.0)
 

@@ -74,8 +74,7 @@ class Game(pyglet.window.Window):
         self.create_cart()
 
         # now check the level contents.
-        scene.Background(self.level.tmx['map'])
-
+        self.bg = scene.Background(self.level.layers, self.viewport)
 
 
         pyglet.clock.schedule(self.update) # main loop
@@ -103,6 +102,7 @@ class Game(pyglet.window.Window):
 
 
          #for now, just assume everything needs to be rendered
+        self.bg.draw()
         self.update_labels()
         self.draw_entities()
         self.draw_track()
@@ -147,7 +147,7 @@ class Game(pyglet.window.Window):
 
         #debug sfx
         elif symbol == pyglet.window.key.I:
-            sounds.cart_jump.play()
+            raw_input()
         elif symbol == pyglet.window.key.O:
             sounds.cart_land.play()
         elif symbol == pyglet.window.key.P:

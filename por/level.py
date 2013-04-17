@@ -11,11 +11,12 @@ import sys
 
 import pyglet
 
-from pytmx import tmxloader
+from pytmx import tmxloader, tmxreader
+from pytmx.helperspyglet import ResourceLoaderPyglet
 
 import ruby
 import settings
-from utils import pairwise
+from utils import pairwise, TMXMap
 
 LineSegment = namedtuple('Vector', 'x1 y1 x2 y2')
 
@@ -27,8 +28,20 @@ class LevelLoader(object):
     2. 'triggers' for the object world.
     """
 
-    def __init__(self, tmx):
+    def __init__(self, tmx, maps):
         self.tmx = tmx
+        self._maps = maps
+
+    @property
+    def layers(self):
+        """
+        returns the maps, but not object groups.
+        """
+        maplayers = filter(lambda l: not l.is_object_group, self._maps.layers)
+        resources = ResourceLoaderPyglet()
+        resources.load(self._maps)
+
+        return TMXMap(resources, maplayers, self._maps)
 
     @property
     def tracks(self):
@@ -65,6 +78,13 @@ def load(level):
     """
     levelfname = level + ".tmx"
     print "Loading level " + levelfname
-    tmx = tmxloader.load_tmx(pyglet.resource.file(levelfname))
 
-    return LevelLoader(tmx)
+    # first one is good for images.
+    tmx = tmxloader.load_tmx(
+        pyglet.resource.file(levelfname))
+
+    # this second one is good for scrolling background.
+    maps = tmxreader.TileMapParser().parse_decode(
+                    pyglet.resource.file(levelfname))
+
+    return LevelLoader(tmx, maps)

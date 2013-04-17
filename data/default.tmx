@@ -5,7 +5,7 @@
  </tileset>
  <layer name="map" width="400" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt2TsKwEAIBcDN5nf/G8dCIX0IyyYz8BCsrASxNQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+K4l0rPukWPsOABM6hw9AAAA8CtuEACeqL9Iz6yRLXv3PgBzq31eux0AAOANF7/eADk=
+   eJzt3NEKgyAUAFBXbfX/XzyFXSbSW5S5nQMXU3y49iCoaEoAAAAAAAAAAAAAAAAAAAAAAAAAAIzokWPKMfdOBAAAAAAAAAAAAAAAAAAA4ObifnYpnzlefdO51No7AYCBbU3dnAoAAFzJGgSAI+JcZErfN2yXT1vd/utinPWYox6x975v2Rtcdvq33//wD4F7a+c5AACAM7wBbsYAeQ==
   </data>
  </layer>
  <objectgroup name="track" width="400" height="30">

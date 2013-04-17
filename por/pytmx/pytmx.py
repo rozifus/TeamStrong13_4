@@ -595,7 +595,7 @@ class TiledObjectGroup(TiledElement, list):
 
         for child in node.findall('object'):
             o = TiledObject(self.parent, child)
-            o.y = self.parent.px_height - o.y
+            o.y = self.parent.px_height - o.y + self.parent.tileheight
             self.append(o)
 
 
