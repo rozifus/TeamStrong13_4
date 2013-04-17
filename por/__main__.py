@@ -180,6 +180,8 @@ class Game(pyglet.window.Window):
             self.die()
 
     def check_collisions(self):
+
+        # rubies.
         rubies_to_delete = []
         for ruby in self.ruby_list.visible:
             if self.cart.collides_with(ruby):
@@ -190,6 +192,12 @@ class Game(pyglet.window.Window):
         
         for ruby in rubies_to_delete:
             self.ruby_list.objects.remove(ruby)
+
+        # obstacles.
+        for obstacle in self.obstacle_list.visible:
+            if self.cart.collides_with(obstacle):
+                print "collided with {obstacle}".format(**locals())
+                self.die()
 
     def die(self):
         if self.lives > 1:
