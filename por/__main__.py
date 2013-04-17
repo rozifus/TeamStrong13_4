@@ -27,7 +27,7 @@ def main(levelname):
 
 class Game(pyglet.window.Window):
     def __init__(self):
-        super(Game, self).__init__(1024, 768)
+        super(Game, self).__init__(1024, 768, vsync=False)
         
         # in game coords. viewport is your window into game world
         self.viewport = scene.ViewportManager(Rect(0.0, 0.0, self.width, self.height))
@@ -93,11 +93,8 @@ class Game(pyglet.window.Window):
         # - update the relative positions of objects on screen
         #
 
-        #for line in self.track:
-        #    (x1, y1), (x2, y2) = line
-        #    pyglet.graphics.draw(2, pyglet.gl.GL_LINES,
-        #            ('v2f', (x1 - vpx, y1 - vpy, x2 - vpx, y2 - vpy)),
-        #            ('c3f', (0.8, 0.8, 0.8) * 2))
+        # draw the background
+
 
          #for now, just assume everything needs to be rendered
         self.update_labels()
