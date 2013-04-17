@@ -45,6 +45,12 @@ class Game(pyglet.window.Window):
                                              x = settings.QUIT_LABEL_X, 
                                              y = settings.QUIT_LABEL_Y, 
                                              batch = self.main_batch)
+
+        self.speed_label = pyglet.text.Label(text = "", 
+                                             x = settings.SPEED_LABEL_X,
+                                             y = settings.SPEED_LABEL_Y, 
+                                             batch = self.main_batch)
+
         self.fps_display = pyglet.clock.ClockDisplay()
         self.cart = None
         self.entities = []
@@ -86,7 +92,7 @@ class Game(pyglet.window.Window):
         #            ('c3f', (0.8, 0.8, 0.8) * 2))
 
          #for now, just assume everything needs to be rendered
-
+        self.update_labels()
         self.draw_entities()
         self.draw_track()
         self.fps_display.draw()
@@ -167,6 +173,7 @@ class Game(pyglet.window.Window):
 
     def reset_level(self):
         self.cart.gp = Point(100.0, 650.0)
+        self.cart.reset()
         pass
 
     def game_over(self):
@@ -176,6 +183,8 @@ class Game(pyglet.window.Window):
     def update_labels(self):
         self.score_label.text = "Score: " + str(self.score)
         self.lives_label.text = "Lives: " + str(self.lives)
+        if self.cart is not None:
+            self.speed_label.text = "Cart speed: " + str(self.cart.velocity_x)
 
     def create_cart(self):
         self.cart = cart.Cart()
