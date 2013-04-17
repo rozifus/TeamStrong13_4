@@ -101,7 +101,7 @@ class TiledMap(TiledElement):
         """
 
         try:
-            gid = self.tilelayers[int(layer)].data[int(y)][int(x)]
+            gid = self.tilelayers[layer].data[y][x]
         except (IndexError, ValueError):
             msg = "Coords: ({0},{1}) in layer {2} is not valid."
             raise Exception, msg.format(x, y, layer)
@@ -147,10 +147,27 @@ class TiledMap(TiledElement):
         return a group of tiles in an area
         expects a pygame rect or rect-like list/tuple
 
+        x, y, width, height
+
         useful if you don't want to repeatedly call getTileImage
         """
+        x, y, width, height = r
+        # in world y values are reversed. 
+        y = self.px_height - y
 
-        raise NotImplementedError
+        # convert r from world co-ords to tile co-ords
+        startx = x / self.tilewidth
+        starty = y / self.tileheight
+
+        endx = (x + width) / self.tilewidth
+        endy = (y + height) / self.tileheight
+
+        print startx, starty, endx, endy
+
+        # the data is stored in rows: [ [0, 1, 2], [3, 4, 5] ]
+        data = self.layernames[layer].data
+        rows = data[starty:endy]
+        return [map(self.images.__getitem__, row[startx:endx]) for row in rows]
 
 
     def getObjects(self):

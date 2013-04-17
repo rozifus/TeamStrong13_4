@@ -72,6 +72,12 @@ class Game(pyglet.window.Window):
         self.objects = [self.ruby_list, self.obstacle_list]
 
         self.create_cart()
+
+        # now check the level contents.
+        scene.Background(self.level.tmx['map'])
+
+
+
         pyglet.clock.schedule(self.update) # main loop
         pyglet.app.run()
 

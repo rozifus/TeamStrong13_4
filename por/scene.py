@@ -1,5 +1,8 @@
 import math
 
+import pyglet
+from pyglet.gl import glPushMatrix, glPopMatrix
+
 from utils import Rect
 import settings
 
@@ -58,4 +61,19 @@ class ViewportManager(object):
     def reset(self, rect):
         self.rect = rect
 
+class Background(object):
+
+    def __init__(self, image):
+        tiles = image.parent.getTileImages((0, 0, 1023, 767), 'map')
+        #import pdb;pdb.set_trace()
+        self.batch = pyglet.graphics.Batch()
+
+    def draw(self):
+        glPushMatrix()
+        self.transform()
+        self.batch.draw()
+        glPopMatrix()
+
+    def transform(self):
+        pass
 

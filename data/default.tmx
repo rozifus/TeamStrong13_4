@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="400" height="30" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="rails" tilewidth="32" tileheight="32">
+  <image source="images/underground.png" width="256" height="32"/>
+ </tileset>
  <layer name="map" width="400" height="30">
   <data encoding="base64" compression="zlib">
-   eJztwTEBAAAAwqD1T+1pCaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4Aa7gAAB
+   eJzt2TsKwEAIBcDN5nf/G8dCIX0IyyYz8BCsrASxNQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+K4l0rPukWPsOABM6hw9AAAA8CtuEACeqL9Iz6yRLXv3PgBzq31eux0AAOANF7/eADk=
   </data>
  </layer>
  <objectgroup name="track" width="400" height="30">
