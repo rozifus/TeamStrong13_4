@@ -3,6 +3,7 @@
 import pyglet
 import settings
 import entity
+import sounds
 
 class Cart(entity.Entity):
     def __init__(self, *args, **kwargs):
@@ -15,22 +16,23 @@ class Cart(entity.Entity):
     def jump(self):
         if self.on_track:
             print "Jumping cart"
+            sounds.cart_jump.play()
             self.velocity_y = settings.CART_JUMP_VELOCITY
             self.rotation = settings.CART_JUMP_ROTATION
-    
+
     def update(self, dt, track_height, track_angle):
         super(Cart, self).update(dt)
 
         self.track_height = track_height
         self.track_angle = track_angle
-        
+
         #print "on track: " + str(self.on_track)
         (gpx, gpy) = self.gp
         if gpy - self.image.height / 2.0 <= self.track_height + settings.TRACK_FUZZ:
             self.gp = (gpx, self.track_height + self.image.height / 2.0)
             self.velocity_y = 0.0
             self.rotation = -self.track_angle
-            self.on_track = True 
+            self.on_track = True
 
         else:
             # we are off the track
