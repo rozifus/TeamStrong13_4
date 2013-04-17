@@ -175,13 +175,11 @@ class Game(pyglet.window.Window):
         else:
             ynew = self.viewport.y
         
-        xchange = xnew - x
         ychange = ynew - y
 
-        xactual = math.copysign(min(abs(xchange), settings.VIEWPORT_MAX_RATE), xchange) + x
         yactual = math.copysign(min(abs(ychange), settings.VIEWPORT_MAX_RATE), ychange) + y
 
-        actual = Rect(xactual, yactual, self.width, self.height)
+        actual = Rect(xnew, yactual, self.width, self.height)
         self.viewport = actual
 
         self.track.update_visible(self.viewport)
