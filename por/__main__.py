@@ -10,6 +10,7 @@ import cart
 import ruby
 import track
 import level
+import obstacle
 
 from collections import namedtuple
 from utils import Point, Vec2d, Rect
@@ -62,8 +63,12 @@ class Game(pyglet.window.Window):
         self.level = level.load(levelname)
         self.track = track.Track()
         self.track.add_tracks(self.level.tracks)
-        self.ruby_list = ruby.RubyList()
-        self.ruby_list.add_rubies(self.level.rubies)
+        self.ruby_list = entity.ObjectList(ruby.Ruby)
+        self.ruby_list.add(self.level.rubies)
+        self.obstacle_list = entity.ObjectList(obstacle.Obstacle)
+        self.obstacle_list.add(self.level.obstacles)
+
+        self.objects = [self.ruby_list, self.obstacle_list]
 
         self.create_cart()
         pyglet.clock.schedule(self.update) # main loop
@@ -97,7 +102,7 @@ class Game(pyglet.window.Window):
         self.update_labels()
         self.draw_entities()
         self.draw_track()
-        self.draw_rubies()
+        self.draw_objects()
         self.fps_display.draw()
         self.main_batch.draw()
 
@@ -114,12 +119,12 @@ class Game(pyglet.window.Window):
                     ('v2f', (line.x1 - vpx, line.y1 - vpy, line.x2 - vpx,line.y2 - vpy)),
                     ('c3f', (.8,.8,.8)*2))
     
-    def draw_rubies(self):
+    def draw_objects(self):
         (vpx, vpy, vpwidth, vpheight) = self.viewport
-        for ruby in self.ruby_list.visible_rubies:
-            ruby.position = (ruby.gp.x - vpx, ruby.gp.y - vpy)
-            ruby.draw()
-
+        for objects in self.objects:
+            for ruby in objects.visible:
+                ruby.position = (ruby.gp.x - vpx, ruby.gp.y - vpy)
+                ruby.draw()
 
     def on_key_press(self, symbol, modifiers):
         # called every time a key is pressed
@@ -167,6 +172,7 @@ class Game(pyglet.window.Window):
         
         self.track.update_visible(self.viewport)
         self.ruby_list.update_visible(self.viewport)
+        self.obstacle_list.update_visible(self.viewport)
 
         self.check_collisions()
 
@@ -175,7 +181,7 @@ class Game(pyglet.window.Window):
 
     def check_collisions(self):
         rubies_to_delete = []
-        for ruby in self.ruby_list.visible_rubies:
+        for ruby in self.ruby_list.visible:
             if self.cart.collides_with(ruby):
                 print "collected ruby " + str(ruby)
                 sounds.cart_ruby.play()
@@ -183,7 +189,7 @@ class Game(pyglet.window.Window):
                 rubies_to_delete.append(ruby)
         
         for ruby in rubies_to_delete:
-            self.ruby_list.rubies.remove(ruby)
+            self.ruby_list.objects.remove(ruby)
 
     def die(self):
         if self.lives > 1:

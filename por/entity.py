@@ -4,7 +4,7 @@ import math
 import pyglet
 import settings
 from collections import namedtuple
-from utils import Point, Vec2d
+from utils import Point, Vec2d, point_in_rect
 
 class Entity(pyglet.sprite.Sprite):
 
@@ -56,3 +56,21 @@ class Entity(pyglet.sprite.Sprite):
         classname = self.__class__.__name__
         x, y = self.gp
         return "{classname}({x}, {y})".format(**locals())
+
+class ObjectList(object):
+    def __init__(self, Klass):
+        self.objects = []
+        self.visible = []
+        self.Klass = Klass
+
+    def add(self, points):
+        for point in points:
+            new = self.Klass()
+            new.gp = Point(*point)
+            self.objects.append(new)
+
+    def update_visible(self, viewport):
+        self.visible = [
+            obj for obj in self.objects
+            if point_in_rect(obj.gp, viewport)]
+

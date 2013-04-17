@@ -7,5 +7,8 @@ import utils
 
 from utils import Vec2d, Point, Rect
 
-class Ruby(entity.Entity):
-    IMAGE = settings.RUBY_IMAGE
+class Obstacle(entity.Entity):
+    """
+    In case we want more than one type?
+    """
+    IMAGE = settings.ANVIL_IMAGE

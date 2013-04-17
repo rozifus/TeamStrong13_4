@@ -35,6 +35,7 @@ CART_EARLY_JUMP_TIME = 0.3 # can press jump up to 0.3s before landing and will j
 
 
 RUBY_IMAGE = "ruby.png"
+ANVIL_IMAGE = "anvil.png"
 
 GRAVITY = -3000.0 # pixels/s**2
 TRACK_FUZZ = 10.0 # fuzziness of track detection algorithm
