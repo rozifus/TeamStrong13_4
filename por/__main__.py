@@ -8,6 +8,7 @@ import entity
 import sounds
 import cart
 import ruby
+import scene
 import track
 import level
 import obstacle
@@ -29,7 +30,7 @@ class Game(pyglet.window.Window):
         super(Game, self).__init__(1024, 768)
         
         # in game coords. viewport is your window into game world
-        self.viewport = Rect(0.0, 0.0, self.width, self.height)
+        self.viewport = scene.ViewportManager(Rect(0.0, 0.0, self.width, self.height))
 
         self.main_batch = pyglet.graphics.Batch()
         self.score_label = pyglet.text.Label(text = "",
@@ -167,25 +168,11 @@ class Game(pyglet.window.Window):
         #TODO: ugly hack, keep viewport level for breaks in track (for breaks in track track_level < 0)
 
         # rate limit movements by settings.VIEWPORT_MAX_RATE px per frame.
-        x, y = self.viewport.x, self.viewport.y
+        self.viewport.update(self.cart.gp.x, track_height)
 
-        xnew = self.cart.gp.x - settings.VIEWPORT_OFFSET_X
-        if track_height > 0:
-            ynew = track_height - settings.VIEWPORT_OFFSET_Y
-        else:
-            ynew = self.viewport.y
-        
-        ychange = ynew - y
-
-        # clip the y delta to the MAX_RATE and add to the original y.
-        yactual = math.copysign(min(abs(ychange), settings.VIEWPORT_MAX_RATE), ychange) + y
-
-        actual = Rect(xnew, yactual, self.width, self.height)
-        self.viewport = actual
-
-        self.track.update_visible(self.viewport)
-        self.ruby_list.update_visible(self.viewport)
-        self.obstacle_list.update_visible(self.viewport)
+        self.track.update_visible(self.viewport.rect)
+        self.ruby_list.update_visible(self.viewport.rect)
+        self.obstacle_list.update_visible(self.viewport.rect)
 
         self.check_collisions()
 
@@ -220,7 +207,7 @@ class Game(pyglet.window.Window):
     def reset_level(self):
         self.cart.gp = Point(100.0, 650.0)
         self.cart.reset()
-        self.viewport = Rect(100, self.viewport.y, self.width, self.height)
+        self.viewport.reset(Rect(100, self.viewport.y, self.width, self.height))
 
     def game_over(self):
         if self.lives <= 0:
