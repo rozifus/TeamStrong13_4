@@ -185,9 +185,11 @@ class Game(pyglet.window.Window):
         rubies_to_delete = self.cart.collided_objects(self.ruby_list.visible)
         for ruby in rubies_to_delete:
             print "collected ruby " + str(ruby)
-            sounds.cart_ruby.play()
             self.score += 1
             self.ruby_list.objects.remove(ruby)
+
+        if rubies_to_delete:
+            sounds.cart_ruby.play()
 
         # obstacles.
         for obstacle in self.obstacle_list.visible:
