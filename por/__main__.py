@@ -177,6 +177,7 @@ class Game(pyglet.window.Window):
         
         ychange = ynew - y
 
+        # clip the y delta to the MAX_RATE and add to the original y.
         yactual = math.copysign(min(abs(ychange), settings.VIEWPORT_MAX_RATE), ychange) + y
 
         actual = Rect(xnew, yactual, self.width, self.height)
