@@ -5,6 +5,7 @@ import random
 import settings
 
 import entity
+import sounds
 import cart
 import ruby
 import track
@@ -15,31 +16,32 @@ def main(levelname):
     """
     pyglet.resource.path = settings.RESOURCE_PATH
     pyglet.resource.reindex()
+    sounds.load()
     game = Game()
     game.start(levelname)
 
 class Game(pyglet.window.Window):
     def __init__(self):
         super(Game, self).__init__(1024, 768)
-        
+
         self.viewport_origin = (0.0, 0.0)
         self.viewport_size = (self.width, self.height)
         self.renderzone_buffer_size = (500.0, 500.0)
 
         self.main_batch = pyglet.graphics.Batch()
-        self.score_label = pyglet.text.Label(text = "", 
-                                             x = settings.SCORE_LABEL_X, 
-                                             y = settings.SCORE_LABEL_Y, 
+        self.score_label = pyglet.text.Label(text = "",
+                                             x = settings.SCORE_LABEL_X,
+                                             y = settings.SCORE_LABEL_Y,
                                              batch = self.main_batch)
         self.score = 0
-        
 
-        self.quit_label = pyglet.text.Label(text = "By NSTeamStrong: q [quit] space [jump] r [reset]", 
-                                             x = settings.QUIT_LABEL_X, 
-                                             y = settings.QUIT_LABEL_Y, 
+
+        self.quit_label = pyglet.text.Label(text = "By NSTeamStrong: q [quit] space [jump] r [reset] i,o,p [sfx]",
+                                             x = settings.QUIT_LABEL_X,
+                                             y = settings.QUIT_LABEL_Y,
                                              batch = self.main_batch)
         self.fps_display = pyglet.clock.ClockDisplay()
-        
+
         self.cart = None
 
         self.entities = []
@@ -62,7 +64,7 @@ class Game(pyglet.window.Window):
 
     def on_draw(self): #runs every frame
         self.clear()
-        # 
+        #
         # the basic idea behind scrolling is as follows:
         # - the level is large, say from (0, 0) to (10000, 2000)
         #   game coordinates are the coordinates in this space
@@ -78,7 +80,7 @@ class Game(pyglet.window.Window):
         #
 
         (vpx, vpy) = self.viewport_origin
-        
+
         #for line in self.track:
         #    (x1, y1), (x2, y2) = line
         #    pyglet.graphics.draw(2, pyglet.gl.GL_LINES,
@@ -96,13 +98,13 @@ class Game(pyglet.window.Window):
            (gpx, gpy) = entity.gp
            entity.position = (gpx - vpx, gpy - vpy)
 
-        
+
         self.fps_display.draw()
         self.main_batch.draw()
 
     def on_key_press(self, symbol, modifiers):
         # called every time a key is pressed
-        
+
         # quit if q is pressed
         if symbol == pyglet.window.key.Q:
             print "Our system has been shocked!! But remember to Salt the Fries"
@@ -131,6 +133,17 @@ class Game(pyglet.window.Window):
             (x, y) = self.viewport_origin
             self.viewport_origin = (x, y + 100.0)
 
+        #debug sfx
+        elif symbol == pyglet.window.key.I:
+            sounds.cart_jump.play()
+        elif symbol == pyglet.window.key.O:
+            sounds.cart_land.play()
+        elif symbol == pyglet.window.key.P:
+            sounds.cart_ruby.play()
+
+
+
+
     def on_key_release(self, symbol, modifiers):
         # called every time a key is released
         pass
@@ -138,9 +151,9 @@ class Game(pyglet.window.Window):
     def update(self, dt):
         # main game loop
         # dt is time in seconds in between calls
-        
+
         self.score_label.text = "Score: " + str(self.score)
-        
+
         # TODO: this should query the track module for the
         # track_height and track_angle for the cart's x coord
         # here i have jsut written a method to do it
