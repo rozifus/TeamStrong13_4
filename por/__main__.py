@@ -182,15 +182,11 @@ class Game(pyglet.window.Window):
     def check_collisions(self):
 
         # rubies.
-        rubies_to_delete = []
-        for ruby in self.ruby_list.visible:
-            if self.cart.collides_with(ruby):
-                print "collected ruby " + str(ruby)
-                sounds.cart_ruby.play()
-                self.score += 1
-                rubies_to_delete.append(ruby)
-        
+        rubies_to_delete = self.cart.collided_objects(self.ruby_list.visible)
         for ruby in rubies_to_delete:
+            print "collected ruby " + str(ruby)
+            sounds.cart_ruby.play()
+            self.score += 1
             self.ruby_list.objects.remove(ruby)
 
         # obstacles.
@@ -214,7 +210,8 @@ class Game(pyglet.window.Window):
         pass
 
     def game_over(self):
-        print "ALL YOUR LIFE ARE BELONG TO US"
+        if lives <= 0:
+            print "ALL YOUR LIFE ARE BELONG TO US"
         sys.exit(0)
 
     def update_labels(self):

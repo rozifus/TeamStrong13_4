@@ -43,6 +43,10 @@ class Entity(pyglet.sprite.Sprite):
         distance = self.distance(other_entity)
         return distance < collision_threshold
 
+    def collided_objects(self, objects):
+        # returns a list of objects that were collided.
+        return filter(self.collides_with, objects)
+
     def distance(self, other_entity):
         #tnx pythagoras
         x1, y1 = self.gp
