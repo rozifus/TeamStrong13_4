@@ -4,6 +4,7 @@ import pyglet
 import settings
 import menu
 import gamelevel
+import sounds
 
 # all scenes need to implement a start method and a stop method
 
@@ -14,6 +15,7 @@ class Game(object):
         pyglet.resource.reindex()
         self.window = pyglet.window.Window(width = 1024, height = 768, vsync = False)
         self.current_scene = menu.MainMenu(self)
+        sounds.load()
     
     def start_scene(self):
         pyglet.resource.path = settings.RESOURCE_PATH
