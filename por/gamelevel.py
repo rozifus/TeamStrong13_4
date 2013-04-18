@@ -23,7 +23,7 @@ class GameLevel(object):
         super(GameLevel, self).__init__()
         # in game coords. viewport is your window into game world
         self.game = game
-        pyglet.gl.glClearColor(49/255., 71/255., 72/255., 1)
+        pyglet.gl.glClearColor(*settings.BACKGROUND_COLOUR)
         self.width = self.game.window.width
         self.height = self.game.window.height
         self.viewport = scene.ViewportManager(Rect(0.0, 0.0, self.width, self.height))
