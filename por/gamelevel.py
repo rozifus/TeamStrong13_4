@@ -23,6 +23,7 @@ class GameLevel(object):
         super(GameLevel, self).__init__()
         # in game coords. viewport is your window into game world
         self.game = game
+        pyglet.gl.glClearColor(49/255., 71/255., 72/255., 1)
         self.width = self.game.window.width
         self.height = self.game.window.height
         self.viewport = scene.ViewportManager(Rect(0.0, 0.0, self.width, self.height))
@@ -113,8 +114,8 @@ class GameLevel(object):
 
 
          #for now, just assume everything needs to be rendered
+        self.bg.draw()
         self.draw_track()
-        #self.bg.draw()
         self.update_labels()
         self.draw_entities()
         self.draw_objects()

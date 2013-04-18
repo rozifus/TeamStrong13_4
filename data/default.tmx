@@ -3,11 +3,6 @@
  <tileset firstgid="1" name="rails" tilewidth="32" tileheight="32">
   <image source="images/underground.png" width="256" height="128"/>
  </tileset>
- <layer name="map" width="400" height="30">
-  <data encoding="base64" compression="zlib">
-   eJzt3dlugzAQBVCSpvu+qe3//2idB1QHlTQBYmrmHGmURQF58nAteBiaBgAAAAAAAAAAAAAAAAAAAAAAhnlM9ZxqlWqdva6zz6vO+22dzbFYgH+uzdRtZi45J19Svc69CICFiJKp96ke5l4EwEJEydQofQKUECVTo/QJUEKUTI3SJ0AJUTI1Sp8AJUTJ1Ch9ApQgUwE4VoS9I0KPACVFyNUIPQKUFCFXI/QI1Cufh3Se6mLe5Rxkqly9nOAcp2LvAGozNlPzGX5vqd5TfY1dVGbKXL1Jddvszhjszhrsm0XY/d2Us7XsHUCNrlJdDzz2t3lTH6k+R63oR4RcjdAjsFxDrkH25d6YPam9nrnbc/6lsHcAtcvv6+T3bdp7NJvO939l+1Nz3J60yc5b+/zctpe+528c+h8CnFKeU+uZ19LV7kl9+ek5RgAAUI9vRJkFoA==
-  </data>
- </layer>
  <objectgroup color="#9198a4" name="track" width="400" height="30">
   <object name="track" x="39" y="918">
    <polyline points="0,0 88,-3 170,-18 206,-36 242,-55 285,-82 324,-112 358,-130 397,-155 436,-164 482,-164 516,-163 542,-150 566,-99 586,-59 597,-43 618,-37 711,-36 737,-36 770,-36"/>
@@ -152,4 +147,9 @@
   <object x="7887" y="230"/>
   <object x="9779" y="498"/>
  </objectgroup>
+ <layer name="map" width="400" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztzrEJACAMAMFgqZ3uv6vZwSJE7uD7jwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgd6N6AICWZraqJwBoZ2enegIAAHh2AR8UAD0=
+  </data>
+ </layer>
 </map>
