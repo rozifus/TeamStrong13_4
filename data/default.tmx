@@ -114,75 +114,36 @@
   <object name="ruby" x="10418" y="740"/>
   <object name="ruby" x="10485" y="731"/>
   <object name="ruby" x="12592" y="561"/>
-  <object name="ruby" x="11459" y="535"/>
-  <object name="ruby" x="11460" y="572"/>
-  <object name="ruby" x="11462" y="602"/>
-  <object name="ruby" x="11458" y="632"/>
-  <object name="ruby" x="11490" y="577"/>
-  <object name="ruby" x="11515" y="551"/>
-  <object name="ruby" x="11529" y="533"/>
-  <object name="ruby" x="11498" y="595"/>
-  <object name="ruby" x="11520" y="612"/>
-  <object name="ruby" x="11541" y="624"/>
-  <object name="ruby" x="11603" y="540"/>
-  <object name="ruby" x="11612" y="559"/>
-  <object name="ruby" x="11621" y="583"/>
-  <object name="ruby" x="11631" y="608"/>
-  <object name="ruby" x="11642" y="628"/>
-  <object name="ruby" x="11653" y="617"/>
-  <object name="ruby" x="11662" y="596"/>
-  <object name="ruby" x="11669" y="585"/>
-  <object name="ruby" x="11679" y="566"/>
-  <object name="ruby" x="11689" y="546"/>
-  <object name="ruby" x="11692" y="533"/>
-  <object name="ruby" x="11739" y="535"/>
-  <object name="ruby" x="11741" y="558"/>
-  <object name="ruby" x="11741" y="573"/>
-  <object name="ruby" x="11743" y="590"/>
-  <object name="ruby" x="11744" y="604"/>
-  <object name="ruby" x="11763" y="612"/>
-  <object name="ruby" x="11778" y="618"/>
-  <object name="ruby" x="11800" y="619"/>
-  <object name="ruby" x="11811" y="610"/>
-  <object name="ruby" x="11814" y="594"/>
-  <object name="ruby" x="11819" y="576"/>
-  <object name="ruby" x="11817" y="558"/>
-  <object name="ruby" x="11819" y="537"/>
-  <object name="ruby" x="11819" y="521"/>
-  <object name="ruby" x="11885" y="534"/>
-  <object name="ruby" x="11885" y="550"/>
-  <object name="ruby" x="11886" y="567"/>
-  <object name="ruby" x="11885" y="590"/>
-  <object name="ruby" x="11884" y="604"/>
-  <object name="ruby" x="11884" y="625"/>
-  <object name="ruby" x="11884" y="646"/>
-  <object name="ruby" x="11895" y="530"/>
-  <object name="ruby" x="11916" y="531"/>
-  <object name="ruby" x="11944" y="534"/>
-  <object name="ruby" x="11947" y="550"/>
-  <object name="ruby" x="11949" y="569"/>
-  <object name="ruby" x="11933" y="580"/>
-  <object name="ruby" x="11910" y="592"/>
-  <object name="ruby" x="11913" y="603"/>
-  <object name="ruby" x="11930" y="614"/>
-  <object name="ruby" x="11938" y="628"/>
-  <object name="ruby" x="11955" y="641"/>
-  <object name="ruby" x="12001" y="537"/>
-  <object name="ruby" x="12000" y="557"/>
-  <object name="ruby" x="12002" y="583"/>
-  <object name="ruby" x="12002" y="602"/>
-  <object name="ruby" x="12001" y="623"/>
-  <object name="ruby" x="12002" y="636"/>
-  <object name="ruby" x="12018" y="636"/>
-  <object name="ruby" x="12040" y="623"/>
-  <object name="ruby" x="12059" y="604"/>
-  <object name="ruby" x="12062" y="591"/>
-  <object name="ruby" x="12061" y="570"/>
-  <object name="ruby" x="12058" y="551"/>
-  <object name="ruby" x="12035" y="544"/>
-  <object name="ruby" x="12018" y="539"/>
+  <object x="11265" y="492"/>
+  <object x="11301" y="525" width="2" height="2"/>
+  <object x="11294" y="508"/>
+  <object x="11318" y="532" width="2" height="2"/>
+  <object x="11334" y="552" width="3" height="2"/>
+  <object x="11352" y="571"/>
+  <object x="11373" y="590"/>
+  <object x="11390" y="607"/>
+  <object x="11405" y="626"/>
+  <object x="11419" y="645"/>
+  <object x="11438" y="657" height="1"/>
+  <object x="11458" y="659" width="3" height="3"/>
+  <object x="11340" y="547"/>
+  <object x="11324" y="537"/>
+  <object x="11314" y="521"/>
+  <object x="11244" y="487"/>
+  <object x="11227" y="480"/>
+  <object x="11453" y="668"/>
+  <object x="11474" y="686"/>
+  <object x="11491" y="710"/>
+  <object x="11510" y="734"/>
+  <object x="11531" y="749"/>
+  <object x="11556" y="768"/>
+  <object x="11587" y="778"/>
+  <object x="11613" y="792"/>
+  <object x="11633" y="802" height="1"/>
  </objectgroup>
  <objectgroup name="obstacles" width="400" height="30">
   <object x="1563" y="896"/>
+  <object name="exit" x="11904" y="832"/>
+  <object name="exit" x="1876" y="749"/>
  </objectgroup>
 </map>
