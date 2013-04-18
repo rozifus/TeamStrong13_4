@@ -248,7 +248,6 @@ class GameLevel(object):
         # obstacles.
         for obstacle in chain(self.obstacle_list.visible, self.spawn_points):
             if obstacle.collides_with(self.cart):
-                print "collided with {obstacle}".format(**locals())
                 obstacle.collided(self)
 
     def die(self):
@@ -266,7 +265,7 @@ class GameLevel(object):
         self.viewport.reset(Rect(100, self.viewport.y, self.width, self.height))
 
     def game_over(self):
-        if self.lives <= 0:
+        if self.lives <= 1:
             print "ALL YOUR LIFE ARE BELONG TO US"
         sys.exit(0)
 
