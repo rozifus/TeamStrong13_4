@@ -77,11 +77,12 @@ class Track(object):
             for x in xrange(int(start_x), int(end_x), settings.SLEEPER_SPACING):
                 w = (settings.SLEEPER_WIDTH + (random.random() * settings.SLEEPER_WIDTH_JITTER * 2.0 - settings.SLEEPER_WIDTH_JITTER)) / 2.0
                 l = (settings.SLEEPER_LENGTH + (random.random() * settings.SLEEPER_LENGTH_JITTER * 2.0 - settings.SLEEPER_LENGTH_JITTER)) / 2.0
+                skew = random.random() * settings.SLEEPER_SKEW * 2.0 - settings.SLEEPER_SKEW
                 (y, r) = self.track_info_at_x(x)
-                x1 = x - w
-                x2 = x + w
-                x3 = x + w
-                x4 = x - w
+                x1 = x - w + skew
+                x2 = x + w + skew
+                x3 = x + w - skew
+                x4 = x - w - skew
                 y1 = y + l
                 y2 = y + l
                 y3 = y - l
