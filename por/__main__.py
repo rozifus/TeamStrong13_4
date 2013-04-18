@@ -6,6 +6,7 @@ import settings
 
 import entity
 import sounds
+import music
 import cart
 import ruby
 import scene
@@ -22,13 +23,13 @@ def main(levelname):
     pyglet.resource.path = settings.RESOURCE_PATH
     pyglet.resource.reindex()
     sounds.load()
+    music.load()
     game = Game()
     game.start(levelname)
 
 class Game(pyglet.window.Window):
     def __init__(self):
         super(Game, self).__init__(1024, 768, vsync=False)
-        
         # in game coords. viewport is your window into game world
         self.viewport = scene.ViewportManager(Rect(0.0, 0.0, self.width, self.height))
 
@@ -37,20 +38,20 @@ class Game(pyglet.window.Window):
                                              x = settings.SCORE_LABEL_X,
                                              y = settings.SCORE_LABEL_Y,
                                              batch = self.main_batch)
-        
-        self.lives_label = pyglet.text.Label(text = "", 
-                                             x = settings.LIVES_LABEL_X, 
-                                             y = settings.LIVES_LABEL_Y, 
-                                             batch = self.main_batch)
-        
-        self.quit_label = pyglet.text.Label(text = "By NSTeamStrong: q [quit] space [jump]", 
-                                             x = settings.QUIT_LABEL_X, 
-                                             y = settings.QUIT_LABEL_Y, 
+
+        self.lives_label = pyglet.text.Label(text = "",
+                                             x = settings.LIVES_LABEL_X,
+                                             y = settings.LIVES_LABEL_Y,
                                              batch = self.main_batch)
 
-        self.speed_label = pyglet.text.Label(text = "", 
+        self.quit_label = pyglet.text.Label(text = "By NSTeamStrong: q [quit] space [jump]",
+                                             x = settings.QUIT_LABEL_X,
+                                             y = settings.QUIT_LABEL_Y,
+                                             batch = self.main_batch)
+
+        self.speed_label = pyglet.text.Label(text = "",
                                              x = settings.SPEED_LABEL_X,
-                                             y = settings.SPEED_LABEL_Y, 
+                                             y = settings.SPEED_LABEL_Y,
                                              batch = self.main_batch)
 
         self.fps_display = pyglet.clock.ClockDisplay()
@@ -122,7 +123,7 @@ class Game(pyglet.window.Window):
             pyglet.graphics.draw(2, pyglet.gl.GL_LINES,
                     ('v2f', (line.x1 - vpx, line.y1 - vpy, line.x2 - vpx,line.y2 - vpy)),
                     ('c3f', (.8,.8,.8)*2))
-    
+
     def draw_objects(self):
         (vpx, vpy, vpwidth, vpheight) = self.viewport
         for objects in self.objects:
@@ -145,13 +146,12 @@ class Game(pyglet.window.Window):
             print "Resetting cart position"
             self.cart.gp = (100, 650)
 
-        #debug sfx
         elif symbol == pyglet.window.key.I:
             raw_input()
         elif symbol == pyglet.window.key.O:
-            sounds.cart_land.play()
+            music.next()
         elif symbol == pyglet.window.key.P:
-            sounds.cart_ruby.play()
+            music.stop()
 
 
     def on_key_release(self, symbol, modifiers):
@@ -161,7 +161,7 @@ class Game(pyglet.window.Window):
     def update(self, dt):
         # main game loop
         # dt is time in seconds in between calls
-        
+
         # update cart with track info for current x coord
         (track_height, track_angle) = self.track.track_info_at_x(self.cart.gp.x)
         self.cart.update(dt, track_height, track_angle)
