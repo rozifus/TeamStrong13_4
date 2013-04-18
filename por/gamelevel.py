@@ -81,6 +81,7 @@ class GameLevel(object):
         self.obstacle_list.add(self.level.obstacles)
         self.spawn_points = entity.ObjectList({'default': obstacle.Spawn})
         self.spawn_points.add(self.level.spawn)
+        self.entities.extend(self.spawn_points.objects)
 
         self.objects = [self.ruby_list, self.obstacle_list]
 
@@ -125,6 +126,7 @@ class GameLevel(object):
         (vpx, vpy, vpwidth, vpheight) = self.viewport
         for entity in self.entities:
             entity.position = (entity.gp.x - vpx, entity.gp.y - vpy)
+            entity.draw()
 
     def draw_track(self):
         (vpx, vpy, vpwidth, vpheight) = self.viewport
