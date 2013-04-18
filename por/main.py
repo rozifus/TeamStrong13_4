@@ -16,6 +16,8 @@ class Game(object):
         self.window = pyglet.window.Window(width = 1024, height = 768, vsync = False)
         self.current_scene = menu.MainMenu(self)
         sounds.load()
+
+        self.unfinished_levels = [gamelevel.GameLevel, gamelevel.Level2]
     
     def start_scene(self):
         pyglet.resource.path = settings.RESOURCE_PATH
@@ -32,9 +34,9 @@ class Game(object):
         print "Scene finished, result was " + str(result)
         self.stop_scene()
 
-        if result == "play_game":
-            self.current_scene = gamelevel.GameLevel(self)
-            self.start_scene()
+        Level = self.unfinished_levels.pop(0)
+        self.current_scene = Level(self)
+        self.start_scene()
 
 def run():
     game = Game()

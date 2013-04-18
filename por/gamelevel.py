@@ -245,3 +245,7 @@ class GameLevel(object):
         self.cart.gp = Point(100.0, 650.0)
         self.cart.batch = self.main_batch
         self.entities.append(self.cart)
+
+class Level2(GameLevel):
+    def start(self):
+        self.start2("level2")
