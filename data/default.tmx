@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="400" height="30" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="rails" tilewidth="32" tileheight="32">
-  <image source="images/underground.png" width="256" height="96"/>
+  <image source="images/underground.png" width="256" height="128"/>
  </tileset>
  <layer name="map" width="400" height="30">
   <data encoding="base64" compression="zlib">
-   eJzt3NkOgjAQBVBQ3LfE//9Y24dGQnCpS1r0nGQiEmnmieuE0KYBAAAAAAAAAAAAAAAAAAAAAAAAAGBqTqHaULNQ88K9ADANh1DH0k0AMCmyA4BcsgOAXLIDgFyyA4BcsgOAXLIDgFyyA4BcsgOgrPR+dvxchFqWbecpn8qO1QfWAPhX50HVfk81dwDUJ+bHOtTmxev7+03FemaeubVHVddbJ9W+kR0ANXpnBrk1F9xbyywB8Fu2oXbN9blI+v8f54OYL93g/L25IK3VZlxTm9Rzv//0PdXY/r5xlutGfj88nn23fYCHhve5WpxLNwDAJMkPgHpdAF2SA2g=
+   eJzt3dlugzAQBVCSpvu+qe3//2idB1QHlTQBYmrmHGmURQF58nAteBiaBgAAAAAAAAAAAAAAAAAAAAAAhnlM9ZxqlWqdva6zz6vO+22dzbFYgH+uzdRtZi45J19Svc69CICFiJKp96ke5l4EwEJEydQofQKUECVTo/QJUEKUTI3SJ0AJUTI1Sp8AJUTJ1Ch9ApQgUwE4VoS9I0KPACVFyNUIPQKUFCFXI/QI1Cufh3Se6mLe5Rxkqly9nOAcp2LvAGozNlPzGX5vqd5TfY1dVGbKXL1Jddvszhjszhrsm0XY/d2Us7XsHUCNrlJdDzz2t3lTH6k+R63oR4RcjdAjsFxDrkH25d6YPam9nrnbc/6lsHcAtcvv6+T3bdp7NJvO939l+1Nz3J60yc5b+/zctpe+528c+h8CnFKeU+uZ19LV7kl9+ek5RgAAUI9vRJkFoA==
   </data>
  </layer>
  <objectgroup name="track" width="400" height="30">
@@ -13,19 +13,19 @@
    <polyline points="0,0 88,-3 170,-18 206,-36 242,-55 285,-82 324,-112 358,-130 397,-155 436,-164 482,-164 516,-163 542,-150 566,-99 586,-59 597,-43 618,-37 711,-36 737,-36 770,-36"/>
   </object>
   <object name="track" x="876" y="873">
-   <polyline points="10,15 68,12 100,16 140,12 178,-27 201,-58 232,-61 262,-57 286,-56 308,-58 341,-44 370,3 419,8 454,7 472,5 538,6 575,-9 595,-29 614,-54 649,-57 683,-54 704,-53"/>
+   <polyline points="10,15 68,15 102,16 140,12 184,-29 223,-65 254,-81 286,-86 334,-84 365,-72 409,-3 424,28 439,40 474,46 519,46 557,46 590,45 649,45 704,47"/>
   </object>
   <object name="track" x="1685" y="800">
-   <polyline points="8,22 96,22 141,21 172,16 214,-28 255,-71 287,-105 346,-158 406,-219 521,-338 546,-363 578,-363 632,-368"/>
+   <polyline points="-27,88 34,86 83,62 148,44 214,-28 255,-71 287,-105 346,-158 406,-219 540,-355 570,-379 604,-394 661,-395"/>
   </object>
   <object name="track" x="2464" y="755">
-   <polyline points="0,0 27,23 62,48 90,64 139,81 258,112 312,121 385,123 437,125 495,125 565,128 600,129"/>
+   <polyline points="-3,-19 27,23 66,39 143,38 240,35 301,34 370,34 463,35 537,35 616,35"/>
   </object>
   <object x="3282" y="885">
-   <polyline points="0,0 112,6 242,3 294,-3 397,-33 479,-64 530,-103 606,-170 658,-212"/>
+   <polyline points="0,0 112,6 242,3 294,5 337,-10 400,-67 485,-156 526,-198 569,-243"/>
   </object>
   <object x="4024" y="612">
-   <polyline points="0,0 79,-70 158,-127 221,-182 327,-236 421,-255 524,-264 552,-261"/>
+   <polyline points="-104,-5 78,-193 140,-232 192,-240 320,-239 409,-241 504,-241 558,-242"/>
   </object>
   <object x="4591" y="512">
    <polyline points="0,0 139,-3 233,0 309,9 352,24 403,58 458,91 521,133 564,155 642,170 752,179 858,185 933,179"/>
@@ -80,13 +80,13 @@
   <object name="ruby" x="2530" y="448"/>
   <object name="ruby" x="2563" y="518"/>
   <object name="ruby" x="2585" y="575"/>
-  <object name="ruby" x="2605" y="654"/>
-  <object name="ruby" x="2625" y="752"/>
-  <object name="ruby" x="2762" y="799"/>
-  <object name="ruby" x="2922" y="795"/>
-  <object name="ruby" x="3053" y="833"/>
+  <object name="ruby" x="2594" y="654"/>
+  <object name="ruby" x="2608" y="718"/>
+  <object name="ruby" x="2767" y="714"/>
+  <object name="ruby" x="2982" y="711"/>
+  <object name="ruby" x="3018" y="713"/>
   <object name="ruby" x="3174" y="714"/>
-  <object name="ruby" x="3928" y="579"/>
+  <object name="ruby" x="3884" y="525"/>
   <object name="ruby" x="4606" y="211"/>
   <object name="ruby" x="4701" y="219"/>
   <object name="ruby" x="4817" y="271"/>
@@ -183,6 +183,6 @@
   <object name="ruby" x="12018" y="539"/>
  </objectgroup>
  <objectgroup name="obstacles" width="400" height="30">
-  <object x="1562" y="788"/>
+  <object x="1563" y="896"/>
  </objectgroup>
 </map>
