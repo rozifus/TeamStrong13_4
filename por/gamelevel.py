@@ -17,21 +17,15 @@ import obstacle
 from collections import namedtuple
 from utils import Point, Vec2d, Rect
 
-def main(levelname):
-    """ your app starts here
-    """
-    pyglet.resource.path = settings.RESOURCE_PATH
-    pyglet.resource.reindex()
-    sounds.load()
-    music.load()
-    game = Game()
-    game.start(levelname)
-
-class Game(pyglet.window.Window):
-    def __init__(self):
-        super(Game, self).__init__(1024, 768, vsync=False)
+class GameLevel(object):
+    def __init__(self, game):
+        super(GameLevel, self).__init__()
         # in game coords. viewport is your window into game world
+        self.game = game
+        self.width = self.game.window.width
+        self.height = self.game.window.height
         self.viewport = scene.ViewportManager(Rect(0.0, 0.0, self.width, self.height))
+        
 
         self.main_batch = pyglet.graphics.Batch()
         self.score_label = pyglet.text.Label(text = "",
@@ -57,11 +51,24 @@ class Game(pyglet.window.Window):
         self.fps_display = pyglet.clock.ClockDisplay()
         self.cart = None
         self.entities = []
+    
+    # next 3 are needed to play nicely with scene manager
+    def start(self):
+        self.start2("default")
 
-    def start(self, levelname):
+    def stop(self):
+        pyglet.clock.unschedule(self.update)
+        pass
+
+    def finish(self):
+        self.game.scene_finished("BLAH BLAH BLAH")
+
+    def start2(self, levelname):
+        sounds.load()
         self.score = 0
         self.lives = settings.STARTING_LIVES
         self.update_labels()
+        print str(pyglet.resource.path)
         self.level = level.load(levelname)
         self.track = track.Track()
         self.track.add_tracks(self.level.tracks)
@@ -77,13 +84,10 @@ class Game(pyglet.window.Window):
         # now check the level contents.
         self.bg = scene.Background(self.level.layers, self.viewport)
 
-
         pyglet.clock.schedule(self.update) # main loop
-        pyglet.app.run()
-
 
     def on_draw(self): #runs every frame
-        self.clear()
+        self.game.window.clear()
         #
         # the basic idea behind scrolling is as follows:
         # - the level is large, say from (0, 0) to (10000, 2000)
