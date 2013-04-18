@@ -72,9 +72,11 @@ class GameLevel(object):
         self.level = level.load(levelname)
         self.track = track.Track()
         self.track.add_tracks(self.level.tracks)
-        self.ruby_list = entity.ObjectList(ruby.Ruby)
+        self.ruby_list = entity.ObjectList({'default': ruby.Ruby})
         self.ruby_list.add(self.level.rubies)
-        self.obstacle_list = entity.ObjectList(obstacle.Obstacle)
+        self.obstacle_list = entity.ObjectList({
+                                        'default': obstacle.Obstacle,
+                                        'exit': obstacle.EndLevel})
         self.obstacle_list.add(self.level.obstacles)
 
         self.objects = [self.ruby_list, self.obstacle_list]
@@ -211,7 +213,7 @@ class GameLevel(object):
         for obstacle in self.obstacle_list.visible:
             if self.cart.collides_with(obstacle):
                 print "collided with {obstacle}".format(**locals())
-                self.die()
+                obstacle.collided(self)
 
     def die(self):
         if self.lives > 1:

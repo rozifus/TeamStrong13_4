@@ -62,15 +62,18 @@ class Entity(pyglet.sprite.Sprite):
         return "{classname}({x}, {y})".format(**locals())
 
 class ObjectList(object):
-    def __init__(self, Klass):
+    def __init__(self, klass_dict):
         self.objects = []
         self.visible = []
-        self.Klass = Klass
+        self.klass_dict = klass_dict
 
     def add(self, points):
         for point in points:
-            new = self.Klass()
-            new.gp = Point(*point)
+            # points can be named (in Tiled) so you can have multiple object types
+            # in the one level. handy for grouping all collideable objects together.
+            Klass = self.klass_dict.get(point.name, self.klass_dict['default'])
+            new = Klass()
+            new.gp = Point(point.x, point.y)
             self.objects.append(new)
 
     def update_visible(self, viewport):

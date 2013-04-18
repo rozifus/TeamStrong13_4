@@ -64,9 +64,7 @@ class LevelLoader(object):
         return self.point_objects(attr)
 
     def point_objects(self, name):
-        objects = []
-        for tile in self.tmx[name]:
-            objects.append((tile.x, tile.y))
+        objects = list(self.tmx[name])
         number = len(objects)
         print "number of {name} in level is {number}".format(**locals())
         return objects
