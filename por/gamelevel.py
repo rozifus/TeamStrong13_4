@@ -3,6 +3,7 @@ import sys
 import math
 import random
 import settings
+from itertools import chain
 
 import entity
 import sounds
@@ -72,10 +73,15 @@ class GameLevel(object):
         self.level = level.load(levelname)
         self.track = track.Track()
         self.track.add_tracks(self.level.tracks)
-        self.ruby_list = entity.ObjectList(ruby.Ruby)
+        self.ruby_list = entity.ObjectList({'default': ruby.Ruby})
         self.ruby_list.add(self.level.rubies)
-        self.obstacle_list = entity.ObjectList(obstacle.Obstacle)
+        self.obstacle_list = entity.ObjectList({
+                                        'default': obstacle.Obstacle,
+                                        'exit': obstacle.EndLevel})
         self.obstacle_list.add(self.level.obstacles)
+        self.spawn_points = entity.ObjectList({'default': obstacle.Spawn})
+        self.spawn_points.add(self.level.spawn)
+        self.entities.extend(self.spawn_points.objects)
 
         self.objects = [self.ruby_list, self.obstacle_list]
 
@@ -108,7 +114,7 @@ class GameLevel(object):
 
          #for now, just assume everything needs to be rendered
         self.draw_track()
-        self.bg.draw()
+        #self.bg.draw()
         self.update_labels()
         self.draw_entities()
         self.draw_objects()
@@ -120,13 +126,55 @@ class GameLevel(object):
         (vpx, vpy, vpwidth, vpheight) = self.viewport
         for entity in self.entities:
             entity.position = (entity.gp.x - vpx, entity.gp.y - vpy)
+            entity.draw()
 
     def draw_track(self):
         (vpx, vpy, vpwidth, vpheight) = self.viewport
+        points = []
+        for i in range(0, 25):
+            (track_height, track_angle) = self.track.track_info_at_x(vpx + i * vpwidth / 25.0)
+            points.append(Point(i * vpwidth / 25.0, track_height - vpy))
+            
+        vertices = []
+        colors = []
+        for point in points:
+            # 1 top left, 2 top right, 3 bottom right, 4 bottom left of sleeper
+            sl = settings.SLEEPER_LENGTH / 2.0
+            sw = settings.SLEEPER_WIDTH / 2.0
+            x = point.x
+            y = point.y
+            x1 = x - sw
+            y1 = y + sl
+            x2 = x + sw
+            y2 = y + sl 
+            x3 = x + sw
+            y3 = y - sl
+            x4 = x - sw
+            y4 = y - sl
+            vertices.extend([x1, y1, x2, y2, x3, y3, x4, y4])
+            colors.extend(settings.TRACK_COLOR_TOP)
+            colors.extend(settings.TRACK_COLOR_BOTTOM)
+
+        vlist = pyglet.graphics.vertex_list(len(range(0, 25)) * 4,
+                ('v2f/stream', vertices),
+                ('c3f/stream', colors))
+        vlist.draw(pyglet.gl.GL_QUADS)
+        vlist.delete()
+        """
+        vertices = []
+        colors = []
         for line in self.track.visible_track_segments:
-            pyglet.graphics.draw(2, pyglet.gl.GL_LINES,
-                    ('v2f', (line.x1 - vpx, line.y1 - vpy, line.x2 - vpx,line.y2 - vpy)),
-                    ('c3f', (.8,.8,.8)*2))
+            vertices.extend([line.x1 - vpx, line.y1 - vpy + settings.TRACK_WIDTH/2.0, line.x2 - vpx, line.y2 - vpy + settings.TRACK_WIDTH/2.0])
+            colors.extend(settings.TRACK_COLOR_TOP)
+            vertices.extend([line.x2 - vpx, line.y2 - vpy - settings.TRACK_WIDTH/2.0, line.x1 - vpx, line.y1 - vpy - settings.TRACK_WIDTH/2.0])
+            colors.extend(settings.TRACK_COLOR_BOTTOM)
+
+        vlist = pyglet.graphics.vertex_list(len(self.track.visible_track_segments) * 4,
+                ('v2f/stream', vertices),
+                ('c3f/stream', colors))
+        vlist.draw(pyglet.gl.GL_QUADS)
+        vlist.delete()
+        """
 
     def draw_objects(self):
         (vpx, vpy, vpwidth, vpheight) = self.viewport
@@ -191,7 +239,6 @@ class GameLevel(object):
         # rubies.
         rubies_to_delete = self.cart.collided_objects(self.ruby_list.visible)
         for ruby in rubies_to_delete:
-            print "collected ruby " + str(ruby)
             self.score += 1
             self.ruby_list.objects.remove(ruby)
 
@@ -199,10 +246,9 @@ class GameLevel(object):
             sounds.cart_ruby.play()
 
         # obstacles.
-        for obstacle in self.obstacle_list.visible:
-            if self.cart.collides_with(obstacle):
-                print "collided with {obstacle}".format(**locals())
-                self.die()
+        for obstacle in chain(self.obstacle_list.visible, self.spawn_points):
+            if obstacle.collides_with(self.cart):
+                obstacle.collided(self)
 
     def die(self):
         if self.lives > 1:
@@ -214,12 +260,12 @@ class GameLevel(object):
             self.game_over()
 
     def reset_level(self):
-        self.cart.gp = Point(100.0, 650.0)
+        self.cart.gp = self.spawn_points[0].gp
         self.cart.reset()
         self.viewport.reset(Rect(100, self.viewport.y, self.width, self.height))
 
     def game_over(self):
-        if self.lives <= 0:
+        if self.lives <= 1:
             print "ALL YOUR LIFE ARE BELONG TO US"
         sys.exit(0)
 
@@ -231,6 +277,10 @@ class GameLevel(object):
 
     def create_cart(self):
         self.cart = cart.Cart()
-        self.cart.gp = Point(100.0, 650.0)
+        self.cart.gp = self.spawn_points[0].gp
         self.cart.batch = self.main_batch
         self.entities.append(self.cart)
+
+class Level2(GameLevel):
+    def start(self):
+        self.start2("level2")

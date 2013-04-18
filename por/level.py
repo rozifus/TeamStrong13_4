@@ -53,7 +53,6 @@ class LevelLoader(object):
                     LineSegment(
                         x1 + track.x, -y1 + track.y,
                         x2 + track.x, -y2 + track.y))
-        print "number of segments in level is " + str(len(segments))
         return segments
 
     def __getattr__(self, attr):
@@ -64,11 +63,8 @@ class LevelLoader(object):
         return self.point_objects(attr)
 
     def point_objects(self, name):
-        objects = []
-        for tile in self.tmx[name]:
-            objects.append((tile.x, tile.y))
+        objects = list(self.tmx[name])
         number = len(objects)
-        print "number of {name} in level is {number}".format(**locals())
         return objects
 
 
@@ -77,7 +73,6 @@ def load(level):
     Load level number from tmx file.
     """
     levelfname = level + ".tmx"
-    print "Loading level " + levelfname
 
     # first one is good for images.
     tmx = tmxloader.load_tmx(

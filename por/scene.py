@@ -80,8 +80,6 @@ class Background(object):
                     image_file = resources.indexed_tiles[image_id][2]
                     x, y = (worldmap.tilewidth * xtile,
                             worldmap.tileheight * (layer.height - ytile))
-                    print "making sprite! {x}, {y} -> {image_file}".format(
-                        **locals())
 
 
                     sprite = pyglet.sprite.Sprite(

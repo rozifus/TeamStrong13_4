@@ -15,7 +15,6 @@ class Cart(entity.Entity):
 
     def jump(self):
         if self.on_track:
-            print "Jumping cart"
             sounds.cart_jump.play()
             self.velocity_y = settings.CART_JUMP_VELOCITY
             self.rotation = settings.CART_JUMP_ROTATION

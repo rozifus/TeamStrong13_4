@@ -40,4 +40,4 @@ nosetests.xml
 *.sublime*
 
 # junky files.
-Gerald*.svg
+*.svg
