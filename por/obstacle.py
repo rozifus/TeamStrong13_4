@@ -57,6 +57,5 @@ class Spawn(InfiniteHeightObstacle):
 
     def collided(self, game):
         # remove the just passed spawn point.
-        print "popping n locking!!"
         game.spawn_points.pop(0)
 
