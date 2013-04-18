@@ -5,7 +5,7 @@
    eJztwTEBAAAAwqD1T+1pCaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4Aa7gAAB
   </data>
  </layer>
- <objectgroup name="track" width="400" height="30">
+ <objectgroup color="#858ca4" name="track" width="400" height="30">
   <object x="8" y="529">
    <polyline points="0,0 355,3 753,9 952,3 1179,-53 1359,-118 1486,-233 1584,-340 1675,-391"/>
   </object>
@@ -55,7 +55,7 @@
    <polyline points="0,0 947,-5"/>
   </object>
  </objectgroup>
- <objectgroup name="rubies" width="400" height="30">
+ <objectgroup color="#a41214" name="rubies" width="400" height="30">
   <object x="144" y="393"/>
   <object x="155" y="422"/>
   <object x="169" y="452"/>
@@ -156,8 +156,8 @@
   <object x="11837" y="379"/>
   <object x="11852" y="378"/>
  </objectgroup>
- <objectgroup name="obstacles" width="400" height="30">
-  <object name="exit" x="12009" y="493"/>
+ <objectgroup color="#141311" name="obstacles" width="400" height="30">
+  <object name="exit" x="11991" y="492" width="28" height="37"/>
   <object x="2580" y="607"/>
   <object x="3549" y="509"/>
   <object x="5121" y="182"/>
@@ -165,5 +165,11 @@
   <object x="7398" y="196"/>
   <object x="8301" y="321"/>
   <object x="10283" y="144"/>
+ </objectgroup>
+ <objectgroup color="#3ca410" name="spawn" width="400" height="30">
+  <object x="258" y="130"/>
+  <object x="3099" y="340"/>
+  <object x="6072" y="409"/>
+  <object x="8997" y="623"/>
  </objectgroup>
 </map>

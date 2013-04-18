@@ -10,6 +10,7 @@ class Entity(pyglet.sprite.Sprite):
 
     # just set this to the settings image value in the subclass.
     IMAGE = None
+    name = None
 
     def __init__(self, *args, **kwargs):
         if self.IMAGE:
@@ -73,6 +74,7 @@ class ObjectList(object):
             # in the one level. handy for grouping all collideable objects together.
             Klass = self.klass_dict.get(point.name, self.klass_dict['default'])
             new = Klass()
+            new.name = point.name
             new.gp = Point(point.x, point.y)
             self.objects.append(new)
 
@@ -81,3 +83,8 @@ class ObjectList(object):
             obj for obj in self.objects
             if point_in_rect(obj.gp, viewport)]
 
+    def __getitem__(self, item):
+        return self.objects[item]
+
+    def pop(self, idx=None):
+        return self.objects.pop(idx)

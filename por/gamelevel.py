@@ -3,6 +3,7 @@ import sys
 import math
 import random
 import settings
+from itertools import chain
 
 import entity
 import sounds
@@ -78,6 +79,8 @@ class GameLevel(object):
                                         'default': obstacle.Obstacle,
                                         'exit': obstacle.EndLevel})
         self.obstacle_list.add(self.level.obstacles)
+        self.spawn_points = entity.ObjectList({'default': obstacle.Spawn})
+        self.spawn_points.add(self.level.spawn)
 
         self.objects = [self.ruby_list, self.obstacle_list]
 
@@ -202,7 +205,6 @@ class GameLevel(object):
         # rubies.
         rubies_to_delete = self.cart.collided_objects(self.ruby_list.visible)
         for ruby in rubies_to_delete:
-            print "collected ruby " + str(ruby)
             self.score += 1
             self.ruby_list.objects.remove(ruby)
 
@@ -210,8 +212,8 @@ class GameLevel(object):
             sounds.cart_ruby.play()
 
         # obstacles.
-        for obstacle in self.obstacle_list.visible:
-            if self.cart.collides_with(obstacle):
+        for obstacle in chain(self.obstacle_list.visible, self.spawn_points):
+            if obstacle.collides_with(self.cart):
                 print "collided with {obstacle}".format(**locals())
                 obstacle.collided(self)
 
@@ -225,7 +227,7 @@ class GameLevel(object):
             self.game_over()
 
     def reset_level(self):
-        self.cart.gp = Point(100.0, 650.0)
+        self.cart.gp = self.spawn_points[0].gp
         self.cart.reset()
         self.viewport.reset(Rect(100, self.viewport.y, self.width, self.height))
 
@@ -242,7 +244,7 @@ class GameLevel(object):
 
     def create_cart(self):
         self.cart = cart.Cart()
-        self.cart.gp = Point(100.0, 650.0)
+        self.cart.gp = self.spawn_points[0].gp
         self.cart.batch = self.main_batch
         self.entities.append(self.cart)
 
