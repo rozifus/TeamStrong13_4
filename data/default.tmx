@@ -3,12 +3,14 @@
  <tileset firstgid="1" name="rails" tilewidth="32" tileheight="32">
   <image source="images/underground.png" width="256" height="128"/>
  </tileset>
+ <layer name="map" width="400" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1pCaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4Aa7gAAB
+  </data>
+ </layer>
  <objectgroup color="#9198a4" name="track" width="400" height="30">
   <object name="track" x="39" y="918">
-   <polyline points="0,0 88,-3 170,-18 206,-36 242,-55 285,-82 324,-112 358,-130 397,-155 436,-164 482,-164 516,-163 542,-150 566,-99 586,-59 597,-43 618,-37 711,-36 737,-36 770,-36"/>
-  </object>
-  <object name="track" x="876" y="873">
-   <polyline points="10,15 68,15 102,16 140,12 184,-29 223,-65 254,-81 286,-86 334,-84 365,-72 409,-3 424,28 439,40 474,46 519,46 557,46 590,45 649,45 704,47"/>
+   <polyline points="0,0 88,-3 170,-18 206,-36 242,-55 291,-76 344,-98 427,-115 499,-115 597,-89 679,-47 737,-36 767,-34"/>
   </object>
   <object name="track" x="1685" y="800">
    <polyline points="-27,88 34,86 83,62 148,44 214,-28 255,-71 287,-105 346,-158 406,-219 540,-355 570,-379 604,-394 661,-395"/>
@@ -32,10 +34,10 @@
    <polyline points="0,0 52,-39 97,-67 127,-76 173,-88 221,-91 252,-91"/>
   </object>
   <object x="7136" y="339">
-   <polyline points="0,0 42,-3 91,-6 158,3 203,-6 252,-6 309,-6"/>
+   <polyline points="0,0 42,-3 91,-6 158,3 203,-6 252,-6 315,-18"/>
   </object>
   <object x="7464" y="258">
-   <polyline points="0,0 58,0 124,3 185,6 212,6 239,6"/>
+   <polyline points="0,35 73,32 133,23 264,-6"/>
   </object>
   <object x="7815" y="264">
    <polyline points="0,0 67,0 127,6 209,12 276,30 333,48 439,88 506,112 552,139 618,167 679,194"/>
@@ -51,6 +53,9 @@
   </object>
   <object x="9891" y="827">
    <polyline points="0,0 130,-6 239,-3 397,3 497,3 585,-6 624,-30 688,-61 752,-109 800,-161 864,-236 915,-285 982,-321 1064,-342 1182,-348 1258,-345 1352,-306 1409,-276 1506,-176 1576,-115 1615,-64 1694,-9 1918,36 2070,39 2185,30 2258,24 2364,-15 2448,-64 2524,-79 2606,-79"/>
+  </object>
+  <object x="813" y="884">
+   <polyline points="-7,-1 53,1 109,-9 187,-24 276,-50 400,-63 449,-54 492,-41 546,-26 610,-8 659,8 751,14"/>
   </object>
  </objectgroup>
  <objectgroup color="#a4101f" name="rubies" width="400" height="30">
@@ -137,7 +142,7 @@
   <object x="11633" y="802" height="1"/>
  </objectgroup>
  <objectgroup color="#14150d" name="obstacles" width="400" height="30">
-  <object x="1563" y="896"/>
+  <object x="1565" y="857"/>
   <object name="exit" x="11913" y="826" width="30" height="57"/>
  </objectgroup>
  <objectgroup color="#1ea43e" name="spawn" width="400" height="30">
@@ -147,9 +152,4 @@
   <object x="7887" y="230"/>
   <object x="9779" y="498"/>
  </objectgroup>
- <layer name="map" width="400" height="30">
-  <data encoding="base64" compression="zlib">
-   eJztzrEJACAMAMFgqZ3uv6vZwSJE7uD7jwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgd6N6AICWZraqJwBoZ2enegIAAHh2AR8UAD0=
-  </data>
- </layer>
 </map>
