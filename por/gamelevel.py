@@ -133,10 +133,13 @@ class GameLevel(object):
         (vpx, vpy, vpwidth, vpheight) = self.viewport
         vertices = []
         colors = []
+        #sleeper magick
         for sleeper in self.track.visible_sleepers:
             # 1 top left, 2 top right, 3 bottom right, 4 bottom left of sleeper
-            sl = settings.SLEEPER_LENGTH / 2.0
-            sw = settings.SLEEPER_WIDTH / 2.0
+            jitter_length = (random.random() * 20.0 - 10.0)
+            jitter_width = (random.random() * 10.0 - 5.0)
+            sl = settings.SLEEPER_LENGTH / 2.0 + jitter_length
+            sw = settings.SLEEPER_WIDTH / 2.0 + jitter_width
             (x, y, r) = sleeper
             x -= vpx
             y -= vpy 
