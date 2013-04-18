@@ -18,9 +18,16 @@ import obstacle
 from collections import namedtuple
 from utils import Point, Vec2d, Rect
 
+glevels = []
+
 class GameLevel(object):
+    name = "default"
+
     def __init__(self, game):
         super(GameLevel, self).__init__()
+
+        glevels.append(self)
+
         # in game coords. viewport is your window into game world
         self.game = game
         pyglet.gl.glClearColor(*settings.BACKGROUND_COLOUR)
@@ -56,14 +63,14 @@ class GameLevel(object):
     
     # next 3 are needed to play nicely with scene manager
     def start(self):
-        self.start2("default")
+        self.start2(self.name)
 
     def stop(self):
         pyglet.clock.unschedule(self.update)
         pass
 
     def finish(self, skip=None):
-        self.game.scene_finished(skip=skip)
+        self.game.scene_finished('Viktorious', skip=skip)
 
     def start2(self, levelname):
         sounds.load()
@@ -272,16 +279,17 @@ class GameLevel(object):
         self.cart.batch = self.main_batch
         self.entities.append(self.cart)
 
-class Level2(GameLevel):
-    def start(self):
-        self.start2("level2")
+class Level2(GameLevel): name = "level2"
+class Level3(GameLevel): name = "level3"
+
+glevels.extend([GameLevel, Level2, Level3])
 
 # for now allow skipping.
 skip = {
-    pyglet.window.key.NUM_1: 1
-    , pyglet.window.key.NUM_2: 2
-    , pyglet.window.key.NUM_3: 3
-    , pyglet.window.key.NUM_4: 4
-    , pyglet.window.key.NUM_5: 5
+    pyglet.window.key._1: 1
+    , pyglet.window.key._2: 2
+    , pyglet.window.key._3: 3
+    , pyglet.window.key._4: 4
+    , pyglet.window.key._5: 5
 }
 

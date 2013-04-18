@@ -1,5 +1,7 @@
 # main game file for Python on Rails
 
+import copy
+
 import pyglet
 import settings
 import menu
@@ -17,8 +19,9 @@ class Game(object):
         self.current_scene = menu.MainMenu(self)
         sounds.load()
 
-        self.unfinished_levels = [gamelevel.GameLevel, gamelevel.Level2]
-    
+        self.unfinished_levels = copy.copy(gamelevel.glevels)
+        self.loaded_level = -1
+
     def start_scene(self):
         pyglet.resource.path = settings.RESOURCE_PATH
         pyglet.resource.reindex()
@@ -35,11 +38,14 @@ class Game(object):
         self.stop_scene()
 
         if skip:
-            for i in range(skip - 1):
-                self.unfinished_levels.pop(0)
+            index = skip - 1 
+        else:
+            index = self.loaded_level + 1
 
-        Level = self.unfinished_levels.pop(0)
+        Level = self.unfinished_levels[index]
         self.current_scene = Level(self)
+
+        self.loaded_level = index
         self.start_scene()
 
 def run():
