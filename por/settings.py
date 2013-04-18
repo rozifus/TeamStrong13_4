@@ -40,6 +40,9 @@ ANVIL_IMAGE = "anvil.png"
 POST_IMAGE = "post.png"
 SPAWN_IMAGE = "flower.png"
 
+def normalized_colour(*colours):
+    return tuple(colour / 255. for colour in colours)
+
 GRAVITY = -3000.0 # pixels/s**2
 TRACK_FUZZ = 10.0 # fuzziness of track detection algorithm
 TRACK_WIDTH = 30.0
@@ -69,3 +72,5 @@ MENU_COLOR_BY = (50, 50, 50, 255)
 MENU_COLOR_CONTROLS = (100, 100, 100, 255)
 MENU_COLOR_OPTION = (200, 200, 200, 200)
 MENU_COLOR_OPTION_SELECTED = (255, 255, 255, 255)
+
+BACKGROUND_COLOUR = normalized_colour(20, 20, 20, 255)
