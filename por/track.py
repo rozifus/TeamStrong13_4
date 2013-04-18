@@ -3,9 +3,11 @@
 #
 from __future__ import division
 import math
+import random
 import settings
-from utils import Point, Vec2d, Rect
+from utils import Point, Vec2d, Rect, Sleeper
 import utils
+
 
 TRACK_FRICTION = 0.05
 SEGMENT_RADIUS = 2
@@ -48,8 +50,7 @@ class Track(object):
         
         self.visible_sleepers = []
         for sleeper in self.sleepers:
-            (x, y, r) = sleeper
-            if utils.point_in_rect((x, y), viewport):
+            if utils.point_in_rect((sleeper.x, sleeper.y), viewport):
                 self.visible_sleepers.append(sleeper)
         print str(len(self.visible_sleepers))
 
@@ -63,7 +64,6 @@ class Track(object):
         else:
             result = False
         return result
-        
 
     def generate_sleepers(self):
         if len(self.track_segments):
@@ -73,10 +73,22 @@ class Track(object):
 
             start_x = math.floor(sx1 / settings.SLEEPER_SPACING) * settings.SLEEPER_SPACING
             end_x = (math.floor(ex2 / settings.SLEEPER_SPACING) + 1.0) * settings.SLEEPER_SPACING
-            print "sleeper startx is " + str(start_x) + " end x is " + str(end_x)
+            
             for x in xrange(int(start_x), int(end_x), settings.SLEEPER_SPACING):
-                (th, ta) = self.track_info_at_x(x)
-                self.sleepers.append((x, th, ta))
+                w = (settings.SLEEPER_WIDTH + (random.random() * settings.SLEEPER_WIDTH_JITTER * 2.0 - settings.SLEEPER_WIDTH_JITTER)) / 2.0
+                l = (settings.SLEEPER_LENGTH + (random.random() * settings.SLEEPER_LENGTH_JITTER * 2.0 - settings.SLEEPER_LENGTH_JITTER)) / 2.0
+                (y, r) = self.track_info_at_x(x)
+                x1 = x - w
+                x2 = x + w
+                x3 = x + w
+                x4 = x - w
+                y1 = y + l
+                y2 = y + l
+                y3 = y - l
+                y4 = y - l
+                ctr, ctg, ctb = settings.SLEEPER_COLOR_TOP
+                cbr, cbg, cbb = settings.SLEEPER_COLOR_BOTTOM
+                self.sleepers.append(Sleeper(x, y, r, x1, y1, x2, y2, x3, y3, x4, y4, ctr, ctg, ctb, cbr, cbg, cbb))
 
             print str(self.sleepers)
 

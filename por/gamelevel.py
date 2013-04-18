@@ -134,25 +134,10 @@ class GameLevel(object):
         colors = []
         #sleeper magick
         for sleeper in self.track.visible_sleepers:
-            # 1 top left, 2 top right, 3 bottom right, 4 bottom left of sleeper
-            jitter_length = (random.random() * 20.0 - 10.0)
-            jitter_width = (random.random() * 10.0 - 5.0)
-            sl = settings.SLEEPER_LENGTH / 2.0 + jitter_length
-            sw = settings.SLEEPER_WIDTH / 2.0 + jitter_width
-            (x, y, r) = sleeper
-            x -= vpx
-            y -= vpy 
-            x1 = x - sw
-            y1 = y + sl
-            x2 = x + sw
-            y2 = y + sl 
-            x3 = x + sw
-            y3 = y - sl
-            x4 = x - sw
-            y4 = y - sl
-            vertices.extend([x1, y1, x2, y2, x3, y3, x4, y4])
-            colors.extend(settings.SLEEPER_COLOR_TOP)
-            colors.extend(settings.SLEEPER_COLOR_BOTTOM)
+            (x, y, r, x1, y1, x2, y2, x3, y3, x4, y4, ctr, ctg, ctb, cbr, cbg, cbb) = sleeper
+            vertices.extend([x1 - vpx, y1 - vpy, x2 - vpx, y2 - vpy, x3 - vpx, y3 - vpy, x4 - vpx, y4 - vpy])
+            colors.extend([ctr, ctg, ctb, ctr, ctg, ctb])
+            colors.extend([cbr, cbg, cbb, cbr, cbg, cbb])
 
         vlist = pyglet.graphics.vertex_list(len(self.track.visible_sleepers) * 4,
                 ('v2f/stream', vertices),
