@@ -108,7 +108,7 @@ class GameLevel(object):
 
          #for now, just assume everything needs to be rendered
         self.draw_track()
-        self.bg.draw()
+        #self.bg.draw()
         self.update_labels()
         self.draw_entities()
         self.draw_objects()
@@ -123,10 +123,19 @@ class GameLevel(object):
 
     def draw_track(self):
         (vpx, vpy, vpwidth, vpheight) = self.viewport
+        vertices = []
+        colors = []
         for line in self.track.visible_track_segments:
-            pyglet.graphics.draw(2, pyglet.gl.GL_LINES,
-                    ('v2f', (line.x1 - vpx, line.y1 - vpy, line.x2 - vpx,line.y2 - vpy)),
-                    ('c3f', (.8,.8,.8)*2))
+            vertices.extend([line.x1 - vpx, line.y1 - vpy + settings.TRACK_WIDTH/2.0, line.x2 - vpx, line.y2 - vpy + settings.TRACK_WIDTH/2.0])
+            colors.extend(settings.TRACK_COLOR_TOP)
+            vertices.extend([line.x2 - vpx, line.y2 - vpy - settings.TRACK_WIDTH/2.0, line.x1 - vpx, line.y1 - vpy - settings.TRACK_WIDTH/2.0])
+            colors.extend(settings.TRACK_COLOR_BOTTOM)
+
+        vlist = pyglet.graphics.vertex_list(len(self.track.visible_track_segments) * 4,
+                ('v2f/stream', vertices),
+                ('c3f/stream', colors))
+        vlist.draw(pyglet.gl.GL_QUADS)
+        vlist.delete()
 
     def draw_objects(self):
         (vpx, vpy, vpwidth, vpheight) = self.viewport

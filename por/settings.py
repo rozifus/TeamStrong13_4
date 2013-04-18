@@ -40,6 +40,10 @@ ANVIL_IMAGE = "anvil.png"
 
 GRAVITY = -3000.0 # pixels/s**2
 TRACK_FUZZ = 10.0 # fuzziness of track detection algorithm
+TRACK_WIDTH = 30.0
+TRACK_COLOR_TOP = [0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
+TRACK_COLOR_BOTTOM = [0.8, 0.8, 0.8, 0.8, 0.8, 0.8]
+
 
 VIEWPORT_OFFSET_X = 200.0
 VIEWPORT_OFFSET_Y = 384.0
