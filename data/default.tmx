@@ -144,6 +144,6 @@
  <objectgroup name="obstacles" width="400" height="30">
   <object x="1563" y="896"/>
   <object name="exit" x="11904" y="832"/>
-  <object name="exit" x="1876" y="749"/>
+  <object name="exit" x="1758" y="827"/>
  </objectgroup>
 </map>
