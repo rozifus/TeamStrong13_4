@@ -52,7 +52,6 @@ class Track(object):
         for sleeper in self.sleepers:
             if utils.point_in_rect((sleeper.x, sleeper.y), viewport):
                 self.visible_sleepers.append(sleeper)
-        print str(len(self.visible_sleepers))
 
     def segment_in_rect(self, segment, rect):
         (x1, y1, x2, y2) = segment
@@ -99,6 +98,4 @@ class Track(object):
                 ctr, ctg, ctb = settings.SLEEPER_COLOR_TOP
                 cbr, cbg, cbb = settings.SLEEPER_COLOR_BOTTOM
                 self.sleepers.append(Sleeper(x, y, r, x1, y1, x2, y2, x3, y3, x4, y4, ctr, ctg, ctb, cbr, cbg, cbb))
-
-            print str(self.sleepers)
 
