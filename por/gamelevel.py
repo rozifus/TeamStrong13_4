@@ -62,8 +62,8 @@ class GameLevel(object):
         pyglet.clock.unschedule(self.update)
         pass
 
-    def finish(self):
-        self.game.scene_finished("BLAH BLAH BLAH")
+    def finish(self, skip=None):
+        self.game.scene_finished(skip=skip)
 
     def start2(self, levelname):
         sounds.load()
@@ -189,6 +189,12 @@ class GameLevel(object):
             music.next()
         elif symbol == pyglet.window.key.P:
             music.stop()
+        else:
+            # ok check for level skipping.
+            level = skip.get(symbol)
+            if level:
+                self.finish(skip=level)
+
 
 
     def on_key_release(self, symbol, modifiers):
@@ -269,3 +275,13 @@ class GameLevel(object):
 class Level2(GameLevel):
     def start(self):
         self.start2("level2")
+
+# for now allow skipping.
+skip = {
+    pyglet.window.key.NUM_1: 1
+    , pyglet.window.key.NUM_2: 2
+    , pyglet.window.key.NUM_3: 3
+    , pyglet.window.key.NUM_4: 4
+    , pyglet.window.key.NUM_5: 5
+}
+

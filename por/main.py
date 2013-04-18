@@ -30,9 +30,13 @@ class Game(object):
         self.window.pop_handlers()
         self.window.clear()
 
-    def scene_finished(self, result):
+    def scene_finished(self, result, skip=None):
         print "Scene finished, result was " + str(result)
         self.stop_scene()
+
+        if skip:
+            for i in range(skip - 1):
+                self.unfinished_levels.pop(0)
 
         Level = self.unfinished_levels.pop(0)
         self.current_scene = Level(self)
