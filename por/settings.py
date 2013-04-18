@@ -44,6 +44,8 @@ TRACK_FUZZ = 10.0 # fuzziness of track detection algorithm
 TRACK_WIDTH = 30.0
 TRACK_COLOR_TOP = [0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
 TRACK_COLOR_BOTTOM = [0.8, 0.8, 0.8, 0.8, 0.8, 0.8]
+SLEEPER_LENGTH = 30.0
+SLEEPER_WIDTH = 5.0
 
 
 VIEWPORT_OFFSET_X = 200.0

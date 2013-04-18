@@ -125,6 +125,37 @@ class GameLevel(object):
 
     def draw_track(self):
         (vpx, vpy, vpwidth, vpheight) = self.viewport
+        points = []
+        for i in range(0, 25):
+            (track_height, track_angle) = self.track.track_info_at_x(vpx + i * vpwidth / 25.0)
+            points.append(Point(i * vpwidth / 25.0, track_height - vpy))
+            
+        vertices = []
+        colors = []
+        for point in points:
+            # 1 top left, 2 top right, 3 bottom right, 4 bottom left of sleeper
+            sl = settings.SLEEPER_LENGTH / 2.0
+            sw = settings.SLEEPER_WIDTH / 2.0
+            x = point.x
+            y = point.y
+            x1 = x - sw
+            y1 = y + sl
+            x2 = x + sw
+            y2 = y + sl 
+            x3 = x + sw
+            y3 = y - sl
+            x4 = x - sw
+            y4 = y - sl
+            vertices.extend([x1, y1, x2, y2, x3, y3, x4, y4])
+            colors.extend(settings.TRACK_COLOR_TOP)
+            colors.extend(settings.TRACK_COLOR_BOTTOM)
+
+        vlist = pyglet.graphics.vertex_list(len(range(0, 25)) * 4,
+                ('v2f/stream', vertices),
+                ('c3f/stream', colors))
+        vlist.draw(pyglet.gl.GL_QUADS)
+        vlist.delete()
+        """
         vertices = []
         colors = []
         for line in self.track.visible_track_segments:
@@ -138,6 +169,7 @@ class GameLevel(object):
                 ('c3f/stream', colors))
         vlist.draw(pyglet.gl.GL_QUADS)
         vlist.delete()
+        """
 
     def draw_objects(self):
         (vpx, vpy, vpwidth, vpheight) = self.viewport
