@@ -4,7 +4,7 @@ import pyglet
 class DummySound(object):
     @classmethod
     def play(*args): print('dummy sound - sound not played')
-cart_jump = cart_land = cart_ruby = DummySound()
+cart_jump = cart_land = cart_ruby = cart_die = DummySound()
 
 def load():
     global cart_jump, cart_land, cart_ruby, cart_die
