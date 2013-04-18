@@ -64,6 +64,7 @@ class GameLevel(object):
         self.game.scene_finished("BLAH BLAH BLAH")
 
     def start2(self, levelname):
+        sounds.load()
         self.score = 0
         self.lives = settings.STARTING_LIVES
         self.update_labels()

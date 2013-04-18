@@ -12,7 +12,7 @@ class Game(object):
         super(Game, self).__init__()
         pyglet.resource.path = settings.RESOURCE_PATH
         pyglet.resource.reindex()
-        self.window = pyglet.window.Window(width = 1024, height = 768)
+        self.window = pyglet.window.Window(width = 1024, height = 768, vsync = False)
         self.current_scene = menu.MainMenu(self)
     
     def start_scene(self):
