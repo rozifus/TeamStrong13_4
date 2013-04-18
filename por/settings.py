@@ -46,13 +46,17 @@ def normalized_colour(*colours):
 GRAVITY = -3000.0 # pixels/s**2
 TRACK_FUZZ = 10.0 # fuzziness of track detection algorithm
 TRACK_WIDTH = 30.0
-TRACK_COLOR_TOP = normalized_colour(102, 102, 102, 102, 102, 102)
-TRACK_COLOR_BOTTOM = normalized_colour(102, 102, 102, 102, 102, 102)
-SLEEPER_COLOR_TOP = normalized_colour(102, 102, 102, 102, 102, 102)
-SLEEPER_COLOR_BOTTOM = normalized_colour(102, 102, 102, 102, 102, 102)
+
+#colors are for pairs of points. [r, g, b, r, g, b] 0.0 <= r,g,b <= 1.0
+TRACK_COLOR_TOP = [0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
+TRACK_COLOR_BOTTOM = [0.8, 0.8, 0.8, 0.8, 0.8, 0.8]
+SLEEPER_COLOR_TOP = [0.290, 0.133, 0.027]
+SLEEPER_COLOR_BOTTOM = [0.577, 0.262, 0.051]
 SLEEPER_LENGTH = 60.0
-SLEEPER_WIDTH = 15.0
-SLEEPER_SPACING = 100
+SLEEPER_WIDTH = 10.0
+SLEEPER_SPACING = 50
+SLEEPER_WIDTH_JITTER = 3
+SLEEPER_LENGTH_JITTER = 10
 
 
 VIEWPORT_OFFSET_X = 200.0
