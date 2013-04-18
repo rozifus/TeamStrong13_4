@@ -24,7 +24,6 @@ SCORE_LABEL_Y = 80
 QUIT_LABEL_X = 5
 QUIT_LABEL_Y = 60
 
-CART_IMAGE = "cart.png"
 CART_NORMAL_VELOCITY = 700.0
 CART_JUMP_VELOCITY = 1000.0
 CART_JUMP_ROTATION = -15.0
@@ -35,6 +34,7 @@ CART_MIN_VELOCITY = CART_NORMAL_VELOCITY - 300.0
 CART_EARLY_JUMP_TIME = 0.3 # can press jump up to 0.3s before landing and will jump when landed
 
 
+CART_IMAGE = "turd.png"
 RUBY_IMAGE = "ruby.png"
 ANVIL_IMAGE = "anvil.png"
 POST_IMAGE = "post.png"

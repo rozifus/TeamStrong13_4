@@ -67,12 +67,21 @@ class Track(object):
 
     def generate_sleepers(self):
         if len(self.track_segments):
-            (sx1, sy1, sx2, sy2) = self.track_segments[0]
-            (ex1, ey1, ex2, ey2) = self.track_segments[-1]
-            #print str(self.track_segments)
+            lowest_x = 10000
+            highest_x = 0
+            for segment in self.track_segments:
+                (sx1, sy1, sx2, sy2) = segment
+                if(sx1 < lowest_x):
+                    lowest_x = sx1
+                if(sx2 < lowest_x):
+                    lowest_x = sx2
+                if(sx1 > highest_x):
+                    highest_x = sx1
+                if(sx2 > highest_x):
+                    highest_x = sx2
 
-            start_x = math.floor(sx1 / settings.SLEEPER_SPACING) * settings.SLEEPER_SPACING
-            end_x = (math.floor(ex2 / settings.SLEEPER_SPACING) + 1.0) * settings.SLEEPER_SPACING
+            start_x = math.floor(lowest_x / settings.SLEEPER_SPACING) * settings.SLEEPER_SPACING
+            end_x = (math.floor(highest_x / settings.SLEEPER_SPACING) + 1.0) * settings.SLEEPER_SPACING
             
             for x in xrange(int(start_x), int(end_x), settings.SLEEPER_SPACING):
                 w = (settings.SLEEPER_WIDTH + (random.random() * settings.SLEEPER_WIDTH_JITTER * 2.0 - settings.SLEEPER_WIDTH_JITTER)) / 2.0
