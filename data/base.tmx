@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="400" height="30" tilewidth="32" tileheight="32">
+ <layer name="map" width="400" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1pCaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4Aa7gAAB
+  </data>
+ </layer>
+ <objectgroup color="#3ca434" name="spawn" width="400" height="30">
+  <object name="start" x="268" y="166" width="40" height="38"/>
+ </objectgroup>
+ <objectgroup color="#586268" name="track" width="400" height="30"/>
+ <objectgroup color="#181610" name="obstacles" width="400" height="30">
+  <object name="exit" x="12576" y="334" width="29" height="42"/>
+ </objectgroup>
+ <objectgroup color="#a41010" name="rubies" width="400" height="30"/>
+</map>
