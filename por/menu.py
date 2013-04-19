@@ -137,7 +137,7 @@ class MainMenu(object):
             elif self.selected_option == 2:
                 self.game.scene_finished("show_cutscene")
             elif self.selected_option == 3:
-                pass
+                self.game.scene_finished("show_hiscores")
             else:
                 self.quit()
 

@@ -1,0 +1,6 @@
+gvr,NaN
+alex,1000
+jkm,100
+katz,0
+matz,-5
+dhh,-10

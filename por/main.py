@@ -9,6 +9,7 @@ import gamelevel
 import sounds
 import music
 import cutscene
+import highscores
 
 # all scenes need to implement a start method and a stop method
 
@@ -63,6 +64,12 @@ class Game(object):
             Level = self.unfinished_levels[self.index]
             self.current_scene = Level(self)
             self.loaded_level = self.index
+            self.start_scene()
+        elif result == "show_hiscores":
+            self.current_scene = highscores.HiScores(self)
+            self.start_scene()
+        elif result == "show_menu":
+            self.current_scene = menu.MainMenu(self)
             self.start_scene()
 
 
