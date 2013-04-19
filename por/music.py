@@ -1,14 +1,14 @@
 
 import pyglet
 
-__tracks = []
-__trackNames = {}
+__tracks = {}
 __player = pyglet.media.Player()
 __player.eos_action = __player.EOS_LOOP
-__currentIndex = 0
+__currentIndex = None
+__loaded = False
 
 def addTrack(name, location):
-    global __tracks, __trackNames
+    global __tracks
     try:
         track = pyglet.resource.media(location, streaming=False)
     except pyglet.media.MediaException:
@@ -16,47 +16,41 @@ def addTrack(name, location):
         print '   http://code.google.com/p/avbin/'
         print "(install a binary, don't try to compile)"
         return
-    __tracks.append(track)
-    __trackNames[name] = len(__tracks) - 1
+    __tracks[name] = track
 
 def load():
-    addTrack('industry', 'The_Pyramid_-_Industry.mp3')
+    global __loaded
+    if not __loaded:
+        addTrack('strike-force', 'skuter-strike_force.mp3')
+        addTrack('pink', 'pink-turrican_gbc6.mp3')
+    __loaded = True
 
-def play(index=None):
-    global __currentIndex, __player, __tracks, __trackNames
+def play(index):
+    global __currentIndex, __player, __tracks
     if not len(__tracks):
         print("Can't play: No tracks.")
         return
 
-    if index == None: index = __currentIndex
+    if index == __currentIndex:
+        # nothing to-do, we are already playing.
+        return 
 
-    if isinstance(index, "".__class__):
-        index = __trackNames.get(index, None)
-    if index == None: return
+    # ok stop the jukebox and put the next song on.
+    stop()
 
-    index = index % len(__tracks)
-    print("playing,", index)
+    try:
+       track =__tracks[index]
+    except KeyError:
+        return
+
+    print "playing {0}".format(index)
     __currentIndex = index
     __player.queue(__tracks[index])
     __player.play()
 
 def restart():
-    global __currentIndex, __player, __tracks, __trackIndex
+    global __currentIndex
     stop()
-    play()
-
-def next():
-    global __currentIndex,  __tracks
-    if not len(__tracks): return
-    stop()
-    __currentIndex = (__currentIndex + 1) % len(__tracks)
-    play(__currentIndex)
-
-def prev():
-    global __currentIndex, __tracks
-    if not len(__tracks): return
-    stop()
-    __currentIndex = (__currentIndex - 1) % len(__tracks)
     play(__currentIndex)
 
 def pause():
@@ -65,8 +59,10 @@ def pause():
     __player.pause()
 
 def stop():
-    global __player, __tracks
+    global __player, __tracks, __currentIndex
     if not len(__tracks): return
+
+    __currentIndex = None
     __player.pause()
     __player = pyglet.media.Player()
     __player.eos_action = __player.EOS_LOOP

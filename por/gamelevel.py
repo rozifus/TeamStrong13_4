@@ -22,11 +22,14 @@ glevels = []
 
 class GameLevel(object):
     name = "default"
+    music = 'strike-force'
 
     def __init__(self, game):
         super(GameLevel, self).__init__()
 
         glevels.append(self)
+        if self.music:
+            music.play(self.music)
 
         # in game coords. viewport is your window into game world
         self.game = game

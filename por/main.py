@@ -7,6 +7,7 @@ import settings
 import menu
 import gamelevel
 import sounds
+import music
 import cutscene
 
 # all scenes need to implement a start method and a stop method
@@ -19,6 +20,7 @@ class Game(object):
         self.window = pyglet.window.Window(width = 1024, height = 768, vsync = False)
         self.current_scene = menu.MainMenu(self)
         sounds.load()
+        music.load()
 
         self.unfinished_levels = copy.copy(gamelevel.glevels)
         self.loaded_level = -1

@@ -3,6 +3,8 @@ import settings
 import sys
 import pyglet
 
+import music
+
 class MainMenu(object):
     def __init__(self, game):
 
@@ -10,6 +12,8 @@ class MainMenu(object):
         #super(MainMenu, self).__init__(width = 1024, height = 768)
         #self.set_exclusive_mouse()
         super(MainMenu, self).__init__()
+        music.load()
+        music.play('pink')
 
         self.game = game
         
