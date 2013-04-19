@@ -70,6 +70,7 @@ class GameLevel(object):
 
     def stop(self):
         pyglet.clock.unschedule(self.update)
+        self.fps_display.unschedule()
         pass
 
     def finish(self, skip=None):
@@ -105,25 +106,6 @@ class GameLevel(object):
 
     def on_draw(self): #runs every frame
         self.game.window.clear()
-        #
-        # the basic idea behind scrolling is as follows:
-        # - the level is large, say from (0, 0) to (10000, 2000)
-        #   game coordinates are the coordinates in this space
-        # - we look at a small section of it: (vpx, vpy) to (window_width, window_height)
-        #   (vpx, vpy) is the viewport_origin, screen coordinates are the coordinates in this space
-        # - we need to render things that are within a certain buffer of the viewport
-        #   this is the renderzone (x - rz_size, y - rz_size) to (x + window_width + rz_size, y + window_width + rz_size)
-        #
-        # thus our code needs to:
-        # - remove objects that are no longer within the render zone
-        # - add objects that move into the render zone
-        # - update the relative positions of objects on screen
-        #
-
-        # draw the background
-
-
-         #for now, just assume everything needs to be rendered
         self.bg.draw()
         self.draw_track()
         self.update_labels()

@@ -53,6 +53,7 @@ class Cutscene(object):
         self.pep20_label = pyglet.text.Label(batch=self.main_batch)
         self.pep20_label.text = self.pep20[random.randint(0, len(self.pep20) - 1)]
 
+        #self.fps_display = pyglet.clock.ClockDisplay()
         self.layout()
 
     def layout(self):
@@ -103,6 +104,7 @@ class Cutscene(object):
         print "Cutscene starting"
     
     def stop(self):
+        self.main_batch = None
         print "Cutscene stopping"
 
     def finish(self):
@@ -110,6 +112,7 @@ class Cutscene(object):
 
     def on_draw(self):
         self.game.window.clear()
+        #self.fps_display.draw()
         self.main_batch.draw()
 
     def on_key_press(self, symbol, modifiers):
