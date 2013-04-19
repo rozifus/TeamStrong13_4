@@ -150,7 +150,7 @@ class GameLevel(object):
             colors.extend([ctr, ctg, ctb, ctr, ctg, ctb])
             colors.extend([cbr, cbg, cbb, cbr, cbg, cbb])
         
-        if len(colors) > 0 && len(vertices) > 0:
+        if len(colors) > 0 and len(vertices) > 0:
             vlist = pyglet.graphics.vertex_list(len(self.track.visible_sleepers) * 4,
                     ('v2f/stream', vertices),
                     ('c3f/stream', colors))
@@ -165,7 +165,7 @@ class GameLevel(object):
             vertices.extend([line.x2 - vpx, line.y2 - vpy - settings.TRACK_WIDTH/2.0, line.x1 - vpx, line.y1 - vpy - settings.TRACK_WIDTH/2.0])
             colors.extend(settings.TRACK_COLOR_BOTTOM)
 
-        if len(colors) > 0 && len(vertices) > 0:
+        if len(colors) > 0 and len(vertices) > 0:
             vlist = pyglet.graphics.vertex_list(len(self.track.visible_track_segments) * 4,
                     ('v2f/stream', vertices),
                     ('c3f/stream', colors))
