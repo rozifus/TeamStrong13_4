@@ -284,8 +284,14 @@ class Level2(GameLevel): name = "level2"
 class Level3(GameLevel): name = "level3"
 class Level4(GameLevel): name = "level4"
 class Level5(GameLevel): name = "level5"
+class Level6(GameLevel): name = "level6"
+class Level7(GameLevel): name = "level7"
+class Level8(GameLevel): name = "level8"
+class Level9(GameLevel): name = "level9"
+class Level10(GameLevel): name = "level10"
+class Level11(GameLevel): name = "level11"
 
-glevels.extend([GameLevel, Level2, Level3, Level4, Level5])
+glevels.extend([GameLevel, Level2, Level3, Level4, Level5, Level6, Level7])
 
 # for now allow skipping.
 skip = {
@@ -294,5 +300,12 @@ skip = {
     , pyglet.window.key._3: 3
     , pyglet.window.key._4: 4
     , pyglet.window.key._5: 5
+    , pyglet.window.key._6: 6
+    , pyglet.window.key._7: 7
+    , pyglet.window.key._8: 8
+    , pyglet.window.key._9: 9
+    , pyglet.window.key._10: 10
+    , pyglet.window.key._11: 11
+    , pyglet.window.key._12: 12
 }
 

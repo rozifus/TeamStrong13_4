@@ -10,7 +10,6 @@
   <object x="4193" y="157"/>
   <object x="8643" y="343"/>
   <object x="11575" y="672"/>
-  <object x="12396" y="1"/>
  </objectgroup>
  <objectgroup color="#586268" name="track" width="400" height="30">
   <object x="29" y="118">

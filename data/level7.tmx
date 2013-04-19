@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="400" height="30" tilewidth="32" tileheight="32">
+ <layer name="map" width="400" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1pCaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4Aa7gAAB
+  </data>
+ </layer>
+ <objectgroup color="#3ca434" name="spawn" width="400" height="30">
+  <object name="start" x="268" y="166" width="40" height="38"/>
+ </objectgroup>
+ <objectgroup color="#586268" name="track" width="400" height="30">
+  <object x="28" y="124">
+   <polyline points="0,0 291,171 755,350 1217,490 1786,595 2328,665 2788,717 3174,751"/>
+  </object>
+  <object x="3200" y="875">
+   <polyline points="0,0 327,13 712,-30"/>
+  </object>
+  <object x="4393" y="829">
+   <polyline points="0,0 478,-53"/>
+  </object>
+  <object x="4871" y="776">
+   <polyline points="0,0 336,-68"/>
+  </object>
+  <object x="5229" y="887">
+   <polyline points="0,0 343,27 592,39 851,16"/>
+  </object>
+  <object x="6083" y="905">
+   <polyline points="0,0 205,-67 483,-315 669,-524 879,-792 1217,-836 1506,-822 1721,-788 1933,-723"/>
+  </object>
+  <object x="8017" y="185">
+   <polyline points="0,0 325,109 596,240 1024,426 1433,563 1637,633 1991,713 2340,683 2465,627"/>
+  </object>
+  <object x="11205" y="936">
+   <polyline points="0,0 198,2 493,-10 714,-29 842,-50 953,-77 1040,-116 1115,-160 1189,-223 1246,-292 1311,-367 1354,-470 1387,-538 1464,-694"/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#181610" name="obstacles" width="400" height="30">
+  <object name="exit" x="12576" y="334" width="29" height="42"/>
+ </objectgroup>
+ <objectgroup color="#a41010" name="rubies" width="400" height="30"/>
+</map>

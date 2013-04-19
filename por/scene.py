@@ -60,6 +60,7 @@ class ViewportManager(object):
 
     def reset(self, rect):
         self.rect = rect
+        self.highpoint = None
 
 class Background(object):
 
