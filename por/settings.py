@@ -1,11 +1,12 @@
 # settings for POR
 import utils as pymunk
+import os
 
 MAIN_WINDOW_WIDTH = 1024
 MAIN_WINDOW_HEIGHT = 768
 
-RESOURCE_PATH = ['data', 'data/images', 'data/sounds',
-                 'data/music', 'data/other']
+RESOURCE_PATH = map(os.path.abspath, ['data', 'data/images', 'data/sounds',
+                 'data/music', 'data/other'])
 
 # master game FPS
 MAIN_UPDATE_INTERVAL = 1.0/120.0
