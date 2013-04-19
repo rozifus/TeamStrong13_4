@@ -70,7 +70,7 @@ class GameLevel(object):
         pass
 
     def finish(self, skip=None):
-        self.game.scene_finished('Viktorious', skip=skip)
+        self.game.scene_finished('level_finished', skip=skip)
 
     def start2(self, levelname):
         sounds.load()
@@ -213,11 +213,12 @@ class GameLevel(object):
         # dt is time in seconds in between calls
 
         # update cart with track info for current x coord
-        (track_height, track_angle) = self.track.track_info_at_x(self.cart.gp.x)
+        (track_height, track_angle) = self.track.track_info_at_x(self.cart.gp)
         self.cart.update(dt, track_height, track_angle)
 
         # update viewport and visible track/entities
-        (track_height, track_angle) = self.track.track_info_at_x(self.cart.gp.x + settings.VIEWPORT_LOOKAHEAD)
+        viewpos = Point(self.cart.gp.x + settings.VIEWPORT_LOOKAHEAD, self.cart.gp.y)
+        (track_height, track_angle) = self.track.track_info_at_x(viewpos)
         #TODO: ugly hack, keep viewport level for breaks in track (for breaks in track track_level < 0)
 
         # rate limit movements by settings.VIEWPORT_MAX_RATE px per frame.
@@ -258,9 +259,9 @@ class GameLevel(object):
             self.game_over()
 
     def reset_level(self):
-        self.cart.gp = self.spawn_points[0].gp
+        self.cart.gp = gp = self.spawn_points[0].gp
         self.cart.reset()
-        self.viewport.reset(Rect(100, self.viewport.y, self.width, self.height))
+        self.viewport.reset(Rect(gp.x, gp.y, self.width, self.height))
 
     def game_over(self):
         if self.lives <= 1:
@@ -281,8 +282,10 @@ class GameLevel(object):
 
 class Level2(GameLevel): name = "level2"
 class Level3(GameLevel): name = "level3"
+class Level4(GameLevel): name = "level4"
+class Level5(GameLevel): name = "level5"
 
-glevels.extend([GameLevel, Level2, Level3])
+glevels.extend([GameLevel, Level2, Level3, Level4, Level5])
 
 # for now allow skipping.
 skip = {

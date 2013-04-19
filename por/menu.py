@@ -97,7 +97,6 @@ class MainMenu(object):
         self.controls_label.color = settings.MENU_COLOR_CONTROLS
         self.by_label.color = settings.MENU_COLOR_BY
 
-        print str(self.game_label.x)
     
     def quit(self):
         print ""
@@ -132,7 +131,7 @@ class MainMenu(object):
             if self.selected_option == 1:
                 self.game.scene_finished("play_game")
             elif self.selected_option == 2:
-                pass
+                self.game.scene_finished("show_cutscene")
             elif self.selected_option == 3:
                 pass
             else:

@@ -25,13 +25,13 @@ QUIT_LABEL_X = 5
 QUIT_LABEL_Y = 60
 
 CART_NORMAL_VELOCITY = 900.0
-CART_JUMP_VELOCITY = 1000.0
+CART_JUMP_VELOCITY = 1200.0
 CART_JUMP_ROTATION = -15.0
 CART_SPEED_UP = 150.0
 CART_SLOW_DOWN = -150.0
 CART_MAX_VELOCITY = CART_NORMAL_VELOCITY + 600.0
 CART_MIN_VELOCITY = CART_NORMAL_VELOCITY - 300.0
-CART_EARLY_JUMP_TIME = 0.3 # can press jump up to 0.3s before landing and will jump when landed
+CART_EARLY_JUMP_TIME = 0.5 # can press jump up to 0.3s before landing and will jump when landed
 
 
 CART_IMAGE = "cart.png"
