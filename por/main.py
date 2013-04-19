@@ -7,6 +7,7 @@ import settings
 import menu
 import gamelevel
 import sounds
+import cutscene
 
 # all scenes need to implement a start method and a stop method
 
@@ -35,18 +36,31 @@ class Game(object):
 
     def scene_finished(self, result, skip=None):
         print "Scene finished, result was " + str(result)
+        
         self.stop_scene()
 
-        if skip:
-            index = skip - 1 
-        else:
-            index = self.loaded_level + 1
+        if result == "show_cutscene":
+            print "Showing cutscene"
+            self.current_scene = cutscene.Cutscene(self)
+            cutscene.title = "cutscene!!"
+            print str(cutscene.title)
+            self.start_scene()
 
-        Level = self.unfinished_levels[index]
-        self.current_scene = Level(self)
+        elif result == "cutscene_finished":
+            self.current_scene = menu.MainMenu(self)
+            self.start_scene()
 
-        self.loaded_level = index
-        self.start_scene()
+        elif result == "play_game" or result == "level_finished":
+            if skip:
+                index = skip - 1 
+            else:
+                index = self.loaded_level + 1
+
+            Level = self.unfinished_levels[index]
+            self.current_scene = Level(self)
+
+            self.loaded_level = index
+            self.start_scene()
 
 def run():
     game = Game()
