@@ -71,6 +71,11 @@
  </objectgroup>
  <objectgroup color="#181610" name="obstacles" width="400" height="30">
   <object name="exit" x="12576" y="334" width="29" height="42"/>
+  <object x="10041" y="468"/>
+  <object x="8557" y="550"/>
+  <object x="5728" y="859"/>
+  <object x="4186" y="632"/>
+  <object x="2653" y="842"/>
  </objectgroup>
  <objectgroup color="#a41010" name="rubies" width="400" height="30">
   <object x="495" y="228"/>
