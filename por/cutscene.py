@@ -3,13 +3,9 @@ import pyglet
 import settings
 
 class Cutscene(object):
-    def __init__(self, game):
+    def __init__(self, game, title="", python="", ruby="", status=""):
         self.game = game
         self.main_batch = pyglet.graphics.Batch()
-        self._title = None
-        self._python_quote = None
-        self._ruby_quote = None
-        self._status = None
         
         lord_ruby_image = pyglet.resource.image("lord_ruby.png")
         cart_image = pyglet.resource.image("cart_large.png")
@@ -17,20 +13,21 @@ class Cutscene(object):
                 img=lord_ruby_image)
         self.cart = pyglet.sprite.Sprite(batch=self.main_batch,
                 img=cart_image)
+        
         self.title_label = pyglet.text.Label(batch=self.main_batch)
-        self.title_label.text = self.title
+        self.title_label.text = title
         
         self.python_label = pyglet.text.Label(batch=self.main_batch)
-        self.python_label.text = self.python_quote
+        self.python_label.text = python
+
         self.ruby_label = pyglet.text.Label(batch=self.main_batch)
-        self.ruby_label.text = self.ruby_quote
+        self.ruby_label.text = ruby 
+
         self.status_label = pyglet.text.Label(batch=self.main_batch)
-        self.status_label.text = self.status
+        self.status_label.text = status
+
         self.controls_label = pyglet.text.Label(batch=self.main_batch,
                 text="[space] to continue")
-        self.all_labels = [self.title_label, self.python_label,
-                self.status_label, self.ruby_label]
-
 
         self.layout()
 
@@ -90,46 +87,3 @@ class Cutscene(object):
     def on_key_press(self, symbol, modifiers):
         if symbol == pyglet.window.key.SPACE:
             self.finish()
-    @property
-    def python_quote(self):
-        if not self._python_quote:
-            self._python_quote = "Give up Ruby! You're not as cool as you think you are."
-        return self._python_quote
-    @python_quote.setter
-    def python_quote(self, quote):
-        self._python_quote = quote
-        self.python_label.text = self._python_quote
-        self.layout()
-
-    @property
-    def ruby_quote(self):
-        if not self._ruby_quote:
-            self._ruby_quote = "Never!"
-        return self._ruby_quote
-    @ruby_quote.setter
-    def ruby_quote(self, quote):
-        self._ruby_quote = quote
-        self.ruby_label.text = self._ruby_quote
-        self.layout()
-
-    @property
-    def title(self):
-        if not self._title:
-            self._title = "Cutscene"
-        return self._title
-    @title.setter
-    def title(self, text):
-        self._title = text
-        self.title_label.text = self._title
-        self.layout()
-
-    @property
-    def status(self):
-        if not self._status:
-            self._status = "Lives: Infinite"
-        return self._status
-    @status.setter
-    def status(self, text):
-        self._status = text
-        self.status_label.text = self._status
-        self.layout()

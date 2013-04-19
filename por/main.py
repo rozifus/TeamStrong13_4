@@ -41,9 +41,7 @@ class Game(object):
 
         if result == "show_cutscene":
             print "Showing cutscene"
-            self.current_scene = cutscene.Cutscene(self)
-            cutscene.title = "cutscene!!"
-            print str(cutscene.title)
+            self.current_scene = cutscene.Cutscene(self, title="cutscene!!", python="Hello there", ruby="Hello!", status="Fuck you")
             self.start_scene()
 
         elif result == "cutscene_finished":
