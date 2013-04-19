@@ -149,12 +149,13 @@ class GameLevel(object):
             vertices.extend([x1 - vpx, y1 - vpy, x2 - vpx, y2 - vpy, x3 - vpx, y3 - vpy, x4 - vpx, y4 - vpy])
             colors.extend([ctr, ctg, ctb, ctr, ctg, ctb])
             colors.extend([cbr, cbg, cbb, cbr, cbg, cbb])
-
-        vlist = pyglet.graphics.vertex_list(len(self.track.visible_sleepers) * 4,
-                ('v2f/stream', vertices),
-                ('c3f/stream', colors))
-        vlist.draw(pyglet.gl.GL_QUADS)
-        vlist.delete()
+        
+        if len(colors) > 0 && len(vertices) > 0:
+            vlist = pyglet.graphics.vertex_list(len(self.track.visible_sleepers) * 4,
+                    ('v2f/stream', vertices),
+                    ('c3f/stream', colors))
+            vlist.draw(pyglet.gl.GL_QUADS)
+            vlist.delete()
         
         vertices = []
         colors = []
@@ -164,11 +165,12 @@ class GameLevel(object):
             vertices.extend([line.x2 - vpx, line.y2 - vpy - settings.TRACK_WIDTH/2.0, line.x1 - vpx, line.y1 - vpy - settings.TRACK_WIDTH/2.0])
             colors.extend(settings.TRACK_COLOR_BOTTOM)
 
-        vlist = pyglet.graphics.vertex_list(len(self.track.visible_track_segments) * 4,
-                ('v2f/stream', vertices),
-                ('c3f/stream', colors))
-        vlist.draw(pyglet.gl.GL_LINES)
-        vlist.delete()
+        if len(colors) > 0 && len(vertices) > 0:
+            vlist = pyglet.graphics.vertex_list(len(self.track.visible_track_segments) * 4,
+                    ('v2f/stream', vertices),
+                    ('c3f/stream', colors))
+            vlist.draw(pyglet.gl.GL_LINES)
+            vlist.delete()
         
 
     def draw_objects(self):
