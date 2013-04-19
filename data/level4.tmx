@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="400" height="30" tilewidth="32" tileheight="32">
+ <layer name="map" width="400" height="30">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1pCaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4Aa7gAAB
+  </data>
+ </layer>
+ <objectgroup color="#3ca434" name="spawn" width="400" height="30">
+  <object name="start" x="268" y="166" width="40" height="38"/>
+  <object x="6857" y="806"/>
+  <object x="10067" y="829"/>
+ </objectgroup>
+ <objectgroup color="#586268" name="track" width="400" height="30">
+  <object x="42" y="245">
+   <polyline points="0,0 320,8 608,7 839,5 981,-40 1192,-157 1298,-187"/>
+  </object>
+  <object x="1714" y="950">
+   <polyline points="0,0 241,-2 542,-16 908,-62 1058,-112 1157,-185 1243,-314 1291,-412 1321,-454 1371,-482 1449,-489 1524,-480 1624,-436 1677,-374 1716,-312 1825,-180 1884,-132 2033,-53 2116,-37"/>
+  </object>
+  <object x="3842" y="807">
+   <polyline points="0,0 109,-76 242,-120 365,-133 474,-156 589,-194 723,-281"/>
+  </object>
+  <object x="4718" y="450">
+   <polyline points="0,0 173,-37 344,-21 540,24"/>
+  </object>
+  <object x="5497" y="582">
+   <polyline points="-77,17 144,54"/>
+  </object>
+  <object x="5812" y="698">
+   <polyline points="51,70 220,-25"/>
+  </object>
+  <object x="6086" y="905">
+   <polyline points="0,0 255,5"/>
+  </object>
+  <object x="5663" y="827">
+   <polyline points="6,61 136,52"/>
+  </object>
+  <object x="6424" y="883">
+   <polyline points="0,0 245,-35"/>
+  </object>
+  <object x="6781" y="906">
+   <polyline points="0,0 207,-131 300,-231 456,-429"/>
+  </object>
+  <object x="7323" y="426">
+   <polyline points="0,0 241,-10 577,31"/>
+  </object>
+  <object x="7904" y="460">
+   <polyline points="0,0 28,-55"/>
+  </object>
+  <object x="8093" y="606">
+   <polyline points="0,0 328,1"/>
+  </object>
+  <object x="8425" y="611">
+   <polyline points="0,0 256,-80 447,-219 701,-303 861,-108"/>
+  </object>
+  <object x="9338" y="571">
+   <polyline points="0,0 136,122 240,173 377,222 528,253 740,292 903,270 1015,159 1090,32 1175,-126 1278,-206"/>
+  </object>
+  <object x="10716" y="325">
+   <polyline points="0,0 177,-73"/>
+  </object>
+  <object x="11054" y="239">
+   <polyline points="-161,12 43,0"/>
+  </object>
+  <object x="11797" y="243">
+   <polyline points="-124,2 54,-5"/>
+  </object>
+  <object x="11489" y="879">
+   <polyline points="-126,-64 222,-58"/>
+  </object>
+  <object x="12126" y="950">
+   <polyline points="-271,-16 276,-11 362,-196 503,-599 626,-760"/>
+  </object>
+ </objectgroup>
+ <objectgroup color="#181610" name="obstacles" width="400" height="30">
+  <object name="exit" x="12576" y="334" width="29" height="42"/>
+ </objectgroup>
+ <objectgroup color="#a41010" name="rubies" width="400" height="30"/>
+</map>

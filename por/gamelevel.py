@@ -281,8 +281,9 @@ class GameLevel(object):
 
 class Level2(GameLevel): name = "level2"
 class Level3(GameLevel): name = "level3"
+class Level4(GameLevel): name = "level4"
 
-glevels.extend([GameLevel, Level2, Level3])
+glevels.extend([GameLevel, Level2, Level3, Level4])
 
 # for now allow skipping.
 skip = {
