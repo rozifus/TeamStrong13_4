@@ -6,17 +6,17 @@
   </data>
  </layer>
  <objectgroup color="#3ca434" name="spawn" width="400" height="30">
-  <object name="start" x="268" y="166" width="40" height="38"/>
+  <object name="start" x="56" y="63" width="40" height="38"/>
  </objectgroup>
  <objectgroup color="#586268" name="track" width="400" height="30">
   <object x="28" y="124">
-   <polyline points="0,0 291,171 755,350 1217,490 1786,595 2328,665 2788,717 3174,751"/>
+   <polyline points="0,0 311,165 734,379 1141,513 1307,525"/>
   </object>
-  <object x="3200" y="875">
+  <object x="2497" y="878">
    <polyline points="0,0 327,13 712,-30"/>
   </object>
   <object x="4393" y="829">
-   <polyline points="0,0 478,-53"/>
+   <polyline points="131,-19 478,-53"/>
   </object>
   <object x="4871" y="776">
    <polyline points="0,0 336,-68"/>
@@ -32,6 +32,21 @@
   </object>
   <object x="11205" y="936">
    <polyline points="0,0 198,2 493,-10 714,-29 842,-50 953,-77 1040,-116 1115,-160 1189,-223 1246,-292 1311,-367 1354,-470 1387,-538 1464,-694"/>
+  </object>
+  <object x="1338" y="647">
+   <polyline points="0,0 98,-3 270,-57 332,-98"/>
+  </object>
+  <object x="3212" y="850">
+   <polyline points="0,0 287,-141 496,-227 585,-246 642,-246"/>
+  </object>
+  <object x="3858" y="604">
+   <polyline points="0,0 80,2 167,28 211,53 275,92 339,125 391,149 438,176 500,193 563,204 624,207 662,207"/>
+  </object>
+  <object x="4298" y="468">
+   <polyline points="0,0 115,42 266,60 415,41 562,22 715,-8 879,-33"/>
+  </object>
+  <object x="5484" y="581">
+   <polyline points="0,0 135,-19 315,-94 437,-167 529,-238 582,-301 622,-350 703,-457 733,-502 799,-524 873,-522 943,-491 1001,-457 1064,-434 1112,-429 1157,-436 1198,-455"/>
   </object>
  </objectgroup>
  <objectgroup color="#181610" name="obstacles" width="400" height="30">
