@@ -75,3 +75,18 @@ MENU_COLOR_OPTION = (200, 200, 200, 200)
 MENU_COLOR_OPTION_SELECTED = (255, 255, 255, 255)
 
 BACKGROUND_COLOUR = normalized_colour(20, 20, 20, 255)
+
+CUTSCENES = { "default" : ("Level 1", "Is anyone there?", "Prepare to die on my rails, Python!!", ""),
+        "level2" : ("Level 2", "", "Whitespace, eh? That won't save you now!", ""),
+        "level3" : ("Level 3", "", "Python", "Ruby", ""),
+        "level4" : ("Level 4", "", "Python", "Ruby", ""),
+        "level5" : ("Level 5", "Python", "Ruby", ""),
+        "level6" : ("Level 6", "Python", "Ruby", ""),
+        "level7" : ("Level 7", "Python", "Ruby", ""),
+        "level8" : ("Level 8", "Python", "Ruby", ""),
+        "level9" : ("Level 9", "Python", "Ruby", ""),
+        "level10" : ("Level 10", "Python", "Ruby", ""),
+        "victory" : ("Victory", "Rails = Fails, Ruby", "lol", ""),
+        "defeat" : ("Defeat", "Meow", "All your base are belong to us.", "")
+        }
+
