@@ -70,7 +70,7 @@ class GameLevel(object):
         pass
 
     def finish(self, skip=None):
-        self.game.scene_finished('Viktorious', skip=skip)
+        self.game.scene_finished('level_finished', skip=skip)
 
     def start2(self, levelname):
         sounds.load()
