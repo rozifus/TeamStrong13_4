@@ -77,16 +77,16 @@ MENU_COLOR_OPTION_SELECTED = (255, 255, 255, 255)
 BACKGROUND_COLOUR = normalized_colour(20, 20, 20, 255)
 
 CUTSCENES = { "default" : ("Level 1", "Is anyone there?", "Prepare to die on my rails, Python!!", ""),
-        "level2" : ("Level 2", "", "Whitespace, eh? That won't save you now!", ""),
-        "level3" : ("Level 3", "", "Python", "Ruby", ""),
-        "level4" : ("Level 4", "", "Python", "Ruby", ""),
-        "level5" : ("Level 5", "Python", "Ruby", ""),
-        "level6" : ("Level 6", "Python", "Ruby", ""),
-        "level7" : ("Level 7", "Python", "Ruby", ""),
-        "level8" : ("Level 8", "Python", "Ruby", ""),
-        "level9" : ("Level 9", "Python", "Ruby", ""),
-        "level10" : ("Level 10", "Python", "Ruby", ""),
-        "victory" : ("Victory", "Rails = Fails, Ruby", "lol", ""),
+        "level2" : ("Level 2", "&nbsp;", "Whitespace, eh? That won't save you now!", ""),
+        "level3" : ("Level 3", "from __future__ import braces", "You'll need semi-colons where you're going", ""),
+        "level4" : ("Level 4", "I'm here to defend zope's honour", "Looks like you are the only one", ""),
+        "level5" : ("Level 5", "This is getting tough. speed+=1", "Cute, but you'll never collect enough precious gems", ""),
+        "level6" : ("Level 6", "We were brothers..", "Yes, once. Those days are long gone snake", ""),
+        "level7" : ("Level 7", "I'm in your lair, watch out", "You are getting close to my heart. Back off", ""),
+        "level8" : ("Level 8", "Zope powers a generation of internet", "Please, I'm the princess of the web", ""),
+        "level9" : ("Level 9", "These last steps I collect your powers", "<captain>He's getting close sir</captain>", ""),
+        "level10" : ("Level 10", "This is for Zope!", "Please be kind to my gems", ""),
+        "victory" : ("Victory", "Rails == Fails, Ruby", "lol", ""),
         "defeat" : ("Defeat", "Meow", "All your base are belong to us.", "")
         }
 
