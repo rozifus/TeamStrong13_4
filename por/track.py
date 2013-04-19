@@ -89,6 +89,20 @@ class Track(object):
             result = False
         return result
 
+    def get_sleepers_at_x(self, x):
+        result = []
+
+        for segment in self.track_segments:
+            #y = mx + c, tnx eng degree
+            (x1, y1, x2, y2) = segment
+            m = (y2 - y1) / (x2 - x1)
+            c = y1 - m * x1
+            if (x > x1 and x <= x2) or (x >= x2 and x < x1):
+                height = m * x + c
+                angle = math.degrees(math.atan2(m, 1.0))
+                result.append((height, angle))
+        return result
+
     def generate_sleepers(self):
         if len(self.track_segments):
             lowest_x = 10000
@@ -104,23 +118,25 @@ class Track(object):
                 if(sx2 > highest_x):
                     highest_x = sx2
 
-            start_x = math.floor(lowest_x / settings.SLEEPER_SPACING) * settings.SLEEPER_SPACING
-            end_x = (math.floor(highest_x / settings.SLEEPER_SPACING) + 1.0) * settings.SLEEPER_SPACING
+            start_x = (math.floor(lowest_x / settings.SLEEPER_SPACING)+ 1.0) * settings.SLEEPER_SPACING
+            end_x = (math.floor(highest_x / settings.SLEEPER_SPACING)) * settings.SLEEPER_SPACING
             
             for x in xrange(int(start_x), int(end_x), settings.SLEEPER_SPACING):
                 w = (settings.SLEEPER_WIDTH + (random.random() * settings.SLEEPER_WIDTH_JITTER * 2.0 - settings.SLEEPER_WIDTH_JITTER)) / 2.0
                 l = (settings.SLEEPER_LENGTH + (random.random() * settings.SLEEPER_LENGTH_JITTER * 2.0 - settings.SLEEPER_LENGTH_JITTER)) / 2.0
                 skew = random.random() * settings.SLEEPER_SKEW * 2.0 - settings.SLEEPER_SKEW
-                (y, r) = self.track_info_at_x(x)
-                x1 = x - w + skew
-                x2 = x + w + skew
-                x3 = x + w - skew
-                x4 = x - w - skew
-                y1 = y + l
-                y2 = y + l
-                y3 = y - l
-                y4 = y - l
-                ctr, ctg, ctb = settings.SLEEPER_COLOR_TOP
-                cbr, cbg, cbb = settings.SLEEPER_COLOR_BOTTOM
-                self.sleepers.append(Sleeper(x, y, r, x1, y1, x2, y2, x3, y3, x4, y4, ctr, ctg, ctb, cbr, cbg, cbb))
+                sleeper_list = self.get_sleepers_at_x(x)
+                for sleeper in sleeper_list:
+                    (y, r) = sleeper
+                    x1 = x - w + skew
+                    x2 = x + w + skew
+                    x3 = x + w - skew
+                    x4 = x - w - skew
+                    y1 = y + l
+                    y2 = y + l
+                    y3 = y - l
+                    y4 = y - l
+                    ctr, ctg, ctb = settings.SLEEPER_COLOR_TOP
+                    cbr, cbg, cbb = settings.SLEEPER_COLOR_BOTTOM
+                    self.sleepers.append(Sleeper(x, y, r, x1, y1, x2, y2, x3, y3, x4, y4, ctr, ctg, ctb, cbr, cbg, cbb))
 

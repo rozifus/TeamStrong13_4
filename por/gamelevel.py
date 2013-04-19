@@ -279,7 +279,7 @@ class Level10(GameLevel): name = "level10"
 class Level11(GameLevel): name = "level11"
 
 glevels.extend([GameLevel, Level2, Level3, Level4, Level5, Level6, Level7,
-                Level8])
+                Level8, Level9])
 
 # for now allow skipping.
 skip = {
