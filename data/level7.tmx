@@ -119,11 +119,9 @@
   <object x="5749" y="143"/>
   <object x="5820" y="185"/>
   <object x="5911" y="219"/>
-  <object x="6691" y="55"/>
-  <object x="6738" y="14"/>
-  <object x="6799" y="5"/>
-  <object x="6860" y="2"/>
-  <object x="6909" y="23"/>
+  <object x="6636" y="104"/>
+  <object x="6690" y="51"/>
+  <object x="6748" y="12"/>
   <object x="7231" y="13"/>
   <object x="7302" y="35"/>
   <object x="7379" y="59"/>
@@ -162,5 +160,8 @@
   <object x="12120" y="707"/>
   <object x="12057" y="778"/>
   <object x="11998" y="829"/>
+  <object x="4104" y="513"/>
+  <object x="4170" y="454"/>
+  <object x="4266" y="404"/>
  </objectgroup>
 </map>
