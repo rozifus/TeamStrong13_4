@@ -3,7 +3,9 @@
 #
 from __future__ import division
 import math
+from operator import itemgetter
 import random
+
 import settings
 from utils import Point, Vec2d, Rect, Sleeper
 import utils
@@ -13,6 +15,9 @@ TRACK_FRICTION = 0.05
 SEGMENT_RADIUS = 2
 SEGMENT_WIDTH = 50
 SEGMENT_HEIGHT = 25
+TRACK_FUZZ = settings.TRACK_FUZZ
+
+smallest_diff = itemgetter(2)
 
 class Track(object):
     def __init__(self):
@@ -28,19 +33,39 @@ class Track(object):
         self.generate_sleepers()
         print "track segments: " + str(len(self.track_segments)) + ", sleepers: " + str(len(self.sleepers))
 
-    def track_info_at_x(self, gpx):
+    def track_info_at_x(self, gp):
+        """
+        Test for tracks that are below our cart. But because this function also
+        acts as our physics engine to set cart height (no one else is). We need to account
+        for uphills with a TRACK_FUZZ otherwise the cart falls through track on uphill.
+        """
         height = -1000.0 # default off the screen
         angle = 0.0
+
+        # track height, angle, difference between us and height.
+        outcomes = [(height, angle, 100000)]
+        try:
+            gpx, gpy = gp
+            gpy += TRACK_FUZZ
+        except TypeError:
+            gpx, gpy = gp, 10000
+
         for segment in self.track_segments:
             #y = mx + c, tnx eng degree
             (x1, y1, x2, y2) = segment
             m = (y2 - y1) / (x2 - x1)
             c = y1 - m * x1
-            if gpx > x1 and gpx <= x2:
+            if (gpy > y1 or gpy > y2) and gpx > x1 and gpx <= x2:
                 height = m * gpx + c
                 angle = math.degrees(math.atan2(m, 1.0))
-                
-        return (height, angle)
+                outcomes.append((height, angle, abs(gpy-height)))
+
+        # now pick the outcome which is closest to us in yheight.
+        if len(outcomes) == 1:
+            # short circuit for default outcome.
+            return outcomes[0][:2]
+
+        return sorted(outcomes, key=smallest_diff)[0][:2]
 
     def update_visible(self, viewport):
         self.visible_track_segments = []

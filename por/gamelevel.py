@@ -213,11 +213,12 @@ class GameLevel(object):
         # dt is time in seconds in between calls
 
         # update cart with track info for current x coord
-        (track_height, track_angle) = self.track.track_info_at_x(self.cart.gp.x)
+        (track_height, track_angle) = self.track.track_info_at_x(self.cart.gp)
         self.cart.update(dt, track_height, track_angle)
 
         # update viewport and visible track/entities
-        (track_height, track_angle) = self.track.track_info_at_x(self.cart.gp.x + settings.VIEWPORT_LOOKAHEAD)
+        viewpos = Point(self.cart.gp.x + settings.VIEWPORT_LOOKAHEAD, self.cart.gp.y)
+        (track_height, track_angle) = self.track.track_info_at_x(viewpos)
         #TODO: ugly hack, keep viewport level for breaks in track (for breaks in track track_level < 0)
 
         # rate limit movements by settings.VIEWPORT_MAX_RATE px per frame.
