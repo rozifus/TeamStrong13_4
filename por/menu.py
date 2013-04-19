@@ -4,6 +4,7 @@ import sys
 import pyglet
 
 import music
+from gamelevel import skip
 
 class MainMenu(object):
     def __init__(self, game):
@@ -66,9 +67,9 @@ class MainMenu(object):
     def stop(self):
         print "Stopping"
 
-    def finish(self):
+    def finish(self, skip=None):
         print "Finishing"
-        self.game.scene_finished(None)
+        self.game.scene_finished(None, skip=skip)
 
 
     def layout_items(self):
@@ -140,6 +141,12 @@ class MainMenu(object):
                 pass
             else:
                 self.quit()
+
+        try:
+            levelno = skip[symbol]
+            self.game.scene_finished("play_game", skip=levelno)
+        except KeyError:
+            pass
 
     def update(self, dt):
         # main loop
