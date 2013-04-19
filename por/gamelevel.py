@@ -304,8 +304,5 @@ skip = {
     , pyglet.window.key._7: 7
     , pyglet.window.key._8: 8
     , pyglet.window.key._9: 9
-    , pyglet.window.key._10: 10
-    , pyglet.window.key._11: 11
-    , pyglet.window.key._12: 12
 }
 
