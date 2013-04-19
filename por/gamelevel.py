@@ -259,9 +259,9 @@ class GameLevel(object):
             self.game_over()
 
     def reset_level(self):
-        self.cart.gp = self.spawn_points[0].gp
+        self.cart.gp = gp = self.spawn_points[0].gp
         self.cart.reset()
-        self.viewport.reset(Rect(100, self.viewport.y, self.width, self.height))
+        self.viewport.reset(Rect(gp.x, gp.y, self.width, self.height))
 
     def game_over(self):
         if self.lives <= 1:
