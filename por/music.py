@@ -16,6 +16,8 @@ def addTrack(name, location):
         print '   http://code.google.com/p/avbin/'
         print "(install a binary, don't try to compile)"
         return
+    except:
+        return
     __tracks[name] = track
 
 def load():

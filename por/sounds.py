@@ -17,4 +17,6 @@ def load():
         print 'You should install AVBin so you can hear the sounds'
         print '   http://code.google.com/p/avbin/'
         print "(install a binary, don't try to compile)"
+    except:
+        pass
 
