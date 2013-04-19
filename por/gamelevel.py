@@ -253,7 +253,7 @@ class GameLevel(object):
     def game_over(self):
         if self.lives <= 1:
             print "ALL YOUR LIFE ARE BELONG TO US"
-        sys.exit(0)
+        self.game.scene_finished("show_hiscores")
 
     def update_labels(self):
         self.score_label.text = "Score: " + str(self.score)
