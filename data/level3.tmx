@@ -7,7 +7,7 @@
  </layer>
  <objectgroup color="#3ca434" name="spawn" width="400" height="30">
   <object name="start" x="268" y="166" width="40" height="38"/>
-  <object x="2578" y="486"/>
+  <object x="2509" y="615"/>
   <object x="8633" y="303"/>
   <object x="10875" y="582"/>
  </objectgroup>
@@ -22,7 +22,7 @@
    <polyline points="-94,120 173,-44 392,-90"/>
   </object>
   <object x="3889" y="485">
-   <polyline points="0,0 169,-140 409,-388 521,-400 705,-409 844,-408 924,-411"/>
+   <polyline points="-4,3 176,-167 330,-286 415,-345 523,-380 705,-409 844,-408 924,-411"/>
   </object>
   <object x="4932" y="73">
    <polyline points="0,0 124,0 250,15 367,63 806,367 940,472 1053,569 1176,617 1274,623"/>
@@ -60,6 +60,9 @@
   <object x="12288" y="292">
    <polyline points="0,0 107,42 203,94 320,140"/>
   </object>
+  <object x="5035" y="907">
+   <polyline points="0,0 633,-3 989,-100 1174,-155 1353,-150"/>
+  </object>
  </objectgroup>
  <objectgroup color="#181610" name="obstacles" width="400" height="30">
   <object name="exit" x="12575" y="384" width="29" height="42"/>
@@ -79,9 +82,9 @@
   <object x="3111" y="615"/>
   <object x="2926" y="656"/>
   <object x="2986" y="643"/>
-  <object x="4257" y="73"/>
+  <object x="4297" y="107"/>
   <object x="4084" y="270"/>
-  <object x="4173" y="163"/>
+  <object x="4194" y="173"/>
   <object x="3986" y="361"/>
   <object x="5076" y="41"/>
   <object x="5165" y="37"/>
@@ -89,15 +92,15 @@
   <object x="6553" y="536"/>
   <object x="6585" y="518"/>
   <object x="6611" y="507"/>
-  <object x="6822" y="457"/>
-  <object x="6853" y="437"/>
-  <object x="6892" y="409"/>
+  <object x="6841" y="492"/>
+  <object x="6884" y="451"/>
+  <object x="6983" y="366"/>
   <object x="6934" y="408"/>
-  <object x="6979" y="416"/>
-  <object x="7013" y="434"/>
-  <object x="7060" y="455"/>
-  <object x="7090" y="482"/>
-  <object x="7118" y="506"/>
+  <object x="7050" y="312"/>
+  <object x="7128" y="280"/>
+  <object x="7209" y="276"/>
+  <object x="7292" y="294"/>
+  <object x="7354" y="311"/>
   <object x="8412" y="382"/>
   <object x="8467" y="333"/>
   <object x="9246" y="125"/>
@@ -153,5 +156,18 @@
   <object x="5598" y="260"/>
   <object x="5690" y="330"/>
   <object x="5796" y="411"/>
+  <object x="4391" y="77"/>
+  <object x="4489" y="59"/>
+  <object x="4603" y="50"/>
+  <object x="4640" y="21"/>
+  <object x="4678" y="4"/>
+  <object x="5676" y="855"/>
+  <object x="5766" y="837"/>
+  <object x="5877" y="803"/>
+  <object x="6043" y="761"/>
+  <object x="6177" y="734"/>
+  <object x="6283" y="726"/>
+  <object x="6368" y="726"/>
+  <object x="6416" y="677"/>
  </objectgroup>
 </map>
