@@ -5,9 +5,12 @@ import math
 import random
 
 class Cutscene(object):
-    def __init__(self, game, title="", python="", ruby="", status=""):
+    def __init__(self, game, title="", python="", ruby="", status="", label=None):
         self.game = game
         self.main_batch = pyglet.graphics.Batch()
+        if not label:
+            label = "cutscene_finished"
+        self.finish_label = label
 
         self.pep20 = [
                 "Beautiful is better than ugly.",
@@ -108,7 +111,7 @@ class Cutscene(object):
         print "Cutscene stopping"
 
     def finish(self):
-        self.game.scene_finished("cutscene_finished")
+        self.game.scene_finished(self.finish_label)
 
     def on_draw(self):
         self.game.window.clear()

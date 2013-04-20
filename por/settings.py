@@ -87,7 +87,7 @@ CUTSCENES = { "default" : ("Level 1", "Is anyone there?", "Prepare to die on my 
         "level8" : ("Level 8", "Zope powers a generation of internet", "Please, I'm the princess of the web", ""),
         "level9" : ("Level 9", "These last steps I collect your powers", "<captain>He's getting close sir</captain>", ""),
         "level10" : ("Level 10", "This is for Zope!", "Please be kind to my gems", ""),
-        "victory" : ("Victory", "Rails == Fails, Ruby", "lol", ""),
-        "defeat" : ("Defeat", "Meow", "All your base are belong to us.", "")
+        "victory" : ("Victory", "Rails == Fails, Ruby", "lol", "", "enter_hiscores"),
+        "defeat" : ("Defeat", "Meow", "All your base are belong to us.", "", "enter_hiscores")
         }
 
