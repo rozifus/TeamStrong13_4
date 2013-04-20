@@ -1,6 +1,7 @@
 # main game file for Python on Rails
 
 import copy
+from collections import defaultdict
 
 import pyglet
 import settings
@@ -27,6 +28,7 @@ class Game(object):
 
         self.unfinished_levels = copy.copy(gamelevel.glevels)
         self.loaded_level = -1
+        self.scores = defaultdict(int)
 
     def start_scene(self):
         pyglet.resource.path = settings.RESOURCE_PATH
@@ -72,7 +74,10 @@ class Game(object):
             self.start_scene()
         elif result == "show_hiscores" or result=="enter_hiscores":
             self.loaded_level = -1
-            self.current_scene = highscores.HiScores(self)
+            if result == "show_hiscores":
+                self.current_scene = highscores.HiScores(self)
+            else:
+                self.current_scene = highscores.EditHiScores(self)
             self.start_scene()
         elif result == "show_menu":
             self.current_scene = menu.MainMenu(self)

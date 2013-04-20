@@ -82,7 +82,6 @@ class GameLevel(object):
 
     def setup(self, levelname):
         sounds.load()
-        self.score = 0
         self.lives = settings.STARTING_LIVES
         self.update_labels()
         print str(pyglet.resource.path)
@@ -231,7 +230,7 @@ class GameLevel(object):
         # rubies.
         rubies_to_delete = self.cart.collided_objects(self.ruby_list.visible)
         for ruby in rubies_to_delete:
-            self.score += 1
+            self.game.scores['rubies'] += 1
             self.ruby_list.objects.remove(ruby)
 
         if rubies_to_delete:
@@ -262,7 +261,7 @@ class GameLevel(object):
         self.game.scene_finished("defeat")
 
     def update_labels(self):
-        self.score_label.text = "Score: " + str(self.score)
+        self.score_label.text = "Score: " + str(self.game.scores['rubies'])
         self.lives_label.text = "Lives: " + str(self.lives)
         if self.cart is not None:
             self.speed_label.text = "Cart speed: " + str(self.cart.velocity_x)
