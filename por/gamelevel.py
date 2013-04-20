@@ -63,10 +63,12 @@ class GameLevel(object):
         self.fps_display = pyglet.clock.ClockDisplay()
         self.cart = None
         self.entities = []
+        self.catchup = True
+        self.setup(self.name)
     
     # next 3 are needed to play nicely with scene manager
     def start(self):
-        self.start2(self.name)
+        pyglet.clock.schedule(self.update) # main loop
 
     def stop(self):
         pyglet.clock.unschedule(self.update)
@@ -76,7 +78,7 @@ class GameLevel(object):
     def finish(self, skip=None):
         self.game.scene_finished('level_finished', skip=skip)
 
-    def start2(self, levelname):
+    def setup(self, levelname):
         sounds.load()
         self.score = 0
         self.lives = settings.STARTING_LIVES
@@ -101,8 +103,6 @@ class GameLevel(object):
 
         # now check the level contents.
         self.bg = scene.Background(self.level.layers, self.viewport)
-
-        pyglet.clock.schedule(self.update) # main loop
 
     def on_draw(self): #runs every frame
         self.game.window.clear()
@@ -175,7 +175,7 @@ class GameLevel(object):
 
         elif symbol == pyglet.window.key.R:
             print "Resetting cart position"
-            self.cart.gp = (100, 650)
+            self.cart.gp = self.spawn_points[0].gp
 
         elif symbol == pyglet.window.key.I:
             raw_input()
