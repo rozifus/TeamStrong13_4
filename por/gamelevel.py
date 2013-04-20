@@ -241,7 +241,8 @@ class GameLevel(object):
             self.score_ruby.animate()
 
         if rubies_to_delete:
-            sounds.cart_ruby.play()
+            s = sounds.cart_ruby.play()
+            s.volume = 0.3
 
         # obstacles.
         for obstacle in chain(self.obstacle_list.visible, self.spawn_points):
