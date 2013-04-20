@@ -101,7 +101,10 @@ class GameLevel(object):
         self.objects = [self.ruby_list, self.obstacle_list]
 
         self.create_cart()
-        self.viewport.reset(Rect(self.cart.gp.x, self.cart.gp.y, self.width, self.height))
+        self.viewport.reset(
+            Rect(self.cart.gp.x, 
+                self.cart.gp.y - self.height / 2,
+                self.width, self.height))
 
         # now check the level contents.
         self.bg = scene.Background(self.level.layers, self.viewport)
@@ -250,7 +253,7 @@ class GameLevel(object):
     def reset_level(self):
         self.cart.gp = gp = self.spawn_points[0].gp
         self.cart.reset()
-        self.viewport.reset(Rect(gp.x, gp.y, self.width, self.height))
+        self.viewport.reset(Rect(gp.x, gp.y - self.height / 2, self.width, self.height))
 
     def game_over(self):
         if self.lives <= 1:
