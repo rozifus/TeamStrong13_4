@@ -42,11 +42,9 @@ class GameLevel(object):
 
         self.main_batch = pyglet.graphics.Batch()
 
-        self.score_ruby = pyglet.sprite.Sprite(
-            img=pyglet.resource.image(settings.RUBY_IMAGE), batch=self.main_batch)
-        self.score_ruby.scale = 0.5
-        self.score_ruby.x = settings.SCORE_LABEL_X 
-        self.score_ruby.y = settings.SCORE_LABEL_Y
+        self.score_ruby = RubyScore(batch=self.main_batch)
+        self.score_ruby.x = settings.SCORE_LABEL_X + self.score_ruby.width / 2
+        self.score_ruby.y = settings.SCORE_LABEL_Y + self.score_ruby.height / 2
         self.score_label = pyglet.text.Label(text = "",
                                              x = settings.SCORE_LABEL_X + self.score_ruby.width + 10,
                                              y = settings.SCORE_LABEL_Y + 5,
@@ -231,6 +229,8 @@ class GameLevel(object):
         if self.cart.gp.y < self.viewport.y - settings.DEAD_OFFSET_Y:
             self.die()
 
+        self.score_ruby.update(dt)
+
     def check_collisions(self):
 
         # rubies.
@@ -238,6 +238,7 @@ class GameLevel(object):
         for ruby in rubies_to_delete:
             self.game.scores['rubies'] += 1
             self.ruby_list.objects.remove(ruby)
+            self.score_ruby.animate()
 
         if rubies_to_delete:
             sounds.cart_ruby.play()
@@ -305,3 +306,23 @@ skip = {
     , pyglet.window.key._9: 9
 }
 
+
+class RubyScore(entity.Entity):
+    IMAGE = settings.RUBY_IMAGE
+    velocity = 0
+    acceleration = -100
+    rate = 1
+
+    def init(self):
+        self.scale = 0.5
+
+    def update(self, dt):
+        self.velocity += dt * self.acceleration
+        self.scale += self.velocity * dt
+        if (self.scale < 0.5001) and self.velocity < 0:
+            self.velocity = 0
+        # clip scale between 1 and a half.
+        self.scale = max(min(self.scale, 1), 0.5)
+
+    def animate(self):
+        self.velocity += 7
