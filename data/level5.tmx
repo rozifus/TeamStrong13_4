@@ -7,7 +7,7 @@
  </layer>
  <objectgroup color="#3ca434" name="spawn" width="440" height="60">
   <object name="start" x="59" y="116" width="40" height="38"/>
-  <object x="3313" y="473"/>
+  <object x="3296" y="349"/>
   <object x="6446" y="519"/>
   <object x="9356" y="606"/>
   <object x="11801" y="321"/>

@@ -54,8 +54,8 @@ class GameLevel(object):
         self.score_cart = pyglet.sprite.Sprite(
             img=pyglet.resource.image(settings.CART_IMAGE), batch=self.main_batch)
         self.score_cart.scale = 0.25
-        self.score_cart.x = settings.LIVES_LABEL_X + self.score_cart.width / 8 
-        self.score_cart.y = settings.LIVES_LABEL_Y + self.score_cart.height / 8
+        self.score_cart.x = settings.LIVES_LABEL_X + 0
+        self.score_cart.y = settings.LIVES_LABEL_Y + 0
         self.lives_label = pyglet.text.Label(text = "",
                                              x = settings.LIVES_LABEL_X + self.score_cart.width + 10,
                                              y = settings.LIVES_LABEL_Y + 5,

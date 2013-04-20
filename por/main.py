@@ -52,6 +52,8 @@ class Game(object):
         if result == "play_game" or result == "level_finished":
             if skip:
                 self.index = skip - 1 
+                # you bad man.
+                self.scores['rubies'] = 0
             else:
                 self.index = self.loaded_level + 1
 
