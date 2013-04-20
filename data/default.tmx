@@ -28,16 +28,16 @@
    <polyline points="0,0 139,-3 233,0 309,9 352,24 403,58 458,91 521,133 564,155 642,170 752,179 858,185 933,179"/>
   </object>
   <object x="9025" y="676">
-   <polyline points="0,0 121,3 188,18 255,36 318,67 355,94 397,112 448,133 497,142 545,152 588,152 633,148 685,148 730,136 788,127 836,91 921,39 994,-21 1122,-162"/>
+   <polyline points="0,0 121,3 188,18 255,36 318,67 355,94 397,112 448,133 545,134 1133,-205"/>
   </object>
   <object x="10225" y="476">
-   <polyline points="6,20 52,-39 97,-67 127,-76 173,-88 221,-91 252,-91"/>
+   <polyline points="-22,80 52,-39 97,-67 127,-76 173,-88 221,-91 303,-82"/>
   </object>
   <object x="10506" y="315">
-   <polyline points="0,0 42,-3 91,-6 158,3 203,-6 252,-6 315,-18"/>
+   <polyline points="0,0 42,-3 91,-6 158,3 203,-6 252,-6 345,13"/>
   </object>
   <object x="10834" y="234">
-   <polyline points="0,35 73,32 133,23 264,-6"/>
+   <polyline points="-13,5 73,32 133,23 264,-6"/>
   </object>
   <object x="11185" y="240">
    <polyline points="0,0 67,0 127,6 209,12 276,30 333,48 439,88 506,112 552,139 618,167 679,194"/>
@@ -45,11 +45,11 @@
   <object x="12015" y="540">
    <polyline points="0,0 67,48 145,85 209,109 252,121 348,133 418,139 691,139 788,139"/>
   </object>
-  <object x="12800" y="588">
-   <polyline points="0,0 79,3 182,3 245,3"/>
+  <object x="12625" y="561">
+   <polyline points="-122,5 79,3 182,3 380,3"/>
   </object>
-  <object x="13040" y="497">
-   <polyline points="0,0 67,3 130,0 191,3"/>
+  <object x="13136" y="385">
+   <polyline points="0,0 67,3 130,0 464,3"/>
   </object>
   <object x="13261" y="803">
    <polyline points="0,0 130,-6 239,-3 397,3 497,3 585,-6 624,-30 688,-61 752,-109 800,-161 864,-236 915,-285 982,-321 1064,-342 1182,-348 1258,-345 1352,-306 1409,-276 1506,-176 1576,-115 1615,-64 1694,-9 1918,36 2070,39 2185,30 2258,24 2364,-15 2448,-64 2524,-79 2606,-79"/>
@@ -91,14 +91,14 @@
   <object name="ruby" x="6544" y="690"/>
   <object name="ruby" x="7254" y="501"/>
   <object name="ruby" x="7976" y="187"/>
-  <object name="ruby" x="8071" y="195"/>
-  <object name="ruby" x="8187" y="247"/>
-  <object name="ruby" x="8244" y="321"/>
+  <object name="ruby" x="8051" y="153"/>
+  <object name="ruby" x="8124" y="147"/>
+  <object name="ruby" x="8191" y="187"/>
   <object name="ruby" x="8494" y="434"/>
   <object name="ruby" x="9589" y="602"/>
-  <object name="ruby" x="9652" y="598"/>
+  <object name="ruby" x="9630" y="556"/>
   <object name="ruby" x="9903" y="470"/>
-  <object name="ruby" x="9973" y="441"/>
+  <object name="ruby" x="9953" y="416"/>
   <object name="ruby" x="10296" y="256"/>
   <object name="ruby" x="10527" y="134"/>
   <object name="ruby" x="10627" y="129"/>
@@ -109,11 +109,11 @@
   <object name="ruby" x="12138" y="541"/>
   <object name="ruby" x="12249" y="582"/>
   <object name="ruby" x="12367" y="603"/>
-  <object name="ruby" x="13296" y="317"/>
-  <object name="ruby" x="13368" y="318"/>
-  <object name="ruby" x="13296" y="378"/>
-  <object name="ruby" x="13357" y="376"/>
-  <object name="ruby" x="13327" y="346"/>
+  <object name="ruby" x="13733" y="180"/>
+  <object name="ruby" x="13618" y="235"/>
+  <object name="ruby" x="13543" y="335"/>
+  <object name="ruby" x="13583" y="282"/>
+  <object name="ruby" x="13668" y="191"/>
   <object name="ruby" x="13788" y="716"/>
   <object name="ruby" x="13855" y="707"/>
   <object name="ruby" x="15962" y="537"/>
@@ -143,16 +143,22 @@
   <object x="14957" y="754"/>
   <object x="14983" y="768"/>
   <object x="15003" y="778" height="1"/>
+  <object name="ruby" x="12909" y="431"/>
+  <object name="ruby" x="12994" y="340"/>
+  <object name="ruby" x="12869" y="484"/>
+  <object name="ruby" x="13059" y="329"/>
+  <object name="ruby" x="12944" y="384"/>
+  <object x="7924" y="254"/>
+  <object x="7882" y="313"/>
  </objectgroup>
  <objectgroup color="#14150d" name="obstacles" width="500" height="30">
   <object x="4935" y="833"/>
   <object name="exit" x="15283" y="802" width="30" height="57"/>
  </objectgroup>
  <objectgroup color="#1ea43e" name="spawn" width="500" height="30">
-  <object name="start" x="917" y="800"/>
-  <object x="5130" y="764"/>
+  <object name="start" x="396" y="750"/>
   <object x="7428" y="355"/>
   <object x="11257" y="206"/>
-  <object x="13149" y="474"/>
+  <object x="13245" y="362"/>
  </objectgroup>
 </map>
