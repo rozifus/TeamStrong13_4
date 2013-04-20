@@ -23,6 +23,7 @@ glevels = []
 class GameLevel(object):
     name = "default"
     music = 'strike-force'
+    VIEWPORT_MAX_RATE = settings.VIEWPORT_MAX_RATE
 
     def __init__(self, game):
         super(GameLevel, self).__init__()
@@ -100,6 +101,7 @@ class GameLevel(object):
         self.objects = [self.ruby_list, self.obstacle_list]
 
         self.create_cart()
+        self.viewport.reset(Rect(self.cart.gp.x, self.cart.gp.y, self.width, self.height))
 
         # now check the level contents.
         self.bg = scene.Background(self.level.layers, self.viewport)
@@ -271,7 +273,9 @@ class Level2(GameLevel): name = "level2"
 class Level3(GameLevel): name = "level3"
 class Level4(GameLevel): name = "level4"
 class Level5(GameLevel): name = "level5"
-class Level6(GameLevel): name = "level6"
+class Level6(GameLevel):
+    name = "level6"
+    VIEWPORT_MAX_RATE = 20
 class Level7(GameLevel): name = "level7"
 class Level8(GameLevel): name = "level8"
 class Level9(GameLevel): name = "level9"
