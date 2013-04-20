@@ -72,7 +72,10 @@ class Game(object):
             self.start_scene()
         elif result == "show_hiscores" or result=="enter_hiscores":
             self.loaded_level = -1
-            self.current_scene = highscores.HiScores(self)
+            if result == "show_hiscores":
+                self.current_scene = highscores.HiScores(self)
+            else:
+                self.current_scene = highscores.EditHiScores(self)
             self.start_scene()
         elif result == "show_menu":
             self.current_scene = menu.MainMenu(self)
