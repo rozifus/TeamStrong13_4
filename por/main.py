@@ -63,7 +63,7 @@ class Game(object):
             self.start_scene()
         elif result in settings.CUTSCENES:
             params = settings.CUTSCENES[result]
-            self.current_scene = cutscene.Cutscene(*params)
+            self.current_scene = cutscene.Cutscene(self, *params)
             self.start_scene()
         elif result == "cutscene_finished":
             Level = self.unfinished_levels[self.index]
