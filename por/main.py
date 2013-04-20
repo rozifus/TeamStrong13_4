@@ -61,7 +61,10 @@ class Game(object):
                     ruby=cutscene_params[2],
                     status=cutscene_params[3])
             self.start_scene()
-        
+        elif result in settings.CUTSCENES:
+            params = settings.CUTSCENES[result]
+            self.current_scene = cutscene.Cutscene(*params)
+            self.start_scene()
         elif result == "cutscene_finished":
             Level = self.unfinished_levels[self.index]
             self.current_scene = Level(self)
