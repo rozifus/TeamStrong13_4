@@ -104,11 +104,10 @@ class Cutscene(object):
         
 
     def start(self):
-        print "Cutscene starting"
+        pass
     
     def stop(self):
         self.main_batch = None
-        print "Cutscene stopping"
 
     def finish(self):
         self.game.scene_finished(self.finish_label)

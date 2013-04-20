@@ -35,10 +35,10 @@ class HiScores(object):
         self.make_label(lbl)
 
     def start(self):
-        print "Cutscene starting"
+        pass
     
     def stop(self):
-        print "Cutscene stopping"
+        pass
 
     def finish(self, name=None):
         self.game.scene_finished(name or "show_menu")

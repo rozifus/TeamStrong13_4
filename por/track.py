@@ -31,7 +31,6 @@ class Track(object):
     def add_tracks(self, tracks):
         self.track_segments.extend(tracks)
         self.generate_sleepers()
-        print "track segments: " + str(len(self.track_segments)) + ", sleepers: " + str(len(self.sleepers))
 
     def track_info_at_x(self, gp):
         """

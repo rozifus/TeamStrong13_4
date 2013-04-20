@@ -89,7 +89,6 @@ class GameLevel(object):
         sounds.load()
         self.lives = settings.STARTING_LIVES
         self.update_labels()
-        print str(pyglet.resource.path)
         self.level = level.load(levelname)
         self.track = track.Track()
         self.track.add_tracks(self.level.tracks)
@@ -176,14 +175,12 @@ class GameLevel(object):
 
         # quit if q is pressed
         if symbol == pyglet.window.key.Q:
-            print "Our system has been shocked!! But remember to Salt the Fries"
             sys.exit(0)
 
         elif symbol == pyglet.window.key.SPACE:
             self.cart.jump()
 
         elif symbol == pyglet.window.key.R:
-            print "Resetting cart position"
             self.cart.gp = self.spawn_points[0].gp
 
         elif symbol == pyglet.window.key.I:
@@ -265,7 +262,6 @@ class GameLevel(object):
 
     def game_over(self):
         if self.lives <= 1:
-            print "ALL YOUR LIFE ARE BELONG TO US"
         self.game.scene_finished("defeat")
 
     def update_labels(self):

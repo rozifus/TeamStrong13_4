@@ -37,15 +37,11 @@ class Game(object):
         self.window.push_handlers(self.current_scene)
 
     def stop_scene(self):
-        print "Main is stopping scene " + str(self.current_scene)
         self.current_scene.stop()
         self.window.pop_handlers()
-        print "on_draw popped, on draw exists? " + str(hasattr(self.window, "on_draw"))
         self.window.clear()
 
     def scene_finished(self, result, skip=None):
-        print "Scene finished, result was " + str(result)
-        print "Scene was " + str(self.current_scene)
         
         self.stop_scene()
 

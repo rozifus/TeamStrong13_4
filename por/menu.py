@@ -62,13 +62,12 @@ class MainMenu(object):
             i += 1
 
     def start(self):
-        print "Starting"
+        pass
 
     def stop(self):
-        print "Stopping"
+        pass
 
     def finish(self, skip=None):
-        print "Finishing"
         self.game.scene_finished(None, skip=skip)
 
 
@@ -104,14 +103,6 @@ class MainMenu(object):
 
     
     def quit(self):
-        print ""
-        print "+-----------------------------------+"
-        print "|  Thanks for playing and goodbye!  |"
-        print "|                                   |"
-        print "|           NSTeamStrong            |"
-        print "+-----------------------------------+"
-        print ""
-
         sys.exit(0)
 
     def on_key_press(self, symbol, modifiers):
@@ -131,7 +122,6 @@ class MainMenu(object):
                 self.selected_option += 1
 
         elif symbol == pyglet.window.key.SPACE:
-            print "Executing option " + str(self.selected_option)
 
             if self.selected_option == 1:
                 self.game.scores['rubies'] = 0
