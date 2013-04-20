@@ -261,7 +261,6 @@ class GameLevel(object):
         self.viewport.reset(Rect(gp.x, gp.y - self.height / 2, self.width, self.height))
 
     def game_over(self):
-        if self.lives <= 1:
         self.game.scene_finished("defeat")
 
     def update_labels(self):
