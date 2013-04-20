@@ -127,7 +127,7 @@ class MainMenu(object):
                 self.game.scores['rubies'] = 0
                 self.game.scene_finished("play_game")
             elif self.selected_option == 2:
-                self.game.scene_finished("show_cutscene")
+                self.game.scene_finished("instructions")
             elif self.selected_option == 3:
                 self.game.scene_finished("show_hiscores")
             else:

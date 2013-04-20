@@ -77,7 +77,7 @@ MENU_COLOR_OPTION_SELECTED = (255, 255, 255, 255)
 
 BACKGROUND_COLOUR = normalized_colour(20, 20, 20, 255)
 
-CUTSCENES = { "default" : ("Level 1", "Is anyone there?", "Prepare to die on my rails, Python!!", ""),
+CUTSCENES = { "default" : ("Level 1", "Is anyone there?", "Prepare to die on my rails, Python!!", "Collect rubies, avoid anvils, [space] to jump"),
         "level2" : ("Level 2", "&nbsp;", "Whitespace, eh? That won't save you now!", ""),
         "level3" : ("Level 3", "from __future__ import braces", "You'll need semi-colons where you're going", ""),
         "level4" : ("Level 4", "I'm here to defend zope's honour", "Looks like you are the only one", ""),
@@ -88,6 +88,7 @@ CUTSCENES = { "default" : ("Level 1", "Is anyone there?", "Prepare to die on my 
         "level9" : ("Level 9", "These last steps I collect your powers", "<captain>He's getting close sir</captain>", ""),
         "level10" : ("Level 10", "This is for Zope!", "Please be kind to my gems", ""),
         "victory" : ("Victory", "Rails == Fails, Ruby", "lol", "", "enter_hiscores"),
-        "defeat" : ("Defeat", "Meow", "All your base are belong to us.", "", "enter_hiscores")
+        "defeat" : ("Defeat", "Meow", "All your base are belong to us.", "", "enter_hiscores"),
+        "instructions": ("Instructions", "[space] to jump, collect rubies, avoid anvils", "You will never collect enough rubies to defeat me", "Mine Lord Ruby's lair for the source of her power", "show_menu"),
         }
 
