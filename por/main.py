@@ -1,6 +1,7 @@
 # main game file for Python on Rails
 
 import copy
+from collections import defaultdict
 
 import pyglet
 import settings
@@ -27,6 +28,7 @@ class Game(object):
 
         self.unfinished_levels = copy.copy(gamelevel.glevels)
         self.loaded_level = -1
+        self.scores = defaultdict(int)
 
     def start_scene(self):
         pyglet.resource.path = settings.RESOURCE_PATH
