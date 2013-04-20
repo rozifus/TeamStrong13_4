@@ -85,7 +85,7 @@ class EditHiScores(HiScores):
         sorted_scores = sorted(original_scores, key=itemgetter(1))
 
         # now put gvr on top where he should be.
-        if sorted_scores[0][0] == "gvr":
+        if sorted_scores[0][0] == "GVR":
             gvr = sorted_scores.pop(0)
             sorted_scores.append((gvr[0], str(gvr[1]).replace("n", "N")))
 
