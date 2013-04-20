@@ -6,7 +6,7 @@ MAIN_WINDOW_WIDTH = 1024
 MAIN_WINDOW_HEIGHT = 768
 
 RESOURCE_PATH = map(os.path.abspath, ['data', 'data/images', 'data/sounds',
-                 'data/music', 'data/other'])
+                 'data/music', 'data/other', '.', ''])
 
 # master game FPS
 MAIN_UPDATE_INTERVAL = 1.0/120.0

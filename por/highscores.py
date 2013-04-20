@@ -1,5 +1,6 @@
 from collections import namedtuple
 from operator import itemgetter
+import sys
 
 import pyglet
 
@@ -7,6 +8,10 @@ import settings
 
 # size, smaller is bigger - x and y are in fractions of height and width
 Label = namedtuple("Label", "key text size x y color")
+if hasattr(sys, '_MEIPASS'):
+    SCORES_FILE = 'scores.txt'
+else:
+    SCORES_FILE = 'data/scores.txt'
 
 class HiScores(object):
     def __init__(self, game):
@@ -15,7 +20,7 @@ class HiScores(object):
 
         self.labels = {}
 
-        with open('data/scores.txt', 'r') as scorefile:
+        with open(SCORES_FILE, 'r') as scorefile:
             self.scores = [line.split(',') for line in scorefile.readlines() if line]
 
         labels = [
@@ -90,7 +95,7 @@ class EditHiScores(HiScores):
             sorted_scores.append((gvr[0], str(gvr[1]).replace("n", "N")))
 
         # now write to disk. Was thinking of requiring postgres 9.2 for this...
-        with open('data/scores.txt', 'wb') as scores_file:
+        with open(SCORES_FILE, 'wb') as scores_file:
             for score in list(reversed(sorted_scores))[:8]:
                 scores_file.write("{0},{1}\n".format(*score))
 
