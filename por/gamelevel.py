@@ -41,27 +41,35 @@ class GameLevel(object):
         
 
         self.main_batch = pyglet.graphics.Batch()
+
+        self.score_ruby = pyglet.sprite.Sprite(
+            img=pyglet.resource.image(settings.RUBY_IMAGE), batch=self.main_batch)
+        self.score_ruby.scale = 0.5
+        self.score_ruby.x = settings.SCORE_LABEL_X 
+        self.score_ruby.y = settings.SCORE_LABEL_Y
         self.score_label = pyglet.text.Label(text = "",
-                                             x = settings.SCORE_LABEL_X,
-                                             y = settings.SCORE_LABEL_Y,
+                                             x = settings.SCORE_LABEL_X + self.score_ruby.width + 10,
+                                             y = settings.SCORE_LABEL_Y + 5,
+                                             color=settings.MENU_COLOR_OPTION,
                                              batch = self.main_batch)
 
+        self.score_cart = pyglet.sprite.Sprite(
+            img=pyglet.resource.image(settings.CART_IMAGE), batch=self.main_batch)
+        self.score_cart.scale = 0.25
+        self.score_cart.x = settings.LIVES_LABEL_X 
+        self.score_cart.y = settings.LIVES_LABEL_Y
         self.lives_label = pyglet.text.Label(text = "",
-                                             x = settings.LIVES_LABEL_X,
-                                             y = settings.LIVES_LABEL_Y,
+                                             x = settings.LIVES_LABEL_X + self.score_cart.width + 10,
+                                             y = settings.LIVES_LABEL_Y + 5,
+                                             color=settings.MENU_COLOR_OPTION,
                                              batch = self.main_batch)
 
         self.quit_label = pyglet.text.Label(text = "By NSTeamStrong: q [quit] space [jump]",
                                              x = settings.QUIT_LABEL_X,
+                                             color=settings.MENU_COLOR_OPTION,
                                              y = settings.QUIT_LABEL_Y,
                                              batch = self.main_batch)
 
-        self.speed_label = pyglet.text.Label(text = "",
-                                             x = settings.SPEED_LABEL_X,
-                                             y = settings.SPEED_LABEL_Y,
-                                             batch = self.main_batch)
-
-        self.fps_display = pyglet.clock.ClockDisplay()
         self.cart = None
         self.entities = []
         self.catchup = True
@@ -73,7 +81,6 @@ class GameLevel(object):
 
     def stop(self):
         pyglet.clock.unschedule(self.update)
-        self.fps_display.unschedule()
         pass
 
     def finish(self, skip=None):
@@ -116,7 +123,6 @@ class GameLevel(object):
         self.update_labels()
         self.draw_entities()
         self.draw_objects()
-        self.fps_display.draw()
         self.main_batch.draw()
 
     def draw_entities(self):
@@ -261,10 +267,8 @@ class GameLevel(object):
         self.game.scene_finished("defeat")
 
     def update_labels(self):
-        self.score_label.text = "Score: " + str(self.game.scores['rubies'])
-        self.lives_label.text = "Lives: " + str(self.lives)
-        if self.cart is not None:
-            self.speed_label.text = "Cart speed: " + str(self.cart.velocity_x)
+        self.score_label.text = str(self.game.scores['rubies'])
+        self.lives_label.text = str(self.lives)
 
     def create_cart(self):
         self.cart = cart.Cart()

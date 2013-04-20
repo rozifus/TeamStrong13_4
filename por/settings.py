@@ -3,7 +3,7 @@ import utils as pymunk
 import os
 
 MAIN_WINDOW_WIDTH = 1024
-MAIN_WINDOW_HEIGHT = 768
+MAIN_WINDOW_HEIGHT = 720
 
 RESOURCE_PATH = map(os.path.abspath, ['data', 'data/images', 'data/sounds',
                  'data/music', 'data/other'])
@@ -20,10 +20,10 @@ SPEED_LABEL_X = 120
 SPEED_LABEL_Y = 5
 LIVES_LABEL_X = 5
 LIVES_LABEL_Y = 100
-SCORE_LABEL_X = 5
-SCORE_LABEL_Y = 80
+SCORE_LABEL_X = 10
+SCORE_LABEL_Y = 50
 QUIT_LABEL_X = 5
-QUIT_LABEL_Y = 60
+QUIT_LABEL_Y = 10
 
 CART_NORMAL_VELOCITY = 900.0
 CART_JUMP_VELOCITY = 1200.0
