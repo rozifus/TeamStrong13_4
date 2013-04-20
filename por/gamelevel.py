@@ -207,7 +207,7 @@ class GameLevel(object):
     def update(self, dt):
         # main game loop
         # dt is time in seconds in between calls
-
+        dt = min(dt, 0.1) # prevent level lag bringing us down.
         # update cart with track info for current x coord
         (track_height, track_angle) = self.track.track_info_at_x(self.cart.gp)
         self.cart.update(dt, track_height, track_angle)
