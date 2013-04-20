@@ -1,6 +1,4 @@
-gvr,NaN
-alex,1000
-jkm,100
-katz,0
-matz,-5
-dhh,-10
+GVR,NaN
+SJW,1064
+USA,1062
+DHH,-100

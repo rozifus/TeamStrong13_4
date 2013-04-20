@@ -31,7 +31,8 @@ class HiScores(object):
         self.init()
 
     def init(self):
-        pass
+        lbl = Label('h3', "[space] to continue", 20, 0.3, 0.2, settings.MENU_COLOR_OPTION)
+        self.make_label(lbl)
 
     def start(self):
         print "Cutscene starting"
@@ -55,8 +56,8 @@ class HiScores(object):
         lbl = pyglet.text.Label(batch=self.main_batch)
         lbl.text = label.text.expandtabs(8).strip()
         lbl.font_size = self.game.window.height / label.size
-        lbl.x = self.game.window.width * label.x
-        lbl.y = self.game.window.height * label.y
+        lbl.x = int(self.game.window.width * label.x)
+        lbl.y = int(self.game.window.height * label.y)
         lbl.color = label.color
         self.labels[label.key] = lbl
         return lbl
@@ -64,7 +65,12 @@ class HiScores(object):
 class EditHiScores(HiScores):
 
     def init(self):
-        self.text_input = TextWidget('', 200, 100, self.game.window.width - 210, self.main_batch) 
+        your_name = Label('h3', "Enter Your Name", 40, 0.3, 0.75, settings.MENU_COLOR_OPTION_SELECTED)
+        self.make_label(your_name)
+        lbl = self.labels['h2']
+        self.text_input = TextWidget('| ', 
+                    int(lbl.x), int(.70*self.game.window.height)
+                    , 50, self.main_batch) 
 
     def save(self, text):
         def to_score((name, score)):
@@ -95,22 +101,30 @@ class EditHiScores(HiScores):
             return
 
         self.text_input.caret.on_text(text)
-        if len(self.text_input.document.text) == 3:
-            self.save(self.text_input.document.text)
+        if len(self.text) == 3:
+            self.save(self.text)
+
+    @property
+    def text(self):
+        return self.text_input.document.text.replace("| ", "").upper()
+
+    def on_key_press(self, symbol, *args):
+        if symbol == pyglet.window.key.ENTER:
+            self.save(self.text)
 
 class Rectangle(object):
     '''Draws a rectangle into a batch.'''
     def __init__(self, x1, y1, x2, y2, batch):
         self.vertex_list = batch.add(4, pyglet.gl.GL_QUADS, None,
             ('v2i', [x1, y1, x2, y1, x2, y2, x1, y2]),
-            ('c4B', [200, 200, 220, 255] * 4)
+            ('c4B', [40, 40, 40, 255] * 4)
         )
 
 class TextWidget(object):
     def __init__(self, text, x, y, width, batch):
         self.document = pyglet.text.document.UnformattedDocument(text)
         self.document.set_style(0, len(self.document.text), 
-            dict(color=(0, 0, 0, 255))
+            dict(color=(255, 255, 255, 255))
         )
         font = self.document.get_font()
         height = font.ascent - font.descent
