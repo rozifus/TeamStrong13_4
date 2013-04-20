@@ -77,7 +77,8 @@ class GameLevel(object):
         pass
 
     def finish(self, skip=None):
-        self.game.scene_finished('level_finished', skip=skip)
+        label = getattr(self, 'finish_label', 'level_finished')
+        self.game.scene_finished(label, skip=skip)
 
     def setup(self, levelname):
         sounds.load()
@@ -281,9 +282,9 @@ class Level6(GameLevel):
     VIEWPORT_MAX_RATE = 20
 class Level7(GameLevel): name = "level7"
 class Level8(GameLevel): name = "level8"
-class Level9(GameLevel): name = "level9"
-class Level10(GameLevel): name = "level10"
-class Level11(GameLevel): name = "level11"
+class Level9(GameLevel): 
+    name = "level9"
+    finish_label = "victory"
 
 glevels.extend([GameLevel, Level2, Level3, Level4, Level5, Level6, Level7,
                 Level8, Level9])
