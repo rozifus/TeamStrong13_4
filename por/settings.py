@@ -3,7 +3,7 @@ import utils as pymunk
 import os
 
 MAIN_WINDOW_WIDTH = 1024
-MAIN_WINDOW_HEIGHT = 720
+MAIN_WINDOW_HEIGHT = 768
 
 RESOURCE_PATH = map(os.path.abspath, ['data', 'data/images', 'data/sounds',
                  'data/music', 'data/other'])
