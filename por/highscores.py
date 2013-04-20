@@ -81,7 +81,7 @@ class EditHiScores(HiScores):
             return name, score
 
         original_scores = map(to_score, self.scores)
-        original_scores.append((text, self.game.scores['rubies']))
+        original_scores.append((text, self.game.scores['rubies']*1000))
         sorted_scores = sorted(original_scores, key=itemgetter(1))
 
         # now put gvr on top where he should be.
