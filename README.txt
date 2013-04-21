@@ -3,8 +3,8 @@ Your Game Title
 
 Entry in PyWeek #12  <http://www.pyweek.org/12/>
 URL: http://github.com/rozifus/TeamStrong13_4
-Team: YOUR TEAM NAME (leave the "Team: bit")
-Members: YOUR TEAM MEMBERS (leave the "Members: bit")
+Team: NSTeamStrong
+Members: jtrain, kvurd, rozifus, danaran
 License: see LICENSE.txt
 
 
@@ -23,29 +23,16 @@ How to Play the Game
 
 Python on Rails
 
-Move the cursor around the screen with the mouse.
+Young Python - Journey into the center of Lord Ruby's lair to discover
+the true source of Ruby's power.
 
-Press the left mouse button to fire the ducks.
+[Space] to jump, collect the rubies.
 
+Thanks
+-------
 
-Development notes 
------------------
-
-Creating a source distribution with::
-
-   python setup.py sdist
-
-You may also generate Windows executables and OS X applications::
-
-   python setup.py py2exe
-   python setup.py py2app
-
-Upload files to PyWeek with::
-
-   python pyweek_upload.py
-
-Upload to the Python Package Index with::
-
-   python setup.py register
-   python setup.py sdist upload
-
+Strike-Force performed by Skuter
+Turrican performed by Pink
+Tmx reader by Droid
+Pyglet
+Tiled
