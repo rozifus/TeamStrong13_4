@@ -48,7 +48,7 @@ class Cutscene(object):
         self.ruby_label.text = ruby 
 
         self.status_label = pyglet.text.Label(batch=self.main_batch)
-        self.status_label.text = status
+        self.status_label.text = status or "{0} rubies".format(self.game.scores['rubies'])
 
         self.controls_label = pyglet.text.Label(batch=self.main_batch,
                 text="[space] to continue")
