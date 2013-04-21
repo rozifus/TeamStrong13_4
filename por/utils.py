@@ -17,10 +17,6 @@ def pairwise(iterable):
 def point_in_rect(point, rect):
     (px, py) = point
     (x, y, width, height) = rect
-    if px > x and px < x + width and py > y and py < y + width:
-        result = True
-    else:
-        result = False
-
-    return result
+    outside = px < x or px > x + width or py < y or py > y + height
+    return not outside
 

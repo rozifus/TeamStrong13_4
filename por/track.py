@@ -8,7 +8,7 @@ import random
 
 import settings
 from utils import Point, Vec2d, Rect, Sleeper
-import utils
+from utils import point_in_rect
 
 
 TRACK_FRICTION = 0.05
@@ -74,19 +74,14 @@ class Track(object):
         
         self.visible_sleepers = []
         for sleeper in self.sleepers:
-            if utils.point_in_rect((sleeper.x, sleeper.y), viewport):
+            if point_in_rect((sleeper.x, sleeper.y), viewport):
                 self.visible_sleepers.append(sleeper)
 
     def segment_in_rect(self, segment, rect):
-        (x1, y1, x2, y2) = segment
-        point1 = (x1, y1)
-        point2 = (x2, y2)
+        point1 = segment[:2]
+        point2 = segment[2:]
         
-        if utils.point_in_rect(point1, rect) or utils.point_in_rect(point2, rect):
-            result = True
-        else:
-            result = False
-        return result
+        return point_in_rect(point1, rect) or point_in_rect(point2, rect)
 
     def get_sleepers_at_x(self, x):
         result = []
